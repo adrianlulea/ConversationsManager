@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3E81A7B7-79A6-492E-B6C1-7BE4ED712054}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Framework</RootNamespace>
+    <AssemblyName>Framework</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\Documentation.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\Documentation.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Conversations\DataManager.cs" />
+    <Compile Include="Data\Conversations\ExternalDatabase.cs" />
+    <Compile Include="Data\Conversations\ExternalReply.cs" />
+    <Compile Include="Data\Conversations\ExternalReplyData.cs" />
+    <Compile Include="Data\Conversations\InternalDatabase.cs" />
+    <Compile Include="Data\Conversations\InternalReply.cs" />
+    <Compile Include="Data\Conversations\InternalReplyData.cs" />
+    <Compile Include="Data\Conversations\PreferencesData.cs" />
+    <Compile Include="Data\Conversations\PreferencesManager.cs" />
+    <Compile Include="Data\DataManager.cs" />
+    <Compile Include="Data\IDataManager.cs" />
+    <Compile Include="GUI\Controls\Conversations\BasicInformationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\BasicInformationControl.designer.cs">
+      <DependentUpon>BasicInformationControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\ConversationsManagerHost.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\ConversationsManagerHost.designer.cs">
+      <DependentUpon>ConversationsManagerHost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\ImportedConversationsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\ImportedConversationsControl.designer.cs">
+      <DependentUpon>ImportedConversationsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\NodeListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\NodeListControl.designer.cs">
+      <DependentUpon>NodeListControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\AddLinkForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\AddLinkForm.designer.cs">
+      <DependentUpon>AddLinkForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\AddReplyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\AddReplyForm.designer.cs">
+      <DependentUpon>AddReplyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\ImportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\ImportForm.designer.cs">
+      <DependentUpon>ImportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\ConversationsManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\ConversationsManager.designer.cs">
+      <DependentUpon>ConversationsManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\PreferencesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\PreferencesForm.designer.cs">
+      <DependentUpon>PreferencesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\SaveAsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\SaveAsForm.designer.cs">
+      <DependentUpon>SaveAsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\SavedDataManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\SavedDataManagerForm.designer.cs">
+      <DependentUpon>SavedDataManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\ViewReplyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\ViewReplyForm.designer.cs">
+      <DependentUpon>ViewReplyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\ActionType.cs" />
+    <Compile Include="Util\AddReplyType.cs" />
+    <Compile Include="Util\AddType.cs" />
+    <Compile Include="Util\BaseException.cs" />
+    <Compile Include="Util\DataDeserializationException.cs" />
+    <Compile Include="Util\DataSerializationException.cs" />
+    <Compile Include="Util\DuplicateReplyChildException.cs" />
+    <Compile Include="Util\DuplicateReplyParentException.cs" />
+    <Compile Include="Util\ExceptionSeverity.cs" />
+    <Compile Include="Util\ExternalFormat.cs" />
+    <Compile Include="Util\ImportControlEnum.cs" />
+    <Compile Include="Util\InvalidExternalFormatException.cs" />
+    <Compile Include="Util\InvalidFieldException.cs" />
+    <Compile Include="Util\InvalidPathException.cs" />
+    <Compile Include="Util\InvalidReplyAuthorException.cs" />
+    <Compile Include="Util\InvalidReplyIDException.cs" />
+    <Compile Include="Util\InvalidReplyTextException.cs" />
+    <Compile Include="Util\InvalidReplyTimestampException.cs" />
+    <Compile Include="Util\InvalidStateException.cs" />
+    <Compile Include="Util\NodeListControlType.cs" />
+    <Compile Include="Util\Parsing\IConversationParser.cs" />
+    <Compile Include="Util\Parsing\ParsedReply.cs" />
+    <Compile Include="Util\Parsing\ParserLoader.cs" />
+    <Compile Include="Util\ReplyCircularDependencyException.cs" />
+    <Compile Include="Util\FrameworkExceptionClass.cs" />
+    <Compile Include="Util\ReplyField.cs" />
+    <Compile Include="Util\SavedDataManagerState.cs" />
+    <Compile Include="Util\ViewNodeMode.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="GUI\Controls\Conversations\BasicInformationControl.resx">
+      <DependentUpon>BasicInformationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\Conversations\ConversationsManagerHost.resx">
+      <DependentUpon>ConversationsManagerHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\Conversations\ImportedConversationsControl.resx">
+      <DependentUpon>ImportedConversationsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\Conversations\NodeListControl.resx">
+      <DependentUpon>NodeListControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Conversations\AddLinkForm.resx">
+      <DependentUpon>AddLinkForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Conversations\AddReplyForm.resx">
+      <DependentUpon>AddReplyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Conversations\ImportForm.resx">
+      <DependentUpon>ImportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Conversations\ConversationsManager.resx">
+      <DependentUpon>ConversationsManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Conversations\PreferencesForm.resx">
+      <DependentUpon>PreferencesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Conversations\SaveAsForm.resx">
+      <DependentUpon>SaveAsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Conversations\SavedDataManagerForm.resx">
+      <DependentUpon>SavedDataManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Conversations\ViewReplyForm.resx">
+      <DependentUpon>ViewReplyForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

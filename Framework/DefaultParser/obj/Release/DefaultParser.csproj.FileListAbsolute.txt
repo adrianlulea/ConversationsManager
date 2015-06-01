@@ -1,0 +1,7 @@
+D:\Home\adrlulea\Personal\School\disertatie\Framework\DefaultParser\obj\Release\DefaultParser.csprojResolveAssemblyReference.cache
+D:\Home\adrlulea\Personal\School\disertatie\Framework\DefaultParser\bin\Release\DefaultParser.dll
+D:\Home\adrlulea\Personal\School\disertatie\Framework\DefaultParser\bin\Release\DefaultParser.pdb
+D:\Home\adrlulea\Personal\School\disertatie\Framework\DefaultParser\bin\Release\Framework.dll
+D:\Home\adrlulea\Personal\School\disertatie\Framework\DefaultParser\bin\Release\Framework.pdb
+D:\Home\adrlulea\Personal\School\disertatie\Framework\DefaultParser\obj\Release\DefaultParser.dll
+D:\Home\adrlulea\Personal\School\disertatie\Framework\DefaultParser\obj\Release\DefaultParser.pdb

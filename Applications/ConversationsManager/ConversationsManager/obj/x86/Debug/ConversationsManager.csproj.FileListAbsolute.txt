@@ -1,0 +1,9 @@
+d:\Home\adrlulea\Personal\School\disertatie\Applications\ConversationsManager\ConversationsManager\bin\Debug\ConversationsManager.exe
+d:\Home\adrlulea\Personal\School\disertatie\Applications\ConversationsManager\ConversationsManager\bin\Debug\ConversationsManager.pdb
+d:\Home\adrlulea\Personal\School\disertatie\Applications\ConversationsManager\ConversationsManager\bin\Debug\Framework.dll
+d:\Home\adrlulea\Personal\School\disertatie\Applications\ConversationsManager\ConversationsManager\bin\Debug\Framework.pdb
+d:\Home\adrlulea\Personal\School\disertatie\Applications\ConversationsManager\ConversationsManager\obj\x86\Debug\ConversationsManager.Properties.Resources.resources
+d:\Home\adrlulea\Personal\School\disertatie\Applications\ConversationsManager\ConversationsManager\obj\x86\Debug\ConversationsManager.csproj.GenerateResource.Cache
+d:\Home\adrlulea\Personal\School\disertatie\Applications\ConversationsManager\ConversationsManager\obj\x86\Debug\ConversationsManager.exe
+d:\Home\adrlulea\Personal\School\disertatie\Applications\ConversationsManager\ConversationsManager\obj\x86\Debug\ConversationsManager.pdb
+d:\Home\adrlulea\Personal\School\disertatie\Applications\ConversationsManager\ConversationsManager\obj\x86\Debug\ConversationsManager.csprojResolveAssemblyReference.cache
