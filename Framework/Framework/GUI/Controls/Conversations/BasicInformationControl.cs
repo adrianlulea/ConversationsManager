@@ -28,10 +28,11 @@ namespace Framework.GUI.Controls.Conversations
             get { return timestampPicker.Value; }
             set
             {
-                if (value != null)
-                {
+				//TODO see if this has major impact or not
+                //if (value != null)
+                //{
                     timestampPicker.Value = value;
-                }
+                //}
             }
         }
 

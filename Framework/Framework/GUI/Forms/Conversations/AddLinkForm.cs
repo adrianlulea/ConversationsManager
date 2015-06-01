@@ -119,7 +119,7 @@ namespace Framework.GUI.Forms.Conversations
             _actionType = ActionType.Add;
 
             _nodeList = new NodeListControl(NodeListControlType.Basic, _dataManager);
-            _nodeList.Exceptions = excludeList;
+			_nodeList.Exceptions = _excludeList;
             _nodeList.OnSelectedItemChanged += new NodeListControl.SelectedItemChanged(NodeList_OnSelectedItemChanged);
             _nodeList.OnOpenedItemChanged += new NodeListControl.OpenedItemChanged(NodeList_OnOpenedItemChanged);
 

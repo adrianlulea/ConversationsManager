@@ -356,11 +356,15 @@ namespace Framework.GUI.Forms.Conversations
                 try
                 {
                     database = DataManager.Deserialize(file, format);
-                    item = new ListViewItem(GetFilenameFromPath(file, extension, includeExtension));
-                    item.Tag = file;
-                    item.SubItems.Add(GetFileSizeFromPath(file, true));
 
-                    savedDataList.Items.Add(item);
+					if ( database != null )
+					{
+	                    item = new ListViewItem(GetFilenameFromPath(file, extension, includeExtension));
+	                    item.Tag = file;
+	                    item.SubItems.Add(GetFileSizeFromPath(file, true));
+
+	                    savedDataList.Items.Add(item);
+					}
                 }
                 catch
                 {

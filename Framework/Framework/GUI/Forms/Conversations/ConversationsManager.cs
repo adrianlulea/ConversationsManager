@@ -275,7 +275,8 @@ namespace Framework.GUI.Forms.Conversations
         /// <param name="e"></param>
         private void addButton_Click(object sender, EventArgs e)
         {
-            Type type = sender.GetType();
+			//TODO see if this has any impact whatsoever
+            //Type type = sender.GetType();
             int tagValue = int.Parse( ((ToolStripItem)sender).Tag.ToString());
 
             if (tagValue == 5)

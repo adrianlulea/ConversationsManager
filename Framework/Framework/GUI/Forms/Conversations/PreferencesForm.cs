@@ -284,7 +284,7 @@ namespace Framework.GUI.Forms.Conversations
             defaultLanguage.Checked = _manager.Data.DefaultLanguage;
             _defaultLanguage = defaultLanguage.Checked;
 
-            if (defaultLanguage.Checked == false)
+			if (_defaultLanguage == false)
             {
                 customLanguage.Checked = true;
                 customLanguagePath.Visible = true;
@@ -300,7 +300,7 @@ namespace Framework.GUI.Forms.Conversations
             defaultTheme.Checked = _manager.Data.DefaultTheme;
             _defaultTheme = defaultTheme.Checked;
 
-            if (defaultTheme.Checked == false)
+			if (_defaultTheme == false)
             {
                 customTheme.Checked = true;
                 customThemePath.Visible = true;
