@@ -44,9 +44,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework\Framework.csproj">
-      <Project>{3e81a7b7-79a6-492e-b6c1-7be4ed712054}</Project>
-      <Name>Framework</Name>
+    <ProjectReference Include="..\Parser\Parser.csproj">
+      <Project>{2670c840-696a-4154-83c6-6ae3f2e463c8}</Project>
+      <Name>Parser</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

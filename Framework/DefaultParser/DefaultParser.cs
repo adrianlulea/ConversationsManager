@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Framework.Util.Parsing;
+using Parser;
 using System.Xml;
 using System.IO;
 
@@ -64,7 +64,7 @@ namespace DefaultParser
             this._existingIds.AddRange( existingIDs );
             List<ParsedReply> parsedConversation = new List<ParsedReply>();
 
-            XmlDataDocument document = new XmlDataDocument();
+            XmlDocument document = new XmlDocument();
             XmlNodeList nodeList;
 
             FileStream fs = new FileStream(parsedFile, FileMode.Open, FileAccess.Read);

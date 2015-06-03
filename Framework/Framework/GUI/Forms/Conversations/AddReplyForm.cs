@@ -11,7 +11,7 @@ using Framework.Data.Conversations;
 using Framework.Util;
 using Framework.GUI.Controls.Conversations;
 using System.Reflection;
-using Framework.Util.Parsing;
+using Parser;
 
 namespace Framework.GUI.Forms.Conversations
 {

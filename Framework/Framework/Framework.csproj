@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Framework</RootNamespace>
     <AssemblyName>Framework</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>bin\Release\Documentation.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>bin\Release\Documentation.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -154,16 +157,18 @@
     <Compile Include="Util\InvalidReplyTimestampException.cs" />
     <Compile Include="Util\InvalidStateException.cs" />
     <Compile Include="Util\NodeListControlType.cs" />
-    <Compile Include="Util\Parsing\IConversationParser.cs" />
-    <Compile Include="Util\Parsing\ParsedReply.cs" />
-    <Compile Include="Util\Parsing\ParserLoader.cs" />
     <Compile Include="Util\ReplyCircularDependencyException.cs" />
     <Compile Include="Util\FrameworkExceptionClass.cs" />
     <Compile Include="Util\ReplyField.cs" />
     <Compile Include="Util\SavedDataManagerState.cs" />
     <Compile Include="Util\ViewNodeMode.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Parser\Parser.csproj">
+      <Project>{2670c840-696a-4154-83c6-6ae3f2e463c8}</Project>
+      <Name>Parser</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GUI\Controls\Conversations\BasicInformationControl.resx">
       <DependentUpon>BasicInformationControl.cs</DependentUpon>
