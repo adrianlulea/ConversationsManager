@@ -97,6 +97,32 @@ namespace Parser
          return GetParser(parserName);
       }
 
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="libraryPath"></param>
+      /// <returns></returns>
+      public static List<string> ListParsers(string libraryPath)
+      {
+         List<string> parsers = new List<string>();
+
+         if (File.Exists(libraryPath))
+         {
+            Assembly importLibraryAssembly = Assembly.LoadFrom(libraryPath);
+            Type[] importLibraryTypes = importLibraryAssembly.GetExportedTypes();
+
+            foreach (Type type in importLibraryTypes)
+            {
+               if (type.GetInterface(parserInterfaceName) != null)
+               {
+                  parsers.Add(type.Name);
+               }
+            }
+         }
+
+         return parsers;
+      }
+
       #endregion
    }
 }

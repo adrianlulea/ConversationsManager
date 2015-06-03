@@ -1,0 +1,4 @@
+\\bucd223\Home\adrlulea\Personal\School\ConversationsManager\Framework\Parser\bin\Release\Parser.dll
+\\bucd223\Home\adrlulea\Personal\School\ConversationsManager\Framework\Parser\bin\Release\Parser.pdb
+\\bucd223\Home\adrlulea\Personal\School\ConversationsManager\Framework\Parser\obj\Release\Parser.dll
+\\bucd223\Home\adrlulea\Personal\School\ConversationsManager\Framework\Parser\obj\Release\Parser.pdb

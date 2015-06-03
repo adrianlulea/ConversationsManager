@@ -76,6 +76,12 @@
     <Compile Include="GUI\Controls\Conversations\ConversationsManagerHost.designer.cs">
       <DependentUpon>ConversationsManagerHost.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Controls\Conversations\CreateNewDatabaseDetailsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\CreateNewDatabaseDetailsControl.Designer.cs">
+      <DependentUpon>CreateNewDatabaseDetailsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Controls\Conversations\ImportedConversationsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -87,6 +93,12 @@
     </Compile>
     <Compile Include="GUI\Controls\Conversations\NodeListControl.designer.cs">
       <DependentUpon>NodeListControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\OpenExistingDatabaseDetailsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\OpenExistingDatabaseDetailsControl.Designer.cs">
+      <DependentUpon>OpenExistingDatabaseDetailsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Forms\Conversations\AddLinkForm.cs">
       <SubType>Form</SubType>
@@ -176,11 +188,17 @@
     <EmbeddedResource Include="GUI\Controls\Conversations\ConversationsManagerHost.resx">
       <DependentUpon>ConversationsManagerHost.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\Conversations\CreateNewDatabaseDetailsControl.resx">
+      <DependentUpon>CreateNewDatabaseDetailsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Controls\Conversations\ImportedConversationsControl.resx">
       <DependentUpon>ImportedConversationsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Controls\Conversations\NodeListControl.resx">
       <DependentUpon>NodeListControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\Conversations\OpenExistingDatabaseDetailsControl.resx">
+      <DependentUpon>OpenExistingDatabaseDetailsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\Conversations\AddLinkForm.resx">
       <DependentUpon>AddLinkForm.cs</DependentUpon>

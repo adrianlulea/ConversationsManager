@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using Framework.Util;
 using Framework.Data.Conversations;
+using Framework.GUI.Controls.Conversations;
 
 namespace Framework.GUI.Forms.Conversations
 {
@@ -44,6 +45,9 @@ namespace Framework.GUI.Forms.Conversations
         /// </summary>
         private ExternalFormat _newDatabaseFormat;
 
+        private OpenExistingDatabaseDetailsControl _openDatabaseControl;
+        private CreateNewDatabaseDetailsControl _newDatabaseControl;
+
         #endregion
 
         #region Properties
@@ -55,6 +59,59 @@ namespace Framework.GUI.Forms.Conversations
         {
             get { return _state; }
         }
+
+        #region Wrappers over OpenExistingDatabAseDetailsControl
+       //TODO Thjs is temporary, remove when refactoring is performed
+
+       /// <summary>
+       /// 
+       /// </summary>
+        private GroupBox existingGroupBox
+        {
+           get { return this._openDatabaseControl.ExistingGroupBox; }
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+        private ListView savedDataList
+        {
+           get { return this._openDatabaseControl.SavedDataList; }
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+        private ToolStripButton renameButton
+        {
+           get { return this._openDatabaseControl.RenameButton; }
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+        private ToolStripTextBox newName
+        {
+           get { return this._openDatabaseControl.NewName; }
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+        private ToolStripButton finishRenamingButton
+        {
+           get { return this._openDatabaseControl.FinishRenamingButton; }
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+        private ToolStripButton deleteButton
+        {
+           get { return this._openDatabaseControl.DeleteButton; }
+        }
+
+        #endregion
 
         #endregion
 
@@ -249,7 +306,25 @@ namespace Framework.GUI.Forms.Conversations
         /// </summary>
         private void InitializeData()
         {
-            // Add data
+           // Add controls
+           this._openDatabaseControl = new OpenExistingDatabaseDetailsControl(this);
+           this._newDatabaseControl = new CreateNewDatabaseDetailsControl(this);
+
+           this._openDatabaseControl.SavedDataList.SelectedIndexChanged += savedDataList_SelectedIndexChanged;
+           this._openDatabaseControl.SavedDataList.MouseDoubleClick += savedDataList_MouseDoubleClick;
+           this._openDatabaseControl.RenameButton.Click += renameButton_Click;
+           this._openDatabaseControl.NewName.TextChanged += newName_TextChanged;
+           this._openDatabaseControl.FinishRenamingButton.Click += finishRenamingButton_Click;
+           this._openDatabaseControl.DeleteButton.Click += deleteButton_Click;
+
+           this._openDatabaseControl.Dock = DockStyle.Fill;
+           this._newDatabaseControl.Dock = DockStyle.Fill;
+
+           this.databaseModeHost.Controls.Add(_openDatabaseControl);
+           this.databaseModeHost.Controls.Add(_newDatabaseControl);
+           this._openDatabaseControl.BringToFront();
+
+           // Add data
             PopulateDatabases(_savedDataPath);
 
             // Update controls
@@ -268,6 +343,7 @@ namespace Framework.GUI.Forms.Conversations
                 case SavedDataManagerState.CreateNewData:
                     {
                         existingGroupBox.Enabled = false;
+                        this._newDatabaseControl.BringToFront();
 
                         if (checkRadioButtons)
                         {
@@ -281,6 +357,7 @@ namespace Framework.GUI.Forms.Conversations
                     {
                         databaseName.Enabled = false;
                         existingGroupBox.Enabled = true;
+                        this._openDatabaseControl.BringToFront();
 
                         if (checkRadioButtons)
                         {
@@ -511,9 +588,32 @@ namespace Framework.GUI.Forms.Conversations
             {
                 return false;
             }
+
             string extension = PreferencesManager.GetExtension(_newDatabaseFormat);
             string generatedDatabasePath = _savedDataPath + "\\" + name + extension;
-            return (File.Exists(generatedDatabasePath) == false);
+
+           bool fileDoesNotExist = (File.Exists(generatedDatabasePath) == false);
+           bool importingConversationAsWell = this._newDatabaseControl.ImportingConversation;
+           bool parserIsAvailable = this._newDatabaseControl.IsParserSelected;
+           bool conversationForImportHasBeenSelected = this._newDatabaseControl.IsConversationSelected;
+
+           bool validNewDatabase = fileDoesNotExist &&
+                                   ( ! importingConversationAsWell ||
+                                     (conversationForImportHasBeenSelected && parserIsAvailable)
+                                   );
+
+           return validNewDatabase;
+        }
+
+       /// <summary>
+       /// Force validating new database
+       /// </summary>
+        public void ValidateNewDatabase()
+        {
+           if (State == SavedDataManagerState.CreateNewData)
+           {
+              doneButton.Enabled = ValidNewDatabase(databaseName.Text);
+           }
         }
 
         /// <summary>
