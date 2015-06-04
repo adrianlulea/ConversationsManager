@@ -134,6 +134,14 @@ namespace Framework.GUI.Forms.Conversations
             }
         }
 
+       /// <summary>
+       /// 
+       /// </summary>
+        public string ParsersPath
+        {
+           get { return _preferencesManager.Data.ParserPath; }
+        }
+
         #endregion
 
         #region Constructors

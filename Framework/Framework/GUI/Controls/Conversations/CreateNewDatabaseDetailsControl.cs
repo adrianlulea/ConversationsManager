@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Framework.GUI.Forms.Conversations;
+using System.IO;
+using Parser;
 
 namespace Framework.GUI.Controls.Conversations
 {
@@ -68,6 +70,8 @@ namespace Framework.GUI.Controls.Conversations
       {
          this._parent = parent;
          InitializeComponent();
+
+         InitializeParsers();
       }
 
       #endregion
@@ -94,7 +98,25 @@ namespace Framework.GUI.Controls.Conversations
          if (conversationImportFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
          {
             this._conversationToImportPath = conversationImportFileDialog.FileName;
+            this._parent.ValidateNewDatabase();
          }
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
+      private void editAvailableParsersButton_Click(object sender, EventArgs e)
+      {
+         AvailableParsersForm availableParsers = new AvailableParsersForm(_parent.ParsersPath);
+
+         availableParsers.ShowDialog();
+
+         List<ListViewItem> parsers = availableParsers.Parsers;
+
+         this.parserList.Items.Clear();
+         this.parserList.Items.AddRange(parsers.ToArray());
       }
 
       #endregion
@@ -113,6 +135,27 @@ namespace Framework.GUI.Controls.Conversations
          this._parent.ValidateNewDatabase();
       }
 
+      private void InitializeParsers()
+      {
+         string[] parserLibraries = Directory.GetFiles(_parent.ParsersPath, "*.dll");
+
+         foreach (string parserLibrary in parserLibraries)
+         {
+            List<string> parsers = ParserLoader.ListParsers(parserLibrary);
+
+            FileInfo fi = new FileInfo(parserLibrary);
+
+            foreach (string parser in parsers)
+            {
+               ListViewItem item = new ListViewItem(parser);
+               item.SubItems.Add(fi.Name);
+
+               this.parserList.Items.Add(item);
+            }
+         }
+      }
+
       #endregion
+
    }
 }

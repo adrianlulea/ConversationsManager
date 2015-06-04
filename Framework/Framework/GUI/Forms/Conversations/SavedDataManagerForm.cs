@@ -111,6 +111,14 @@ namespace Framework.GUI.Forms.Conversations
            get { return this._openDatabaseControl.DeleteButton; }
         }
 
+       /// <summary>
+       /// 
+       /// </summary>
+        public string ParsersPath
+        {
+           get { return _parent.ParsersPath; }
+        }
+
         #endregion
 
         #endregion

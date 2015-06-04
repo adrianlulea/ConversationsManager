@@ -118,6 +118,12 @@
     <Compile Include="GUI\Forms\Conversations\AddReplyForm.designer.cs">
       <DependentUpon>AddReplyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Forms\Conversations\AvailableParsersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Conversations\AvailableParsersForm.Designer.cs">
+      <DependentUpon>AvailableParsersForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Forms\Conversations\ImportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -214,6 +220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\Conversations\AddReplyForm.resx">
       <DependentUpon>AddReplyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Conversations\AvailableParsersForm.resx">
+      <DependentUpon>AvailableParsersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\Conversations\ImportForm.resx">
       <DependentUpon>ImportForm.cs</DependentUpon>

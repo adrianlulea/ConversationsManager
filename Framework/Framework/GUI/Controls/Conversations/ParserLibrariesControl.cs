@@ -24,6 +24,31 @@ namespace Framework.GUI.Controls.Conversations
 
       #endregion
 
+      #region Properties
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public List<ListViewItem> Parsers
+      {
+         get
+         {
+            List<ListViewItem> parsers = new List<ListViewItem>();
+
+            foreach(ListViewItem parser in parserListView.Items)
+            {
+               ListViewItem item = new ListViewItem(parser.Text);
+               item.SubItems.Add(parser.SubItems[0]);
+
+               parsers.Add(item);
+            }
+
+            return parsers;
+         }
+      }
+
+      #endregion
+
       #region Constructors
 
       /// <summary>
@@ -50,11 +75,17 @@ namespace Framework.GUI.Controls.Conversations
             FileInfo fi = new FileInfo(libraryPath);
             string parsersPath = Directory.GetCurrentDirectory() + "\\" + this._parsersPath;
             string newLibraryPath = parsersPath + "\\" + fi.Name;
-            bool overwriteLibrary = true; //TODO prompt user for overwrite
+            bool overwriteLibrary = false; //overwriting will generate a nasty exception as the libraries are loaded at runtime
 
             if (Directory.Exists(parsersPath) == false)
             {
                Directory.CreateDirectory(parsersPath);
+            }
+
+            if (File.Exists(newLibraryPath))
+            {
+               // Library already loaded
+               return;
             }
 
             File.Copy(libraryPath, newLibraryPath, overwriteLibrary);

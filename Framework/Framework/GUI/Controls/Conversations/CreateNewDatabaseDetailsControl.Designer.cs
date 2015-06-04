@@ -126,6 +126,7 @@
          this.editAvailableParsersButton.Name = "editAvailableParsersButton";
          this.editAvailableParsersButton.Size = new System.Drawing.Size(138, 22);
          this.editAvailableParsersButton.Text = "Edit Available Parsers";
+         this.editAvailableParsersButton.Click += new System.EventHandler(this.editAvailableParsersButton_Click);
          // 
          // detailsButton
          // 
