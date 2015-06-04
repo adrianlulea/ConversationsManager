@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using Framework.Util;
 using Framework.Data.Conversations;
 using System.IO;
-using Parser;
+using Framework.GUI.Controls.Conversations;
 
 namespace Framework.GUI.Forms.Conversations
 {
@@ -55,6 +55,16 @@ namespace Framework.GUI.Forms.Conversations
         /// </summary>
         private string _customThemePath;
 
+       /// <summary>
+       /// Path where Parser libraries are saved.
+       /// </summary>
+        private string _parsersPath;
+
+       /// <summary>
+       /// 
+       /// </summary>
+        private ParserLibrariesControl _parsersControl;
+
         #endregion
 
         #region Constructors
@@ -67,6 +77,9 @@ namespace Framework.GUI.Forms.Conversations
         {
             // Initialize manager
             _manager = manager;
+
+           // Initialize to null Parsers control
+            _parsersControl = null;
 
             // Initialize GUI
             InitializeComponent();
@@ -250,38 +263,6 @@ namespace Framework.GUI.Forms.Conversations
             this.Close();
         }
 
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <param name="sender"></param>
-       /// <param name="e"></param>
-        private void addParserLibraryButton_Click(object sender, EventArgs e)
-        {
-           if (browseParserLibrary.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-           {
-              string libraryPath = browseParserLibrary.FileName;
-
-              // Copy library to parsers path
-              FileInfo fi = new FileInfo(libraryPath);
-              string parsersPath = "" + "\\" + fi.Name; //TODO get parsersPath from preferences
-              bool overwriteLibrary = true; //TODO prompt user for overwrite
-              File.Copy(libraryPath, parsersPath, overwriteLibrary);
-
-              // Load parsers from library
-              List<string> parsers = ParserLoader.ListParsers(parsersPath);
-
-              parsers = ParserLoader.ListParsers(libraryPath);
-
-              foreach (string parser in parsers)
-              {
-                 ListViewItem p = new ListViewItem(parser);
-                 p.SubItems.Add(fi.Name);
-
-                 this.parserListView.Items.Add(p);
-              }
-           }
-        }
-
         #endregion
 
         #region Methods
@@ -304,6 +285,9 @@ namespace Framework.GUI.Forms.Conversations
 
             // Saving location
             InitializeSavingLocation();
+
+            // Parsers
+            InitializeParsers();
 
             _initializing = false;
         }
@@ -350,6 +334,20 @@ namespace Framework.GUI.Forms.Conversations
             xmlDataFormat.Checked = _manager.Data.XMLFormat;
         }
 
+       /// <summary>
+       /// Initialize parsers
+       /// </summary>
+        private void InitializeParsers()
+        {
+           if (this._parsersControl == null)
+           {
+              this._parsersControl = new ParserLibrariesControl(this._parsersPath);
+              this.parsersHost.Controls.Add(this._parsersControl);
+           }
+
+           this._parsersControl.InitializeParsers();
+        }
+
         /// <summary>
         /// Initialize saving location.
         /// </summary>
@@ -365,6 +363,9 @@ namespace Framework.GUI.Forms.Conversations
                 defaultLocation.Text = _manager.Data.SaveLocation;
                 _defaultLocation = false;
             }
+
+           // Set parsers path
+            _parsersPath = _manager.Data.ParserPath;
         }
 
         /// <summary>

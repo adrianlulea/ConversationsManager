@@ -50,6 +50,11 @@ namespace Framework.Data.Conversations
         /// </summary>
         private bool _xmlFormat;
 
+       /// <summary>
+       /// Path where imported parser libraries are saved.
+       /// </summary>
+        private string _parserPath;
+
         #endregion
 
         #region Properties
@@ -142,6 +147,15 @@ namespace Framework.Data.Conversations
             }
         }
 
+       /// <summary>
+       /// Gets or sets path where imported parser libraries are saved.
+       /// </summary>
+        public string ParserPath
+        {
+           get { return _parserPath; }
+           set { _parserPath = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -159,6 +173,7 @@ namespace Framework.Data.Conversations
             _customLocation = "";
             _binaryFormat = true;
             _xmlFormat = false;
+            _parserPath = "Parsers";
         }
 
         #endregion

@@ -6,6 +6,7 @@
   <ThemeLocation />
   <DefaultLocation>true</DefaultLocation>
   <SaveLocation />
-  <BinaryFormat>true</BinaryFormat>
-  <XMLFormat>false</XMLFormat>
+  <BinaryFormat>false</BinaryFormat>
+  <XMLFormat>true</XMLFormat>
+  <ParserPath>Parsers</ParserPath>
 </PreferencesData>

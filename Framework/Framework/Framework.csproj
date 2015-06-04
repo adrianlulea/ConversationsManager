@@ -100,6 +100,12 @@
     <Compile Include="GUI\Controls\Conversations\OpenExistingDatabaseDetailsControl.Designer.cs">
       <DependentUpon>OpenExistingDatabaseDetailsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Controls\Conversations\ParserLibrariesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\ParserLibrariesControl.Designer.cs">
+      <DependentUpon>ParserLibrariesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Forms\Conversations\AddLinkForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Controls\Conversations\OpenExistingDatabaseDetailsControl.resx">
       <DependentUpon>OpenExistingDatabaseDetailsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\Conversations\ParserLibrariesControl.resx">
+      <DependentUpon>ParserLibrariesControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\Conversations\AddLinkForm.resx">
       <DependentUpon>AddLinkForm.cs</DependentUpon>

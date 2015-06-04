@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PreferencesForm));
          this.languageGroup = new System.Windows.Forms.GroupBox();
          this.customLanguagePath = new System.Windows.Forms.Label();
          this.label1 = new System.Windows.Forms.Label();
@@ -52,21 +51,12 @@
          this.applyButton = new System.Windows.Forms.Button();
          this.browseCustomLocation = new System.Windows.Forms.OpenFileDialog();
          this.browseCustomDirectory = new System.Windows.Forms.FolderBrowserDialog();
-         this.parsersGroupBox = new System.Windows.Forms.GroupBox();
-         this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-         this.addParserLibraryButton = new System.Windows.Forms.ToolStripButton();
-         this.editParserLibraryButton = new System.Windows.Forms.ToolStripButton();
-         this.deleteParserLibraryButton = new System.Windows.Forms.ToolStripButton();
-         this.parserListView = new System.Windows.Forms.ListView();
-         this.parserName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-         this.libraryName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
          this.browseParserLibrary = new System.Windows.Forms.OpenFileDialog();
+         this.parsersHost = new System.Windows.Forms.Panel();
          this.languageGroup.SuspendLayout();
          this.themeBox.SuspendLayout();
          this.dataFormatBox.SuspendLayout();
          this.savingLocationBox.SuspendLayout();
-         this.parsersGroupBox.SuspendLayout();
-         this.toolStrip1.SuspendLayout();
          this.SuspendLayout();
          // 
          // languageGroup
@@ -317,95 +307,25 @@
          // 
          this.browseCustomDirectory.Description = "Saving location";
          // 
-         // parsersGroupBox
-         // 
-         this.parsersGroupBox.Controls.Add(this.parserListView);
-         this.parsersGroupBox.Controls.Add(this.toolStrip1);
-         this.parsersGroupBox.Location = new System.Drawing.Point(12, 259);
-         this.parsersGroupBox.Name = "parsersGroupBox";
-         this.parsersGroupBox.Size = new System.Drawing.Size(443, 306);
-         this.parsersGroupBox.TabIndex = 5;
-         this.parsersGroupBox.TabStop = false;
-         this.parsersGroupBox.Text = "Parsers";
-         // 
-         // toolStrip1
-         // 
-         this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addParserLibraryButton,
-            this.editParserLibraryButton,
-            this.deleteParserLibraryButton});
-         this.toolStrip1.Location = new System.Drawing.Point(3, 16);
-         this.toolStrip1.Name = "toolStrip1";
-         this.toolStrip1.Size = new System.Drawing.Size(437, 25);
-         this.toolStrip1.TabIndex = 0;
-         this.toolStrip1.Text = "toolStrip1";
-         // 
-         // addParserLibraryButton
-         // 
-         this.addParserLibraryButton.Image = ((System.Drawing.Image)(resources.GetObject("addParserLibraryButton.Image")));
-         this.addParserLibraryButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-         this.addParserLibraryButton.Name = "addParserLibraryButton";
-         this.addParserLibraryButton.Size = new System.Drawing.Size(49, 22);
-         this.addParserLibraryButton.Text = "Add";
-         this.addParserLibraryButton.Click += new System.EventHandler(this.addParserLibraryButton_Click);
-         // 
-         // editParserLibraryButton
-         // 
-         this.editParserLibraryButton.Enabled = false;
-         this.editParserLibraryButton.Image = ((System.Drawing.Image)(resources.GetObject("editParserLibraryButton.Image")));
-         this.editParserLibraryButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-         this.editParserLibraryButton.Name = "editParserLibraryButton";
-         this.editParserLibraryButton.Size = new System.Drawing.Size(47, 22);
-         this.editParserLibraryButton.Text = "Edit";
-         // 
-         // deleteParserLibraryButton
-         // 
-         this.deleteParserLibraryButton.Enabled = false;
-         this.deleteParserLibraryButton.Image = ((System.Drawing.Image)(resources.GetObject("deleteParserLibraryButton.Image")));
-         this.deleteParserLibraryButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-         this.deleteParserLibraryButton.Name = "deleteParserLibraryButton";
-         this.deleteParserLibraryButton.Size = new System.Drawing.Size(60, 22);
-         this.deleteParserLibraryButton.Text = "Delete";
-         // 
-         // parserListView
-         // 
-         this.parserListView.BackColor = System.Drawing.SystemColors.Info;
-         this.parserListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.parserName,
-            this.libraryName});
-         this.parserListView.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.parserListView.FullRowSelect = true;
-         this.parserListView.GridLines = true;
-         this.parserListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-         this.parserListView.Location = new System.Drawing.Point(3, 41);
-         this.parserListView.Name = "parserListView";
-         this.parserListView.Size = new System.Drawing.Size(437, 262);
-         this.parserListView.TabIndex = 1;
-         this.parserListView.UseCompatibleStateImageBehavior = false;
-         this.parserListView.View = System.Windows.Forms.View.Details;
-         // 
-         // parserName
-         // 
-         this.parserName.Text = "Name";
-         this.parserName.Width = 299;
-         // 
-         // libraryName
-         // 
-         this.libraryName.Text = "Library";
-         this.libraryName.Width = 103;
-         // 
          // browseParserLibrary
          // 
          this.browseParserLibrary.FileName = "openFileDialog1";
          this.browseParserLibrary.Filter = "Parser libraries files|*.dll";
          this.browseParserLibrary.Title = "Import parser library";
          // 
+         // parsersHost
+         // 
+         this.parsersHost.Location = new System.Drawing.Point(12, 259);
+         this.parsersHost.Name = "parsersHost";
+         this.parsersHost.Size = new System.Drawing.Size(443, 306);
+         this.parsersHost.TabIndex = 5;
+         // 
          // PreferencesForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.ClientSize = new System.Drawing.Size(467, 606);
-         this.Controls.Add(this.parsersGroupBox);
+         this.Controls.Add(this.parsersHost);
          this.Controls.Add(this.applyButton);
          this.Controls.Add(this.savingLocationBox);
          this.Controls.Add(this.dataFormatBox);
@@ -425,10 +345,6 @@
          this.dataFormatBox.PerformLayout();
          this.savingLocationBox.ResumeLayout(false);
          this.savingLocationBox.PerformLayout();
-         this.parsersGroupBox.ResumeLayout(false);
-         this.parsersGroupBox.PerformLayout();
-         this.toolStrip1.ResumeLayout(false);
-         this.toolStrip1.PerformLayout();
          this.ResumeLayout(false);
 
         }
@@ -458,14 +374,7 @@
         private System.Windows.Forms.Label customThemePath;
         private System.Windows.Forms.OpenFileDialog browseCustomLocation;
         private System.Windows.Forms.FolderBrowserDialog browseCustomDirectory;
-        private System.Windows.Forms.GroupBox parsersGroupBox;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton addParserLibraryButton;
-        private System.Windows.Forms.ToolStripButton editParserLibraryButton;
-        private System.Windows.Forms.ToolStripButton deleteParserLibraryButton;
-        private System.Windows.Forms.ListView parserListView;
-        private System.Windows.Forms.ColumnHeader parserName;
-        private System.Windows.Forms.ColumnHeader libraryName;
         private System.Windows.Forms.OpenFileDialog browseParserLibrary;
+        private System.Windows.Forms.Panel parsersHost;
     }
 }
