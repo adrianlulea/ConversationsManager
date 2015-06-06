@@ -59,6 +59,7 @@ namespace Framework.GUI.Controls.Conversations
       {
          this._parsersPath = parsersPath;
          InitializeComponent();
+         InitializeParsers();
       }
 
       #endregion
@@ -105,7 +106,7 @@ namespace Framework.GUI.Controls.Conversations
       /// <param name="library"></param>
       private void LoadParsersFromLibrary(string library)
       {
-         FileInfo fi = new FileInfo(library);
+         /*FileInfo fi = new FileInfo(library);
 
          if (File.Exists(library))
          {
@@ -118,7 +119,7 @@ namespace Framework.GUI.Controls.Conversations
 
                this.parserListView.Items.Add(p);
             }
-         }
+         }*/
       }
 
       /// <summary>
@@ -128,6 +129,7 @@ namespace Framework.GUI.Controls.Conversations
       {
          this.parserListView.Items.Clear();
 
+         /*
          if (Directory.Exists(this._parsersPath))
          {
             string[] parserLibraries = Directory.GetFiles(this._parsersPath, "*.dll", SearchOption.TopDirectoryOnly);
@@ -135,6 +137,21 @@ namespace Framework.GUI.Controls.Conversations
             foreach (string library in parserLibraries)
             {
                LoadParsersFromLibrary(library);
+            }
+         }*/
+
+         Dictionary<string, List<string>> libraryParsersHash = ParserLoader.ListParsersFromDirectory(_parsersPath);
+
+         foreach (string library in libraryParsersHash.Keys)
+         {
+            List<string> parsers = libraryParsersHash[library];
+
+            foreach (string parser in parsers)
+            {
+               ListViewItem p = new ListViewItem(parser);
+               p.SubItems.Add(library);
+
+               this.parserListView.Items.Add(p);
             }
          }
       }

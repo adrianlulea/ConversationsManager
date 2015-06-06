@@ -91,12 +91,14 @@
          this.parserList.FullRowSelect = true;
          this.parserList.GridLines = true;
          this.parserList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+         this.parserList.HideSelection = false;
          this.parserList.Location = new System.Drawing.Point(3, 41);
          this.parserList.Name = "parserList";
          this.parserList.Size = new System.Drawing.Size(536, 212);
          this.parserList.TabIndex = 1;
          this.parserList.UseCompatibleStateImageBehavior = false;
          this.parserList.View = System.Windows.Forms.View.Details;
+         this.parserList.SelectedIndexChanged += new System.EventHandler(this.parserList_SelectedIndexChanged);
          // 
          // parserName
          // 
@@ -136,6 +138,7 @@
          this.detailsButton.Name = "detailsButton";
          this.detailsButton.Size = new System.Drawing.Size(62, 22);
          this.detailsButton.Text = "Details";
+         this.detailsButton.Visible = false;
          // 
          // conversationImportFileDialog
          // 

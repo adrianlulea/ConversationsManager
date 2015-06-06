@@ -58,6 +58,28 @@ namespace Framework.GUI.Controls.Conversations
          get { return this.importFromFileCheckBox.Checked; }
       }
 
+      /// <summary>
+      /// Get selected parser
+      /// </summary>
+      public Tuple<string, string, string> SelectedConversation
+      {
+         get
+         {
+            if (IsParserSelected)
+            {
+               string conversation = this._conversationToImportPath;
+               string parser = this.parserList.SelectedItems[0].Text;
+               string library = this.parserList.SelectedItems[0].SubItems[1].Text;
+
+               return new Tuple<string, string, string>(conversation, library, parser);
+            }
+            else
+            {
+               return new Tuple<string, string, string>("","","");
+            }
+         }
+      }
+
       #endregion
 
       #region Constructors
@@ -117,6 +139,11 @@ namespace Framework.GUI.Controls.Conversations
 
          this.parserList.Items.Clear();
          this.parserList.Items.AddRange(parsers.ToArray());
+      }
+
+      private void parserList_SelectedIndexChanged(object sender, EventArgs e)
+      {
+         this._parent.ValidateNewDatabase();
       }
 
       #endregion

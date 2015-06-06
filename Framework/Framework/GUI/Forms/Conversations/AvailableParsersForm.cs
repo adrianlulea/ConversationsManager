@@ -50,6 +50,11 @@ namespace Framework.GUI.Forms.Conversations
 
       #region Event handlers
 
+      private void doneButton_Click(object sender, EventArgs e)
+      {
+         this.Close();
+      }
+
       #endregion
 
       #region Methods

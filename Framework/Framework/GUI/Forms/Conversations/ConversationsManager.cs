@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Framework.GUI.Controls.Conversations;
 using Framework.Util;
 using Framework.Data.Conversations;
+using Parser;
 
 namespace Framework.GUI.Forms.Conversations
 {
@@ -471,7 +472,8 @@ namespace Framework.GUI.Forms.Conversations
             if (newData.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 bool newDatabase = (newData.State == SavedDataManagerState.CreateNewData);
-                InitializeDatabase(newDatabase);
+
+                InitializeDatabase(newDatabase, newData.ImportFromFile, newData.ImportedConversation);
             }
         }
 
@@ -486,7 +488,7 @@ namespace Framework.GUI.Forms.Conversations
             if (openData.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 bool newDatabase = (openData.State == SavedDataManagerState.CreateNewData);
-                InitializeDatabase(newDatabase);
+                InitializeDatabase(newDatabase, false, null);
             }
         }
 
@@ -575,10 +577,12 @@ namespace Framework.GUI.Forms.Conversations
         #endregion
 
         /// <summary>
-        /// Initialize database.
+        /// 
         /// </summary>
-        /// <param name="newDatabase">Flag whether or not it is a new database.</param>
-        private void InitializeDatabase(bool newDatabase)
+        /// <param name="newDatabase"></param>
+        /// <param name="importFileAsWell"></param>
+        /// <param name="importedConversation"></param>
+        private void InitializeDatabase(bool newDatabase, bool importFileAsWell, Tuple<string, string, string> importedConversation)
         {
             //TODO Ask about current loaded database (if any loaded)
 
@@ -605,7 +609,14 @@ namespace Framework.GUI.Forms.Conversations
             }
 
             // Initialize data
-            InitializeData();
+            if (importFileAsWell)
+            {
+               InitializeData(importedConversation);
+            }
+            else
+            {
+               InitializeData();
+            }
         }
 
         /// <summary>
@@ -629,6 +640,47 @@ namespace Framework.GUI.Forms.Conversations
             _host.SetContextMenu(NodeListControlType.Parents, childrenParentsContextMenu);
             conversationsHost.Controls.Add(_host);
             _host.UpdateContent(false);
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="importedConversation"></param>
+        private void InitializeData(Tuple<string, string, string> importedConversation)
+        {
+           //TODO Initialize current data
+           // Get host flags
+           bool graphFlag = false;
+           bool parentsFlag = false;
+           bool childrenFlag = false;
+
+           // Import data
+           string libraryPath = Directory.GetCurrentDirectory() + "\\" + _preferencesManager.Data.ParserPath + "\\" + importedConversation.Item2;
+           string parserName = importedConversation.Item3;
+           string importFile = importedConversation.Item1;
+           IConversationParser parser = ParserLoader.LoadParser(libraryPath, parserName);
+
+           if (parser.ExpectedFormat(importFile))
+           {
+              List<ParsedReply> parsedReplies = parser.ParseConversation(importFile, new List<Guid>());
+
+              _dataManager.ImportDataFromListOfParsedReplies(parsedReplies);
+           }
+           else
+           {
+              //TODO throw some exception or error
+           }
+
+           // Initialize host and add it to conversationsHost
+           conversationsToolStrip.Visible = true;
+           conversationsHost.Controls.Clear();
+           _host = new ConversationsManagerHost(_dataManager, graphFlag, parentsFlag, childrenFlag);
+           _host.OnSelectedItemChanged += new ConversationsManagerHost.SelectedItemChanged(ConversationsHost_OnSelectedItemChanged);
+           _host.SetContextMenu(NodeListControlType.Basic, nodesContextMenu);
+           _host.SetContextMenu(NodeListControlType.Children, childrenParentsContextMenu);
+           _host.SetContextMenu(NodeListControlType.Parents, childrenParentsContextMenu);
+           conversationsHost.Controls.Add(_host);
+           _host.UpdateContent(false);
         }
 
         /// <summary>

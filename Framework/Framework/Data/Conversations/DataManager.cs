@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using Framework.Util;
+using Parser;
 
 namespace Framework.Data.Conversations
 {
@@ -165,6 +166,17 @@ namespace Framework.Data.Conversations
             ExternalFormat format = PreferencesManager.GetFormat(path);
             _externalData = DataManager.Deserialize(path, format);
             _internalData = new InternalDatabase(_externalData);
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="parsedReplies"></param>
+        public void ImportDataFromListOfParsedReplies(List<ParsedReply> parsedReplies)
+        {
+           _internalData.ImportDataFromListOfParsedReplies(parsedReplies);
+           _externalData = new ExternalDatabase(_internalData);
+           SaveData();
         }
 
         /// <summary>

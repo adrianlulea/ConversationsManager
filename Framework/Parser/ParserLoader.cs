@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
+using System.Collections;
 
 namespace Parser
 {
@@ -121,6 +122,33 @@ namespace Parser
          }
 
          return parsers;
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="librariesPath"></param>
+      /// <returns></returns>
+      public static Dictionary<string, List<string>> ListParsersFromDirectory(string librariesPath)
+      {
+         Dictionary<string, List<string>> libraryParsersHash = new Dictionary<string, List<string>>();
+
+         if (Directory.Exists(librariesPath))
+         {
+            string[] parserLibraries = Directory.GetFiles(librariesPath, "*.dll");
+
+            foreach (string library in parserLibraries)
+            {
+               FileInfo fi = new FileInfo(library);
+               List<string> parsers = new List<string>();
+
+               parsers = ParserLoader.ListParsers(library);
+
+               libraryParsersHash.Add(fi.Name, parsers);
+            }
+         }
+
+         return libraryParsersHash;
       }
 
       #endregion

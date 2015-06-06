@@ -119,6 +119,48 @@ namespace Framework.GUI.Forms.Conversations
            get { return _parent.ParsersPath; }
         }
 
+       /// <summary>
+       /// 
+       /// </summary>
+        public bool ImportFromFile
+        {
+           get
+           {
+              bool newDatabase = (_state == SavedDataManagerState.CreateNewData);
+              bool dialogActionSet = (DialogResult == System.Windows.Forms.DialogResult.OK);
+              bool importingDatabase = this._newDatabaseControl.ImportingConversation;
+
+              return newDatabase &&
+                     dialogActionSet &&
+                     importingDatabase;
+
+           }
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+        public Tuple<string, string, string> ImportedConversation
+        {
+           get
+           {
+              bool newDatabase = (_state == SavedDataManagerState.CreateNewData);
+              bool dialogActionSet = (DialogResult == System.Windows.Forms.DialogResult.OK);
+              bool importingDatabase = this._newDatabaseControl.ImportingConversation;
+
+              if (newDatabase &&
+                  dialogActionSet &&
+                  importingDatabase)
+              {
+                 return this._newDatabaseControl.SelectedConversation;
+              }
+              else
+              {
+                 return new Tuple<string,string,string>("", "", "");
+              }
+           }
+        }
+
         #endregion
 
         #endregion

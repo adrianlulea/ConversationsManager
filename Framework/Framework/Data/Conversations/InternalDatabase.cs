@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Framework.Util;
+using Parser;
 
 namespace Framework.Data.Conversations
 {
@@ -467,6 +468,48 @@ namespace Framework.Data.Conversations
                         throw new InvalidFieldException();
                     }
             }
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="parsedReplies"></param>
+        public void ImportDataFromListOfParsedReplies(List<ParsedReply> parsedReplies)
+        {
+           foreach (ParsedReply parsedReply in parsedReplies)
+           {
+              try
+              {
+                 InternalReplyData internalReplyData = new InternalReplyData(parsedReply.Timestamp,
+                                                                             parsedReply.Author,
+                                                                             parsedReply.Text);
+
+                 foreach (Guid child in parsedReply.Children)
+                 {
+                    internalReplyData.AddChild(child);
+                 }
+
+                 foreach (Guid parent in parsedReply.Parents)
+                 {
+                    internalReplyData.AddParent(parent);
+                 }
+
+                 InternalReply internalReply = new InternalReply(parsedReply.Id, internalReplyData);
+
+                 _hashedReplies.Add(parsedReply.Id, internalReply);
+
+                 _usedIds.Add(parsedReply.Id);
+                 _usedIds.AddRange(parsedReply.Children);
+                 _usedIds.AddRange(parsedReply.Parents);
+
+              }
+              catch (Exception)
+              {
+                 Console.Out.WriteLine("Ignoring reply " + parsedReply);
+              }
+           }
+
+           _dataChanged = true;
         }
 
         #endregion

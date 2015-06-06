@@ -67,6 +67,7 @@
          this.savedDataList.FullRowSelect = true;
          this.savedDataList.GridLines = true;
          this.savedDataList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+         this.savedDataList.HideSelection = false;
          this.savedDataList.Location = new System.Drawing.Point(3, 41);
          this.savedDataList.Name = "savedDataList";
          this.savedDataList.Size = new System.Drawing.Size(536, 235);

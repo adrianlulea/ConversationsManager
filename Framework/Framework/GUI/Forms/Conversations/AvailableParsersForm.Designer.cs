@@ -47,6 +47,7 @@
          this.doneButton.TabIndex = 1;
          this.doneButton.Text = "Done";
          this.doneButton.UseVisualStyleBackColor = true;
+         this.doneButton.Click += new System.EventHandler(this.doneButton_Click);
          // 
          // AvailableParsersForm
          // 
@@ -60,7 +61,7 @@
          this.ShowIcon = false;
          this.ShowInTaskbar = false;
          this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-         this.Text = "AvailableParsersForm";
+         this.Text = "Available Parsers";
          this.ResumeLayout(false);
 
       }
