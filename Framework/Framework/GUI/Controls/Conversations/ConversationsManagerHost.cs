@@ -146,9 +146,10 @@ namespace Framework.GUI.Controls.Conversations
         /// SelectedItemChanged delegate.
         /// </summary>
         /// <param name="sender">Node list control who's item has been selected.</param>
-        /// <param name="valid">Whether or not the selection is valid.</param>
-        /// <param name="id">Selected id.</param>
-        public delegate void SelectedItemChanged(NodeListControl sender, bool valid, Guid id);
+        /// <param name="e"></param>
+        /*/// <param name="valid">Whether or not the selection is valid.</param>
+        /// <param name="id">Selected id.</param>*/
+        public delegate void SelectedItemChanged(object sender, SelectedNodeArgs e);
 
         /// <summary>
         /// OnSelectedItemChanged event.
@@ -163,8 +164,8 @@ namespace Framework.GUI.Controls.Conversations
         /// NodeDataChanged delegate.
         /// </summary>
         /// <param name="sender">Node List control who's data has changed.</param>
-        /// <param name="id">Id.</param>
-        public delegate void NodeDataChanged(NodeListControl sender, Guid id);
+        /// <param name="e"></param>
+        public delegate void NodeDataChanged(object sender, SelectedNodeArgs e);
 
         #endregion
 
@@ -174,13 +175,15 @@ namespace Framework.GUI.Controls.Conversations
         /// Selected item changed event handler
         /// </summary>
         /// <param name="sender">Node list control who's selection has changed.</param>
-        /// <param name="valid">Whether or not the selection is valid.</param>
-        /// <param name="id">Selected item's ID.</param>
-        private void NodeList_SelectedItemChanged(NodeListControl sender, bool valid, Guid id)
+        /// <param name="e"></param>
+        /*/// <param name="valid">Whether or not the selection is valid.</param>
+        /// <param name="id">Selected item's ID.</param>*/
+        private void NodeList_SelectedItemChanged(object sender, SelectedNodeArgs e)
         {
             if (OnSelectedItemChanged != null)
             {
-                OnSelectedItemChanged.Invoke(sender, valid, id);
+               //SelectedNodeArgs e = new SelectedNodeArgs(valid, id);
+               OnSelectedItemChanged.Invoke(sender, e);
             }
         }
 
@@ -188,10 +191,10 @@ namespace Framework.GUI.Controls.Conversations
         /// NodeDataChanged event handler.
         /// </summary>
         /// <param name="sender">Node list control</param>
-        /// <param name="id">Id</param>
-        private void NodeList_NodeDataChanged(NodeListControl sender, Guid id)
+        /// <param name="e"></param>
+        private void NodeList_NodeDataChanged(object sender, SelectedNodeArgs e)
         {
-            RefreshField(normalViewNodeList, id);
+            RefreshField(normalViewNodeList, e.Id);
             //RefreshField(sender, id);
             
         }

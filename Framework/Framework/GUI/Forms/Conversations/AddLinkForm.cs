@@ -142,22 +142,20 @@ namespace Framework.GUI.Forms.Conversations
         /// Node list on selected item changed event handler.
         /// </summary>
         /// <param name="sender">Node list control.</param>
-        /// <param name="valid">Whether or not selected item is valid.</param>
-        /// <param name="id">Selected item's ID.</param>
-        private void NodeList_OnSelectedItemChanged(NodeListControl sender, bool valid, Guid id)
+        /// <param name="e"></param>
+        private void NodeList_OnSelectedItemChanged(object sender, SelectedNodeArgs e)
         {
-            okButton.Enabled = valid;
+            okButton.Enabled = e.Valid;
         }
 
         /// <summary>
         /// Node list on opened item changed event handler.
         /// </summary>
         /// <param name="sender">Node list control.</param>
-        /// <param name="valid">Whether or not opened item is valid.</param>
-        /// <param name="id">Opened item's ID.</param>
-        private void NodeList_OnOpenedItemChanged(NodeListControl sender, bool valid, Guid id)
+        /// <param name="e"></param>
+        private void NodeList_OnOpenedItemChanged(object sender, SelectedNodeArgs e)
         {
-            if (valid)
+            if (e.Valid)
             {
                 switch (_actionType)
                 {
@@ -168,7 +166,7 @@ namespace Framework.GUI.Forms.Conversations
                         }
                     case ActionType.Open:
                         {
-                            _nodeList.ViewNode(valid, id);
+                            _nodeList.ViewNode(e.Valid, e.Id);
                             break;
                         }
                     default:

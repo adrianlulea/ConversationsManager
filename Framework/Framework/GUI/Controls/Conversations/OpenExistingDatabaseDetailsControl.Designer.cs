@@ -28,7 +28,6 @@
       /// </summary>
       private void InitializeComponent()
       {
-         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OpenExistingDatabaseDetailsControl));
          this.existingGroupBox = new System.Windows.Forms.GroupBox();
          this.savedDataList = new System.Windows.Forms.ListView();
          this.nameHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -101,7 +100,7 @@
          // renameButton
          // 
          this.renameButton.Enabled = false;
-         this.renameButton.Image = ((System.Drawing.Image)(resources.GetObject("renameButton.Image")));
+         this.renameButton.Image = global::Framework.Properties.Resources.Edit;
          this.renameButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.renameButton.Name = "renameButton";
          this.renameButton.Size = new System.Drawing.Size(70, 22);
@@ -116,7 +115,7 @@
          // finishRenamingButton
          // 
          this.finishRenamingButton.Enabled = false;
-         this.finishRenamingButton.Image = ((System.Drawing.Image)(resources.GetObject("finishRenamingButton.Image")));
+         this.finishRenamingButton.Image = global::Framework.Properties.Resources.Confirm;
          this.finishRenamingButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.finishRenamingButton.Name = "finishRenamingButton";
          this.finishRenamingButton.Size = new System.Drawing.Size(55, 22);
@@ -126,7 +125,7 @@
          // deleteButton
          // 
          this.deleteButton.Enabled = false;
-         this.deleteButton.Image = ((System.Drawing.Image)(resources.GetObject("deleteButton.Image")));
+         this.deleteButton.Image = global::Framework.Properties.Resources.Delete;
          this.deleteButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.deleteButton.Name = "deleteButton";
          this.deleteButton.Size = new System.Drawing.Size(60, 22);

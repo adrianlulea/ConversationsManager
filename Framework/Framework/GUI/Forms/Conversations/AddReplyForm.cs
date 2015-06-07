@@ -250,6 +250,7 @@ namespace Framework.GUI.Forms.Conversations
                         basicInformation.BringToFront();
                         addReplyButton.Visible = false;
                         removeReplyButton.Visible = false;
+                        replyDropDownButton.Image = Properties.Resources.BasicInformation;
                         break;
                     }
                 case 1:
@@ -258,6 +259,7 @@ namespace Framework.GUI.Forms.Conversations
                         childrenList.BringToFront();
                         addReplyButton.Visible = true;
                         removeReplyButton.Visible = true;
+                        replyDropDownButton.Image = Properties.Resources.Children;
                         break;
                     }
                 case 2:
@@ -266,6 +268,7 @@ namespace Framework.GUI.Forms.Conversations
                         parentList.BringToFront();
                         addReplyButton.Visible = true;
                         removeReplyButton.Visible = true;
+                        replyDropDownButton.Image = Properties.Resources.Parents;
                         break;
                     }
                 default:
@@ -313,7 +316,8 @@ namespace Framework.GUI.Forms.Conversations
         /// Basic information on invalid information event handler.
         /// </summary>
         /// <param name="sender"></param>
-        private void basicInformation_OnInvalidInformation(BasicInformationControl sender)
+        /// <param name="e"></param>
+        private void basicInformation_OnInvalidInformation(object sender, EventArgs e)
         {
             doneButton.Enabled = false;
         }
@@ -322,7 +326,8 @@ namespace Framework.GUI.Forms.Conversations
         /// Basic information on valid information event handler.
         /// </summary>
         /// <param name="sender"></param>
-        private void basicInformation_OnValidInformation(BasicInformationControl sender)
+        /// <param name="e"></param>
+        private void basicInformation_OnValidInformation(object sender, EventArgs e)
         {
             doneButton.Enabled = true;
         }
@@ -331,13 +336,12 @@ namespace Framework.GUI.Forms.Conversations
         /// Node list on selected item changed event handler.
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="valid"></param>
-        /// <param name="id"></param>
-        private void NodeList_OnSelectedItemChanged(NodeListControl sender, bool valid, Guid id)
+        /// <param name="e"></param>
+        private void NodeList_OnSelectedItemChanged(object sender, SelectedNodeArgs e)
         {
-            _selectedLinkType = sender.Type;
-            _selectedLinkId = id;
-            removeReplyButton.Enabled = valid;
+            _selectedLinkType = ((NodeListControl)sender).Type;
+            _selectedLinkId = e.Id;
+            removeReplyButton.Enabled = e.Valid;
         }
 
         /// <summary>

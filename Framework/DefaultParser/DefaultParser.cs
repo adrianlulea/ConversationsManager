@@ -18,6 +18,8 @@ namespace DefaultParser
         private Dictionary<Guid, List<Guid>> _parents;
         private List<Guid> _existingIds;
 
+        private string _temporaryPath;
+
         #endregion
 
         #region Constructors
@@ -28,6 +30,8 @@ namespace DefaultParser
             this._children = new Dictionary<Guid, List<Guid>>();
             this._parents = new Dictionary<Guid, List<Guid>>();
             this._existingIds = new List<Guid>();
+
+            this._temporaryPath = Directory.GetCurrentDirectory() + "\\" + Guid.NewGuid().ToString() + ".tmp";
         }
 
         #endregion
@@ -67,7 +71,9 @@ namespace DefaultParser
             XmlDocument document = new XmlDocument();
             XmlNodeList nodeList;
 
-            FileStream fs = new FileStream(parsedFile, FileMode.Open, FileAccess.Read);
+            File.Copy(parsedFile, _temporaryPath, true);
+
+            FileStream fs = new FileStream(_temporaryPath, FileMode.Open, FileAccess.Read, FileShare.Read);
             document.Load(fs);
 
             nodeList = document.GetElementsByTagName("Turn");
@@ -160,6 +166,9 @@ namespace DefaultParser
 
                 reply.SealData();
             }
+
+            fs.Close();
+            File.Delete(_temporaryPath);
 
             return parsedConversation;
         }

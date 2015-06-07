@@ -28,7 +28,6 @@
       /// </summary>
       private void InitializeComponent()
       {
-         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ParserLibrariesControl));
          this.parsersGroupBox = new System.Windows.Forms.GroupBox();
          this.parserListView = new System.Windows.Forms.ListView();
          this.parserName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -99,7 +98,7 @@
          // 
          // addParserLibraryButton
          // 
-         this.addParserLibraryButton.Image = ((System.Drawing.Image)(resources.GetObject("addParserLibraryButton.Image")));
+         this.addParserLibraryButton.Image = global::Framework.Properties.Resources.Add;
          this.addParserLibraryButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.addParserLibraryButton.Name = "addParserLibraryButton";
          this.addParserLibraryButton.Size = new System.Drawing.Size(49, 22);
@@ -109,7 +108,7 @@
          // editParserLibraryButton
          // 
          this.editParserLibraryButton.Enabled = false;
-         this.editParserLibraryButton.Image = ((System.Drawing.Image)(resources.GetObject("editParserLibraryButton.Image")));
+         this.editParserLibraryButton.Image = global::Framework.Properties.Resources.Edit;
          this.editParserLibraryButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.editParserLibraryButton.Name = "editParserLibraryButton";
          this.editParserLibraryButton.Size = new System.Drawing.Size(47, 22);
@@ -119,7 +118,7 @@
          // deleteParserLibraryButton
          // 
          this.deleteParserLibraryButton.Enabled = false;
-         this.deleteParserLibraryButton.Image = ((System.Drawing.Image)(resources.GetObject("deleteParserLibraryButton.Image")));
+         this.deleteParserLibraryButton.Image = global::Framework.Properties.Resources.Delete;
          this.deleteParserLibraryButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.deleteParserLibraryButton.Name = "deleteParserLibraryButton";
          this.deleteParserLibraryButton.Size = new System.Drawing.Size(60, 22);

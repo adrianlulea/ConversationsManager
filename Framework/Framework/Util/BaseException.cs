@@ -8,6 +8,7 @@ namespace Framework.Util
     /// <summary>
     /// Base Exception.
     /// </summary>
+    [Serializable]
     public class BaseException : Exception
     {
         #region Constants
@@ -67,5 +68,19 @@ namespace Framework.Util
         }
 
         #endregion
+
+       #region Methods (Serializable)
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="info"></param>
+       /// <param name="context"></param>
+        public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+           base.GetObjectData(info, context);
+        }
+
+       #endregion
     }
 }

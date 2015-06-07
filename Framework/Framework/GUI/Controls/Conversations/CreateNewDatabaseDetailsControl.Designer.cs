@@ -28,7 +28,6 @@
       /// </summary>
       private void InitializeComponent()
       {
-         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateNewDatabaseDetailsControl));
          this.importFromFileCheckBox = new System.Windows.Forms.CheckBox();
          this.browseFileToImportButton = new System.Windows.Forms.Button();
          this.parserGroupBox = new System.Windows.Forms.GroupBox();
@@ -123,7 +122,7 @@
          // 
          // editAvailableParsersButton
          // 
-         this.editAvailableParsersButton.Image = ((System.Drawing.Image)(resources.GetObject("editAvailableParsersButton.Image")));
+         this.editAvailableParsersButton.Image = global::Framework.Properties.Resources.Edit;
          this.editAvailableParsersButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.editAvailableParsersButton.Name = "editAvailableParsersButton";
          this.editAvailableParsersButton.Size = new System.Drawing.Size(138, 22);
@@ -133,7 +132,7 @@
          // detailsButton
          // 
          this.detailsButton.Enabled = false;
-         this.detailsButton.Image = ((System.Drawing.Image)(resources.GetObject("detailsButton.Image")));
+         this.detailsButton.Image = global::Framework.Properties.Resources.Info;
          this.detailsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.detailsButton.Name = "detailsButton";
          this.detailsButton.Size = new System.Drawing.Size(62, 22);

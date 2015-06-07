@@ -107,7 +107,7 @@ namespace Framework.Data.Conversations
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(PreferencesData));
-                FileStream reader = new FileStream(path, FileMode.Open);
+                FileStream reader = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
 
                 data = (PreferencesData)serializer.Deserialize(reader);
                 reader.Close();
@@ -132,13 +132,14 @@ namespace Framework.Data.Conversations
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(PreferencesData));
-                FileStream writer = new FileStream(path, FileMode.Create);
+                FileStream writer = new FileStream(path, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
 
                 if (writer.CanWrite)
                 {
                     serializer.Serialize(writer, data);
-                    writer.Close();
                 }
+
+                writer.Close();
             }
 
             catch

@@ -8,6 +8,7 @@ namespace Framework.Util
     /// <summary>
     /// DuplicateReplyParentException class.
     /// </summary>
+    [Serializable]
     public class DuplicateReplyParentException : BaseException
     {
         #region Constants

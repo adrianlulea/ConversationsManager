@@ -8,6 +8,7 @@ namespace Framework.Util
     /// <summary>
     /// InvalidReplyTextException class.
     /// </summary>
+    [Serializable]
     public class InvalidReplyTextException : BaseException
     {
         #region Constants

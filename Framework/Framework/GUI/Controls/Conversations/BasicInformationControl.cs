@@ -92,7 +92,8 @@ namespace Framework.GUI.Controls.Conversations
         /// Invalid information delegate
         /// </summary>
         /// <param name="sender"></param>
-        public delegate void InvalidInformation(BasicInformationControl sender);
+        /// <param name="e"></param>
+        public delegate void InvalidInformation(object sender, EventArgs e);
 
         /// <summary>
         /// OnInvalidInformation event.
@@ -107,7 +108,8 @@ namespace Framework.GUI.Controls.Conversations
         /// ValidInformation delegate.
         /// </summary>
         /// <param name="sender"></param>
-        public delegate void ValidInformation(BasicInformationControl sender);
+        /// <param name="e"></param>
+        public delegate void ValidInformation(object sender, EventArgs e);
 
         /// <summary>
         /// OnValidInformation event.
@@ -158,7 +160,7 @@ namespace Framework.GUI.Controls.Conversations
         {
             if (OnInvalidInformation != null)
             {
-                OnInvalidInformation.Invoke(this);
+                OnInvalidInformation.Invoke(this, new EventArgs());
             }
         }
 
@@ -169,7 +171,7 @@ namespace Framework.GUI.Controls.Conversations
         {
             if (OnValidInformation != null)
             {
-                OnValidInformation.Invoke(this);
+                OnValidInformation.Invoke(this, new EventArgs());
             }
         }
 

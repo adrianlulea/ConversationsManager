@@ -270,7 +270,8 @@ namespace Framework.GUI.Controls.Conversations
         /// InvalidInformation delegate.
         /// </summary>
         /// <param name="sender"></param>
-        public delegate void InvalidInformation(NodeListControl sender);
+        /// <param name="e"></param>
+        public delegate void InvalidInformation(object sender, EventArgs e);
 
         /// <summary>
         /// OnInvalidInformation event.
@@ -285,9 +286,8 @@ namespace Framework.GUI.Controls.Conversations
         /// SelectedItemChanged delegate.
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="valid"></param>
-        /// <param name="id"></param>
-        public delegate void SelectedItemChanged(NodeListControl sender, bool valid, Guid id);
+        /// <param name="e"></param>
+        public delegate void SelectedItemChanged(object sender, SelectedNodeArgs e);
 
         /// <summary>
         /// OnSelectedItemChanged event.
@@ -302,9 +302,8 @@ namespace Framework.GUI.Controls.Conversations
         /// OpenedItemChanged delegate,
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="valid"></param>
-        /// <param name="id"></param>
-        public delegate void OpenedItemChanged(NodeListControl sender, bool valid, Guid id);
+        /// <param name="e"></param>
+        public delegate void OpenedItemChanged(object sender, SelectedNodeArgs e);
 
         /// <summary>
         /// OnOpenedItemChanged event.
@@ -319,8 +318,8 @@ namespace Framework.GUI.Controls.Conversations
         /// NodeDataChanged delegate.
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="id"></param>
-        public delegate void NodeDataChanged(NodeListControl sender, Guid id);
+        /// <param name="e"></param>
+        public delegate void NodeDataChanged(object sender, SelectedNodeArgs e);
 
         /// <summary>
         /// OnNodeDataChanged event.
@@ -359,7 +358,8 @@ namespace Framework.GUI.Controls.Conversations
 
             if (OnSelectedItemChanged != null)
             {
-                OnSelectedItemChanged.Invoke(this, valid, _selectedId);
+               SelectedNodeArgs args = new SelectedNodeArgs(valid, _selectedId);
+               OnSelectedItemChanged.Invoke(this, args);
             }
         }
 
@@ -381,7 +381,8 @@ namespace Framework.GUI.Controls.Conversations
 
             if (OnOpenedItemChanged != null)
             {
-                OnOpenedItemChanged.Invoke(this, valid, id);
+               SelectedNodeArgs args = new SelectedNodeArgs(valid, id);
+                OnOpenedItemChanged.Invoke(this, args);
             }
             else
             {
@@ -426,7 +427,8 @@ namespace Framework.GUI.Controls.Conversations
 
             if (OnNodeDataChanged != null)
             {
-                OnNodeDataChanged(this, _selectedId);
+               SelectedNodeArgs args = new SelectedNodeArgs(true, _selectedId);
+                OnNodeDataChanged(this, args);
             }
 
             saveChangesButton.Enabled = false;
@@ -581,7 +583,7 @@ namespace Framework.GUI.Controls.Conversations
 
             if (OnInvalidInformation != null)
             {
-                OnInvalidInformation.Invoke(this);
+                OnInvalidInformation.Invoke(this, new EventArgs());
             }
         }
 
@@ -733,7 +735,8 @@ namespace Framework.GUI.Controls.Conversations
 
                 if (OnNodeDataChanged != null)
                 {
-                    OnNodeDataChanged.Invoke(this, id);
+                   SelectedNodeArgs args = new SelectedNodeArgs(true, id);
+                    OnNodeDataChanged.Invoke(this, args);
                 }
             }
         }

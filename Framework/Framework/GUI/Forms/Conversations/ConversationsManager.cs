@@ -385,31 +385,30 @@ namespace Framework.GUI.Forms.Conversations
         /// Conversations host on selected item changed event handler.
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="valid"></param>
-        /// <param name="id"></param>
-        private void ConversationsHost_OnSelectedItemChanged(NodeListControl sender, bool valid, Guid id)
+        /// <param name="e"></param>
+        private void ConversationsHost_OnSelectedItemChanged(object sender, SelectedNodeArgs e)
         {
-            if (valid)
+            if (e.Valid)
             {
-                _selectedId = id;
-                _selectedType = sender.Type;
+                _selectedId = e.Id;
+                _selectedType = ((NodeListControl)sender).Type;
             }
 
-            switch (sender.Type)
+            switch (((NodeListControl)sender).Type)
             {
                 case NodeListControlType.Basic:
                     {
-                        SelectedNode(valid);
+                       SelectedNode(e.Valid);
                         break;
                     }
                 case NodeListControlType.Children:
                     {
-                        SelectedChild(valid);
+                       SelectedChild(e.Valid);
                         break;
                     }
                 case NodeListControlType.Parents:
                     {
-                        SelectedParent(valid);
+                       SelectedParent(e.Valid);
                         break;
                     }
                 default:
@@ -488,7 +487,7 @@ namespace Framework.GUI.Forms.Conversations
             if (openData.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 bool newDatabase = (openData.State == SavedDataManagerState.CreateNewData);
-                InitializeDatabase(newDatabase, false, null);
+                InitializeDatabase(newDatabase, openData.ImportFromFile, openData.ImportedConversation);
             }
         }
 

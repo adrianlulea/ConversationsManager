@@ -8,4 +8,5 @@
   <SaveLocation />
   <BinaryFormat>true</BinaryFormat>
   <XMLFormat>false</XMLFormat>
+  <ParserPath>Parsers</ParserPath>
 </PreferencesData>

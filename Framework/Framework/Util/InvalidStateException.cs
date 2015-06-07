@@ -8,6 +8,7 @@ namespace Framework.Util
     /// <summary>
     /// InvalidStateException class.
     /// </summary>
+    [Serializable]
     public class InvalidStateException : BaseException
     {
         #region Constants

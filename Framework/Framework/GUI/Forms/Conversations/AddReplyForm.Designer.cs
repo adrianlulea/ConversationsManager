@@ -30,7 +30,6 @@ namespace Framework.GUI.Forms.Conversations
         /// </summary>
         private void InitializeComponent()
         {
-         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddReplyForm));
          this.userDataRadioButton = new System.Windows.Forms.RadioButton();
          this.xmlDataRadioButton = new System.Windows.Forms.RadioButton();
          this.browseXmlButton = new System.Windows.Forms.Button();
@@ -192,7 +191,7 @@ namespace Framework.GUI.Forms.Conversations
             this.basicInformationToolStripMenuItem,
             this.childrenToolStripMenuItem,
             this.parentsToolStripMenuItem});
-         this.replyDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("replyDropDownButton.Image")));
+         this.replyDropDownButton.Image = global::Framework.Properties.Resources.BasicInformation;
          this.replyDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.replyDropDownButton.Name = "replyDropDownButton";
          this.replyDropDownButton.Size = new System.Drawing.Size(129, 22);
@@ -200,6 +199,7 @@ namespace Framework.GUI.Forms.Conversations
          // 
          // basicInformationToolStripMenuItem
          // 
+         this.basicInformationToolStripMenuItem.Image = global::Framework.Properties.Resources.BasicInformation;
          this.basicInformationToolStripMenuItem.Name = "basicInformationToolStripMenuItem";
          this.basicInformationToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
          this.basicInformationToolStripMenuItem.Tag = "0";
@@ -208,6 +208,7 @@ namespace Framework.GUI.Forms.Conversations
          // 
          // childrenToolStripMenuItem
          // 
+         this.childrenToolStripMenuItem.Image = global::Framework.Properties.Resources.Children;
          this.childrenToolStripMenuItem.Name = "childrenToolStripMenuItem";
          this.childrenToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
          this.childrenToolStripMenuItem.Tag = "1";
@@ -216,6 +217,7 @@ namespace Framework.GUI.Forms.Conversations
          // 
          // parentsToolStripMenuItem
          // 
+         this.parentsToolStripMenuItem.Image = global::Framework.Properties.Resources.Parents;
          this.parentsToolStripMenuItem.Name = "parentsToolStripMenuItem";
          this.parentsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
          this.parentsToolStripMenuItem.Tag = "2";
@@ -229,7 +231,7 @@ namespace Framework.GUI.Forms.Conversations
          // 
          // addReplyButton
          // 
-         this.addReplyButton.Image = ((System.Drawing.Image)(resources.GetObject("addReplyButton.Image")));
+         this.addReplyButton.Image = global::Framework.Properties.Resources.Add;
          this.addReplyButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.addReplyButton.Name = "addReplyButton";
          this.addReplyButton.Size = new System.Drawing.Size(49, 22);
@@ -240,7 +242,7 @@ namespace Framework.GUI.Forms.Conversations
          // removeReplyButton
          // 
          this.removeReplyButton.Enabled = false;
-         this.removeReplyButton.Image = ((System.Drawing.Image)(resources.GetObject("removeReplyButton.Image")));
+         this.removeReplyButton.Image = global::Framework.Properties.Resources.Delete;
          this.removeReplyButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.removeReplyButton.Name = "removeReplyButton";
          this.removeReplyButton.Size = new System.Drawing.Size(70, 22);

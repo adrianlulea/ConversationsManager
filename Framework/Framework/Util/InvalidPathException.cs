@@ -8,6 +8,7 @@ namespace Framework.Util
     /// <summary>
     /// InvalidPathException class.
     /// </summary>
+    [Serializable]
     public class InvalidPathException : BaseException
     {
         #region Constants

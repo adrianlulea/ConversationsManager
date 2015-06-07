@@ -399,6 +399,7 @@ namespace Framework.Data.Conversations
         public static ExternalDatabase Deserialize(string path, ExternalFormat format)
         {
             ExternalDatabase database;
+            Stream stream = null;
 
             try
             {
@@ -408,7 +409,7 @@ namespace Framework.Data.Conversations
                     {
                         case ExternalFormat.BinaryFormat:
                             {
-                                Stream stream = File.Open(path, FileMode.Open);
+                                stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read);
                                 BinaryFormatter bFormatter = new BinaryFormatter();
                                 database = (ExternalDatabase)bFormatter.Deserialize(stream);
                                 stream.Close();
@@ -417,9 +418,9 @@ namespace Framework.Data.Conversations
                         case ExternalFormat.XMLFormat:
                             {
                                 XmlSerializer serializer = new XmlSerializer(typeof(ExternalDatabase));
-                                FileStream reader = new FileStream(path, FileMode.Open);
-                                database = (ExternalDatabase)serializer.Deserialize(reader);
-                                reader.Close();
+                                stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                                database = (ExternalDatabase)serializer.Deserialize(stream);
+                                stream.Close();
                                 break;
                             }
                         default:
@@ -438,6 +439,11 @@ namespace Framework.Data.Conversations
             }
             catch
             {
+               if (stream != null)
+               {
+                  stream.Close();
+               }
+
                 throw new DataDeserializationException();
             }
         }

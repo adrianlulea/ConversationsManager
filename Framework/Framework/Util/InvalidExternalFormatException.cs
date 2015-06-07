@@ -8,6 +8,7 @@ namespace Framework.Util
     /// <summary>
     /// InvalidExternalFormatException class.
     /// </summary>
+    [Serializable]
     public class InvalidExternalFormatException : BaseException
     {
         #region Constants

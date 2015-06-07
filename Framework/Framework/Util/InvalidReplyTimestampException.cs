@@ -8,6 +8,7 @@ namespace Framework.Util
     /// <summary>
     /// InvalidReplyTimestampException class.
     /// </summary>
+    [Serializable]
     public class InvalidReplyTimestampException : BaseException
     {
         #region Constants

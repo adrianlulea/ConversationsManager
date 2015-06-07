@@ -8,6 +8,7 @@ namespace Framework.Util
     /// <summary>
     /// FrameworkExceptionClass class.
     /// </summary>
+    [Serializable]
     public class FrameworkExceptionClass : BaseException
     {
         #region Constants

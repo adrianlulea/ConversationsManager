@@ -8,6 +8,7 @@ namespace Framework.Util
     /// <summary>
     /// InvalidReplyAuthorException class.
     /// </summary>
+    [Serializable]
     public class InvalidReplyAuthorException : BaseException
     {
         #region Constants

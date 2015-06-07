@@ -161,6 +161,11 @@
       <DependentUpon>ViewReplyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Util\ActionType.cs" />
     <Compile Include="Util\AddReplyType.cs" />
     <Compile Include="Util\AddType.cs" />
@@ -185,6 +190,7 @@
     <Compile Include="Util\FrameworkExceptionClass.cs" />
     <Compile Include="Util\ReplyField.cs" />
     <Compile Include="Util\SavedDataManagerState.cs" />
+    <Compile Include="Util\SelectedNodeArgs.cs" />
     <Compile Include="Util\ViewNodeMode.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +248,82 @@
     <EmbeddedResource Include="GUI\Forms\Conversations\ViewReplyForm.resx">
       <DependentUpon>ViewReplyForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682344_plus_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682585_tick_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682589_save_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682673_delete_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682695_warning_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682699_gear_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682701_search_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682703_pencil_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682710_document_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682713_folder_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682715_right_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682717_left_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682723_info_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682726_block_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682728_clipboard_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682745_help_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433682758_bubble_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433683167_Login-Manager.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433683202_agt_family.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433683793_down_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433683796_up_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433684221_bubble_16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433684913_diagram_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1433684916_monitor_64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

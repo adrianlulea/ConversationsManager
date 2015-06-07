@@ -8,6 +8,7 @@ namespace Framework.Util
     /// <summary>
     /// InvalidFieldException class.
     /// </summary>
+    [Serializable]
     public class InvalidFieldException : BaseException
     {
         #region Constants

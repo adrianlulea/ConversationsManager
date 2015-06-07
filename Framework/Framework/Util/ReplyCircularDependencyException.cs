@@ -8,6 +8,7 @@ namespace Framework.Util
     /// <summary>
     /// ReplyCircularDependencyException class.
     /// </summary>
+    [Serializable]
     public class ReplyCircularDependencyException : BaseException
     {
         #region Constants

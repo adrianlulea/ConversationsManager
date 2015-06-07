@@ -8,6 +8,7 @@ namespace Framework.Util
     /// <summary>
     /// DataDeserializationException class.
     /// </summary>
+    [Serializable]
     public class DataDeserializationException : BaseException
     {
         #region Constants
