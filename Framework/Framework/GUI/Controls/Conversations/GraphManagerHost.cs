@@ -302,19 +302,18 @@ namespace Framework.GUI.Controls.Conversations
       {
          _refreshNodes = deleted;
 
-         RefreshGraph();
-
          if (_refreshNodes)
          {
             ClearChildren();
             ClearParents();
+            RefreshGraph();
          }
       }
 
       private void InitializeGraph()
       {
          graphHost.Child = GenerateWPFHost();
-         _zoomControl.ZoomToFill();
+         //_zoomControl.ZoomToFill();
          _host.GenerateGraph(true);
          _host.SetVerticesDrag(false);
          _zoomControl.ZoomToFill();
@@ -331,12 +330,47 @@ namespace Framework.GUI.Controls.Conversations
       {
          var dataGraph = new Graph.Graph();
 
+         // Add all replies (also keep a hash [replyId, vertex]
+         Dictionary<Guid, DataVertex> nodeHash = new Dictionary<Guid, DataVertex>();
+
+         foreach (InternalReply internalReply in _dataManager.Replies)
+         {
+            Guid replyId = internalReply.Id;
+            var dataNode = new DataVertex(replyId, "");
+
+            nodeHash.Add(replyId, dataNode);
+
+            dataGraph.AddVertex(dataNode);
+         }
+
+         // Populate edges
+         foreach (InternalReply internalReply in _dataManager.Replies)
+         {
+            Guid replyId = internalReply.Id;
+            var replyNode = nodeHash[replyId];
+
+            foreach (Guid parent in internalReply.Parents)
+            {
+               var parentNode = nodeHash[parent];
+               var dataEdge = new DataEdge(parentNode, replyNode)
+               {
+                  Text = string.Format("{0} -> {1}", parentNode, replyNode)
+               };
+
+               dataGraph.AddEdge(dataEdge);
+            }
+         }
+
+
          // 5 noduri
-         var dataNode1 = new DataVertex("Node1");
-         var dataNode2 = new DataVertex("Node2");
-         var dataNode3 = new DataVertex("Node3");
-         var dataNode4 = new DataVertex("Node4");
-         var dataNode5 = new DataVertex("Node5");
+
+
+
+         /*var dataNode1 = new DataVertex("", Guid.Empty);
+         var dataNode2 = new DataVertex("", Guid.Empty);
+         var dataNode3 = new DataVertex("", Guid.Empty);
+         var dataNode4 = new DataVertex("", Guid.Empty);
+         var dataNode5 = new DataVertex("", Guid.Empty);
 
          dataGraph.AddVertex(dataNode1);
          dataGraph.AddVertex(dataNode2);
@@ -353,7 +387,7 @@ namespace Framework.GUI.Controls.Conversations
 
          dataGraph.AddEdge(dataEdge1);
          dataGraph.AddEdge(dataEdge2);
-         dataGraph.AddEdge(dataEdge3);
+         dataGraph.AddEdge(dataEdge3);*/
 
          return dataGraph;
       }
@@ -370,6 +404,8 @@ namespace Framework.GUI.Controls.Conversations
             EnableWinFormsHostingMode = true,
             LogicCore = logic
          };
+
+         _host.OnSelectedNodeChanged += _host_OnSelectedNodeChanged;
 
          logic.Graph = GenerateGraph();
          logic.DefaultLayoutAlgorithm = LayoutAlgorithmTypeEnum.LinLog;
@@ -393,8 +429,6 @@ namespace Framework.GUI.Controls.Conversations
 
          return _zoomControl;
       }
-
-      
 
       #endregion
 
@@ -471,6 +505,36 @@ namespace Framework.GUI.Controls.Conversations
       void _host_RelayoutFinished(object sender, EventArgs e)
       {
          _zoomControl.ZoomToFill();
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      private void _host_OnSelectedNodeChanged(object sender, SelectedNodeArgs args)
+      {
+         InternalReplyData replyData = _dataManager.GetReplyData(args.Id);
+         string author = replyData.Author;
+         string text = replyData.Text;
+
+         // Node details
+         selectedNodeParentAuthorTextBox.Text = author;
+         selectedNodeParentTextTextBox.Text = text;
+
+         // Parents
+         parentsNodeList.RootNode = args.Id;
+         parentsNodeList.UpdateContent();
+
+         // Children
+         childrenNodesList.RootNode = args.Id;
+         childrenNodesList.UpdateContent();
+
+         //TODO
+         /*if (OnSelectedItemChanged != null)
+         {
+            OnSelectedItemChanged.Invoke(sender, args);
+         }*/
       }
 
       #endregion

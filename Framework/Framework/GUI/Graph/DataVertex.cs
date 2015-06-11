@@ -13,12 +13,30 @@ namespace Framework.GUI.Graph
    /// </summary>
    public class DataVertex : VertexBase
    {
+
+      #region Members
+
+      /// <summary>
+      /// 
+      /// </summary>
+      private Guid _replyId;
+
+      #endregion
+      
       #region Properties
 
       /// <summary>
       /// Some string property for example purposes
       /// </summary>
       public string Text { get; set; }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public Guid ReplyId
+      {
+         get { return _replyId; }
+      }
 
       #endregion
 
@@ -29,7 +47,7 @@ namespace Framework.GUI.Graph
       /// (required for YAXLib serialization)
       /// </summary>
       public DataVertex()
-         : this("")
+         : this(Guid.Empty, "")
       {
       }
 
@@ -37,9 +55,11 @@ namespace Framework.GUI.Graph
       /// 
       /// </summary>
       /// <param name="text"></param>
-      public DataVertex(string text = "")
+      /// <param name="id"></param>
+      public DataVertex(Guid id, string text = "")
       {
          Text = text;
+         _replyId = id;
       }
 
       #endregion

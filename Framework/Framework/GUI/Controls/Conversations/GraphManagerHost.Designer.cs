@@ -78,7 +78,6 @@
          // selectedNodeOrLinkSplitContainer.Panel2
          // 
          this.selectedNodeOrLinkSplitContainer.Panel2.Controls.Add(this.selectedLinkSplitContainer);
-         this.selectedNodeOrLinkSplitContainer.Panel2Collapsed = true;
          this.selectedNodeOrLinkSplitContainer.Size = new System.Drawing.Size(1016, 692);
          this.selectedNodeOrLinkSplitContainer.SplitterDistance = 557;
          this.selectedNodeOrLinkSplitContainer.TabIndex = 0;
@@ -97,7 +96,7 @@
          // graphLinksSplitContainer.Panel2
          // 
          this.graphLinksSplitContainer.Panel2.Controls.Add(this.parentsChildrenSplitContainer);
-         this.graphLinksSplitContainer.Size = new System.Drawing.Size(1016, 692);
+         this.graphLinksSplitContainer.Size = new System.Drawing.Size(1016, 557);
          this.graphLinksSplitContainer.SplitterDistance = 679;
          this.graphLinksSplitContainer.TabIndex = 0;
          // 
@@ -106,7 +105,7 @@
          this.graphHost.Dock = System.Windows.Forms.DockStyle.Fill;
          this.graphHost.Location = new System.Drawing.Point(0, 0);
          this.graphHost.Name = "graphHost";
-         this.graphHost.Size = new System.Drawing.Size(677, 690);
+         this.graphHost.Size = new System.Drawing.Size(677, 555);
          this.graphHost.TabIndex = 0;
          this.graphHost.Text = "elementHost1";
          this.graphHost.Child = null;
@@ -118,8 +117,8 @@
          this.parentsChildrenSplitContainer.Location = new System.Drawing.Point(0, 0);
          this.parentsChildrenSplitContainer.Name = "parentsChildrenSplitContainer";
          this.parentsChildrenSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-         this.parentsChildrenSplitContainer.Size = new System.Drawing.Size(333, 692);
-         this.parentsChildrenSplitContainer.SplitterDistance = 354;
+         this.parentsChildrenSplitContainer.Size = new System.Drawing.Size(333, 557);
+         this.parentsChildrenSplitContainer.SplitterDistance = 284;
          this.parentsChildrenSplitContainer.TabIndex = 0;
          // 
          // selectedLinkSplitContainer
@@ -145,8 +144,8 @@
          this.selectedLinkSplitContainer.Panel2.Controls.Add(this.selectedNodeChildAuthorTextBox);
          this.selectedLinkSplitContainer.Panel2.Controls.Add(this.selectedNodeChildAuthorLabel);
          this.selectedLinkSplitContainer.Panel2Collapsed = true;
-         this.selectedLinkSplitContainer.Size = new System.Drawing.Size(150, 46);
-         this.selectedLinkSplitContainer.SplitterDistance = 510;
+         this.selectedLinkSplitContainer.Size = new System.Drawing.Size(1016, 131);
+         this.selectedLinkSplitContainer.SplitterDistance = 125;
          this.selectedLinkSplitContainer.TabIndex = 0;
          // 
          // selectedNodeParentToolStrip
@@ -155,7 +154,7 @@
             this.saveChangesSelectedNodeParentButton});
          this.selectedNodeParentToolStrip.Location = new System.Drawing.Point(0, 0);
          this.selectedNodeParentToolStrip.Name = "selectedNodeParentToolStrip";
-         this.selectedNodeParentToolStrip.Size = new System.Drawing.Size(148, 25);
+         this.selectedNodeParentToolStrip.Size = new System.Drawing.Size(1014, 25);
          this.selectedNodeParentToolStrip.TabIndex = 4;
          this.selectedNodeParentToolStrip.Text = "toolStrip1";
          // 
@@ -175,7 +174,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
          this.selectedNodeParentTextTextBox.Location = new System.Drawing.Point(50, 54);
          this.selectedNodeParentTextTextBox.Name = "selectedNodeParentTextTextBox";
-         this.selectedNodeParentTextTextBox.Size = new System.Drawing.Size(95, 0);
+         this.selectedNodeParentTextTextBox.Size = new System.Drawing.Size(961, 85);
          this.selectedNodeParentTextTextBox.TabIndex = 3;
          this.selectedNodeParentTextTextBox.Text = "";
          // 
@@ -220,7 +219,7 @@
          this.saveChangesSelectedNodeChildButton.Image = global::Framework.Properties.Resources.Save;
          this.saveChangesSelectedNodeChildButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.saveChangesSelectedNodeChildButton.Name = "saveChangesSelectedNodeChildButton";
-         this.saveChangesSelectedNodeChildButton.Size = new System.Drawing.Size(98, 22);
+         this.saveChangesSelectedNodeChildButton.Size = new System.Drawing.Size(98, 20);
          this.saveChangesSelectedNodeChildButton.Text = "Save changes";
          // 
          // selectedNodeChildTextTextBox
@@ -230,7 +229,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
          this.selectedNodeChildTextTextBox.Location = new System.Drawing.Point(48, 55);
          this.selectedNodeChildTextTextBox.Name = "selectedNodeChildTextTextBox";
-         this.selectedNodeChildTextTextBox.Size = new System.Drawing.Size(453, 70);
+         this.selectedNodeChildTextTextBox.Size = new System.Drawing.Size(378, 12);
          this.selectedNodeChildTextTextBox.TabIndex = 8;
          this.selectedNodeChildTextTextBox.Text = "";
          // 

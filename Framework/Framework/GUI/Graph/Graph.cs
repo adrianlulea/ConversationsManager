@@ -12,6 +12,6 @@ namespace Framework.GUI.Graph
    /// </summary>
    public class Graph : BidirectionalGraph<DataVertex, DataEdge>
    {
-
+      
    }
 }
