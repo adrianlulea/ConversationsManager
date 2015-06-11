@@ -76,7 +76,7 @@ namespace Framework.GUI.Controls.Conversations
         /// </summary>
         public bool SimpleView
         {
-            get { return (_viewChildren || _viewParents || _graphView) ? false : true; }
+            get { return (_viewChildren || _viewParents/* || _graphView*/) ? false : true; }
         }
 
         /// <summary>
@@ -120,8 +120,6 @@ namespace Framework.GUI.Controls.Conversations
         {
             // Set data
             _graphView = graph;
-            _viewParents = parents;
-            _viewChildren = children;
             _dataManager = dataManager;
 
             // Default Dock = DockStyle.Fill
@@ -129,6 +127,9 @@ namespace Framework.GUI.Controls.Conversations
 
             // Initialize GUI (except lists)
             InitializeComponent();
+
+            Parents = parents;
+            Children = children;
 
             // Initialize lists
             InitializeLists();
@@ -266,7 +267,7 @@ namespace Framework.GUI.Controls.Conversations
         /// </summary>
         private void LoadNormalView()
         {
-            splitContainer1.Panel2Collapsed = SimpleView;
+           splitContainer1.Panel2Collapsed = SimpleView;
             normalViewNodeList.UpdateContent();
 
             if (_refreshNodes)
@@ -326,7 +327,7 @@ namespace Framework.GUI.Controls.Conversations
             }
             else
             {
-                splitContainer2.Panel1Collapsed = true;
+                //splitContainer2.Panel1Collapsed = true;
                 splitContainer1.Panel2Collapsed = !(_viewParents || _viewChildren);
 
                 if (_viewParents)
@@ -365,7 +366,7 @@ namespace Framework.GUI.Controls.Conversations
             }
             else
             {
-                splitContainer2.Panel1Collapsed = true;
+                //splitContainer2.Panel1Collapsed = true;
                 splitContainer1.Panel2Collapsed = !(_viewParents || _viewChildren);
 
                 if (_viewChildren)

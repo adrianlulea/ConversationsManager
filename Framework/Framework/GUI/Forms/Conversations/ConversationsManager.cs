@@ -11,6 +11,10 @@ using Framework.GUI.Controls.Conversations;
 using Framework.Util;
 using Framework.Data.Conversations;
 using Parser;
+using QuickGraph;
+using QuickGraph.Collections;
+using QuickGraph.Data;
+using QuickGraph.Graphviz.Dot;
 
 namespace Framework.GUI.Forms.Conversations
 {
@@ -54,7 +58,17 @@ namespace Framework.GUI.Forms.Conversations
         /// <summary>
         /// Conversations Manager host.
         /// </summary>
-        private ConversationsManagerHost _host;
+        private ConversationsManagerHost _normalHost;
+
+       /// <summary>
+       /// Conversation Manager Graph host.
+       /// </summary>
+        private GraphManagerHost _graphHost;
+
+       /// <summary>
+       /// Conversation manager viewing mode.
+       /// </summary>
+        private ConversationsManagerViewMode _viewMode;
 
         /// <summary>
         /// Add type.
@@ -115,11 +129,12 @@ namespace Framework.GUI.Forms.Conversations
         public bool Parents
         {
             get { return showParentsButton.Checked; }
-            set
-            {
-                showParentsButton.Checked = value;
-                _host.Parents = value;
-            }
+           set
+           {
+              showParentsButton.Checked = value;
+              _normalHost.Parents = value;
+              _graphHost.Parents = value;
+           }
         }
 
         /// <summary>
@@ -128,11 +143,13 @@ namespace Framework.GUI.Forms.Conversations
         public bool Children
         {
             get { return showChildrenButton.Checked; }
-            set
-            {
-                showChildrenButton.Checked = value;
-                _host.Children = value;
-            }
+           set
+           {
+              showChildrenButton.Checked = value;
+              _normalHost.Children = value;
+              _graphHost.Children = value;
+
+           }
         }
 
        /// <summary>
@@ -156,7 +173,11 @@ namespace Framework.GUI.Forms.Conversations
             _preferencesManager = new PreferencesManager();
 
             // Initialize host
-            _host = null;
+            _normalHost = null;
+            _graphHost = null;
+
+           // Set view mode
+            _viewMode = ConversationsManagerViewMode.NormalMode;
 
             // Set add type
             _addType = AddType.Reply;
@@ -452,6 +473,40 @@ namespace Framework.GUI.Forms.Conversations
 
         #endregion
 
+        #region Graph
+
+        private void showGraphButton_Click(object sender, EventArgs e)
+        {
+           bool updatesNeeded = false; //TODO determine if data has been deleted
+
+           switch(_viewMode)
+           {
+              case ConversationsManagerViewMode.NormalMode:
+                 {
+                    _graphHost.UpdateContent(updatesNeeded);
+                    _graphHost.BringToFront();
+
+                    _viewMode = ConversationsManagerViewMode.GraphMode;
+                    showGraphButton.Image = Properties.Resources.BasicInformation;
+                    showGraphButton.Text = "Normal";
+                    break;
+                 }
+              case ConversationsManagerViewMode.GraphMode:
+                 {
+                    _normalHost.UpdateContent(updatesNeeded);
+                    _normalHost.BringToFront();
+
+                    _viewMode = ConversationsManagerViewMode.NormalMode;
+                    showGraphButton.Image = Properties.Resources.Graph;
+                    showGraphButton.Text = "Graph";
+                    break;
+                 }
+           }
+           
+        }
+
+        #endregion
+
         #endregion
 
         #region Methods
@@ -632,13 +687,22 @@ namespace Framework.GUI.Forms.Conversations
             // Initialize host and add it to conversationsHost
             conversationsToolStrip.Visible = true;
             conversationsHost.Controls.Clear();
-            _host = new ConversationsManagerHost(_dataManager, graphFlag, parentsFlag, childrenFlag);
-            _host.OnSelectedItemChanged += new ConversationsManagerHost.SelectedItemChanged(ConversationsHost_OnSelectedItemChanged);
-            _host.SetContextMenu(NodeListControlType.Basic, nodesContextMenu);
-            _host.SetContextMenu(NodeListControlType.Children, childrenParentsContextMenu);
-            _host.SetContextMenu(NodeListControlType.Parents, childrenParentsContextMenu);
-            conversationsHost.Controls.Add(_host);
-            _host.UpdateContent(false);
+
+           // Normal view host
+            _normalHost = new ConversationsManagerHost(_dataManager, graphFlag, parentsFlag, childrenFlag);
+            _normalHost.OnSelectedItemChanged += new ConversationsManagerHost.SelectedItemChanged(ConversationsHost_OnSelectedItemChanged);
+            _normalHost.SetContextMenu(NodeListControlType.Basic, nodesContextMenu);
+            _normalHost.SetContextMenu(NodeListControlType.Children, childrenParentsContextMenu);
+            _normalHost.SetContextMenu(NodeListControlType.Parents, childrenParentsContextMenu);
+            conversationsHost.Controls.Add(_normalHost);
+            _normalHost.UpdateContent(false);
+
+           // Graph view host
+            _graphHost = new GraphManagerHost(_dataManager, Parents, Children);
+            _graphHost.OnSelectedItemChanged += new GraphManagerHost.SelectedItemChanged(ConversationsHost_OnSelectedItemChanged);
+
+            conversationsHost.Controls.Add(_graphHost);
+            _graphHost.UpdateContent(false);
         }
 
        /// <summary>
@@ -673,13 +737,13 @@ namespace Framework.GUI.Forms.Conversations
            // Initialize host and add it to conversationsHost
            conversationsToolStrip.Visible = true;
            conversationsHost.Controls.Clear();
-           _host = new ConversationsManagerHost(_dataManager, graphFlag, parentsFlag, childrenFlag);
-           _host.OnSelectedItemChanged += new ConversationsManagerHost.SelectedItemChanged(ConversationsHost_OnSelectedItemChanged);
-           _host.SetContextMenu(NodeListControlType.Basic, nodesContextMenu);
-           _host.SetContextMenu(NodeListControlType.Children, childrenParentsContextMenu);
-           _host.SetContextMenu(NodeListControlType.Parents, childrenParentsContextMenu);
-           conversationsHost.Controls.Add(_host);
-           _host.UpdateContent(false);
+           _normalHost = new ConversationsManagerHost(_dataManager, graphFlag, parentsFlag, childrenFlag);
+           _normalHost.OnSelectedItemChanged += new ConversationsManagerHost.SelectedItemChanged(ConversationsHost_OnSelectedItemChanged);
+           _normalHost.SetContextMenu(NodeListControlType.Basic, nodesContextMenu);
+           _normalHost.SetContextMenu(NodeListControlType.Children, childrenParentsContextMenu);
+           _normalHost.SetContextMenu(NodeListControlType.Parents, childrenParentsContextMenu);
+           conversationsHost.Controls.Add(_normalHost);
+           _normalHost.UpdateContent(false);
         }
 
         /// <summary>
@@ -799,7 +863,7 @@ namespace Framework.GUI.Forms.Conversations
         /// <param name="deletedNode">Field that needs updated</param>
         private void UpdateContent(ReplyField deletedNode)
         {
-            _host.UpdateContent(deletedNode);
+            _normalHost.UpdateContent(deletedNode);
         }
 
         /// <summary>
@@ -808,7 +872,7 @@ namespace Framework.GUI.Forms.Conversations
         /// <param name="deleted">Whether or not something was deleted.</param>
         private void UpdateContent(bool deleted)
         {
-            _host.UpdateContent(deleted);
+            _normalHost.UpdateContent(deleted);
         }
 
         /// <summary>
@@ -828,16 +892,16 @@ namespace Framework.GUI.Forms.Conversations
             if (valid)
             {
                 _selectedNode = _selectedId;
-                _host.PopulateChildren(_selectedId);
-                _host.PopulateParents(_selectedId);
+                _normalHost.PopulateChildren(_selectedId);
+                _normalHost.PopulateParents(_selectedId);
             }
             else
             {
                 _addType = AddType.Reply;
                 _selectedType = NodeListControlType.Basic;
                 addButton.ToolTipText = "Add reply";
-                _host.ClearChildren();
-                _host.ClearParents();
+                _normalHost.ClearChildren();
+                _normalHost.ClearParents();
             }
         }
 

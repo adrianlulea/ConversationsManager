@@ -296,13 +296,14 @@
          this.showGraphButton.Name = "showGraphButton";
          this.showGraphButton.Size = new System.Drawing.Size(59, 22);
          this.showGraphButton.Text = "Graph";
+         this.showGraphButton.Click += new System.EventHandler(this.showGraphButton_Click);
          // 
          // conversationsHost
          // 
          this.conversationsHost.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.conversationsHost.Location = new System.Drawing.Point(0, 24);
+         this.conversationsHost.Location = new System.Drawing.Point(0, 49);
          this.conversationsHost.Name = "conversationsHost";
-         this.conversationsHost.Size = new System.Drawing.Size(1016, 717);
+         this.conversationsHost.Size = new System.Drawing.Size(1016, 692);
          this.conversationsHost.TabIndex = 3;
          // 
          // nodesContextMenu

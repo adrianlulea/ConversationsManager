@@ -19,4 +19,3 @@ d:\Home\adrlulea\Personal\School\disertatie\Applications\ConversationsManager\Co
 \\bucd223\Home\adrlulea\Personal\School\ConversationsManager\Applications\ConversationsManager\ConversationsManager\obj\x86\Debug\ConversationsManager.csprojResolveAssemblyReference.cache
 \\bucd223\Home\adrlulea\Personal\School\ConversationsManager\Applications\ConversationsManager\ConversationsManager\obj\x86\Debug\ConversationsManager.Properties.Resources.resources
 \\bucd223\Home\adrlulea\Personal\School\ConversationsManager\Applications\ConversationsManager\ConversationsManager\obj\x86\Debug\ConversationsManager.csproj.GenerateResource.Cache
-d:\Home\adrlulea\Personal\School\ConversationsManager\Applications\ConversationsManager\ConversationsManager\bin\Debug\ConversationsManager.exe.config

@@ -41,16 +41,34 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QuickGraph">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Data">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Graphviz">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Graphviz.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Serialization">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Serialization.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Conversations\DataManager.cs" />
@@ -81,6 +99,12 @@
     </Compile>
     <Compile Include="GUI\Controls\Conversations\CreateNewDatabaseDetailsControl.Designer.cs">
       <DependentUpon>CreateNewDatabaseDetailsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\GraphManagerHost.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\GraphManagerHost.Designer.cs">
+      <DependentUpon>GraphManagerHost.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Controls\Conversations\ImportedConversationsControl.cs">
       <SubType>UserControl</SubType>
@@ -173,6 +197,7 @@
     <Compile Include="Util\AddReplyType.cs" />
     <Compile Include="Util\AddType.cs" />
     <Compile Include="Util\BaseException.cs" />
+    <Compile Include="Util\ConversationsManagerViewMode.cs" />
     <Compile Include="Util\DataDeserializationException.cs" />
     <Compile Include="Util\DataSerializationException.cs" />
     <Compile Include="Util\DuplicateReplyChildException.cs" />
@@ -211,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Controls\Conversations\CreateNewDatabaseDetailsControl.resx">
       <DependentUpon>CreateNewDatabaseDetailsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\Conversations\GraphManagerHost.resx">
+      <DependentUpon>GraphManagerHost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Controls\Conversations\ImportedConversationsControl.resx">
       <DependentUpon>ImportedConversationsControl.cs</DependentUpon>
@@ -257,6 +285,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\1433682344_plus_64.png" />
   </ItemGroup>
   <ItemGroup>
