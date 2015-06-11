@@ -41,6 +41,15 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GraphX.Controls">
+      <HintPath>..\..\GraphX-PCL\GraphX.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphX.PCL.Common">
+      <HintPath>..\..\GraphX-PCL\GraphX.PCL.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphX.PCL.Logic">
+      <HintPath>..\..\GraphX-PCL\GraphX.PCL.Logic.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="QuickGraph">
@@ -184,6 +193,10 @@
     <Compile Include="GUI\Forms\Conversations\ViewReplyForm.designer.cs">
       <DependentUpon>ViewReplyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Graph\DataEdge.cs" />
+    <Compile Include="GUI\Graph\DataVertex.cs" />
+    <Compile Include="GUI\Graph\Graph.cs" />
+    <Compile Include="GUI\Graph\GraphHost.cs" />
     <Compile Include="Language\Language.cs" />
     <Compile Include="Language\LanguageItem.cs" />
     <Compile Include="Language\LanguageManager.cs" />
@@ -356,6 +369,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\1433684916_monitor_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <Page Include="Resources\template.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Templates\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

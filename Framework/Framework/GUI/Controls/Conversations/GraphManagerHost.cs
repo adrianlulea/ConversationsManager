@@ -7,8 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows;
 using Framework.Data.Conversations;
 using Framework.Util;
+using GraphX.PCL.Common.Enums;
+using GraphX.PCL.Logic.Algorithms.OverlapRemoval;
+using GraphX.PCL.Logic.Models;
+using GraphX.Controls;
+using QuickGraph;
+using Framework.GUI.Graph;
 
 namespace Framework.GUI.Controls.Conversations
 {
@@ -50,6 +57,20 @@ namespace Framework.GUI.Controls.Conversations
       /// Normal view children list for current node.
       /// </summary>
       private NodeListControl childrenNodesList;
+
+      #endregion
+
+      #region Graph
+
+      /// <summary>
+      /// Actual canvas
+      /// </summary>
+      private GraphHost _host;
+
+      /// <summary>
+      /// Zoom control
+      /// </summary>
+      private ZoomControl _zoomControl;
 
       #endregion
 
@@ -292,13 +313,88 @@ namespace Framework.GUI.Controls.Conversations
 
       private void InitializeGraph()
       {
- 
+         graphHost.Child = GenerateWPFHost();
+         _zoomControl.ZoomToFill();
+         _host.GenerateGraph(true);
+         _host.SetVerticesDrag(false);
+         _zoomControl.ZoomToFill();
       }
 
       private void RefreshGraph()
       {
          //TODO
+         //Updates la graf
+         _host.RelayoutGraph();
       }
+
+      private Graph.Graph GenerateGraph()
+      {
+         var dataGraph = new Graph.Graph();
+
+         // 5 noduri
+         var dataNode1 = new DataVertex("Node1");
+         var dataNode2 = new DataVertex("Node2");
+         var dataNode3 = new DataVertex("Node3");
+         var dataNode4 = new DataVertex("Node4");
+         var dataNode5 = new DataVertex("Node5");
+
+         dataGraph.AddVertex(dataNode1);
+         dataGraph.AddVertex(dataNode2);
+         dataGraph.AddVertex(dataNode3);
+         dataGraph.AddVertex(dataNode4);
+         dataGraph.AddVertex(dataNode5);
+
+         var nodesList = dataGraph.Vertices.ToList();
+
+         // 3 muchii
+         var dataEdge1 = new DataEdge(nodesList[0], nodesList[1]) { Text = string.Format("{0} -> {1}", nodesList[0], nodesList[1]) };
+         var dataEdge2 = new DataEdge(nodesList[1], nodesList[2]) { Text = string.Format("{0} -> {1}", nodesList[1], nodesList[2]) };
+         var dataEdge3 = new DataEdge(nodesList[1], nodesList[3]) { Text = string.Format("{0} -> {1}", nodesList[1], nodesList[3]) };
+
+         dataGraph.AddEdge(dataEdge1);
+         dataGraph.AddEdge(dataEdge2);
+         dataGraph.AddEdge(dataEdge3);
+
+         return dataGraph;
+      }
+
+      private UIElement GenerateWPFHost()
+      {
+         _zoomControl = new ZoomControl();
+
+         ZoomControl.SetViewFinderVisibility(_zoomControl, Visibility.Visible);
+
+         var logic = new GXLogicCore<DataVertex, DataEdge, BidirectionalGraph<DataVertex, DataEdge>>();
+         _host = new GraphHost()
+         {
+            EnableWinFormsHostingMode = true,
+            LogicCore = logic
+         };
+
+         logic.Graph = GenerateGraph();
+         logic.DefaultLayoutAlgorithm = LayoutAlgorithmTypeEnum.LinLog;
+         logic.DefaultLayoutAlgorithmParams = logic.AlgorithmFactory.CreateLayoutParameters(LayoutAlgorithmTypeEnum.LinLog);
+
+         logic.DefaultOverlapRemovalAlgorithm = OverlapRemovalAlgorithmTypeEnum.FSA;
+         logic.DefaultOverlapRemovalAlgorithmParams = logic.AlgorithmFactory.CreateOverlapRemovalParameters(OverlapRemovalAlgorithmTypeEnum.FSA);
+
+         ((OverlapRemovalParameters)logic.DefaultOverlapRemovalAlgorithmParams).HorizontalGap = 50;
+         ((OverlapRemovalParameters)logic.DefaultOverlapRemovalAlgorithmParams).VerticalGap = 50;
+
+         logic.DefaultEdgeRoutingAlgorithm = EdgeRoutingAlgorithmTypeEnum.None;
+         logic.AsyncAlgorithmCompute = false;
+
+         _zoomControl.Content = _host;
+
+         _host.RelayoutFinished += _host_RelayoutFinished;
+
+         var myResourceDictionary = new ResourceDictionary { Source = new Uri("/Framework;component/Resources/template.xaml", UriKind.RelativeOrAbsolute) };
+         _zoomControl.Resources.MergedDictionaries.Add(myResourceDictionary);
+
+         return _zoomControl;
+      }
+
+      
 
       #endregion
 
@@ -364,6 +460,20 @@ namespace Framework.GUI.Controls.Conversations
          //RefreshField(normalViewNodeList, e.Id);
          //RefreshField(sender, id);
       }
+
+      #region Graph
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
+      void _host_RelayoutFinished(object sender, EventArgs e)
+      {
+         _zoomControl.ZoomToFill();
+      }
+
+      #endregion
 
       #endregion
    }
