@@ -217,6 +217,7 @@
     <Compile Include="Util\DuplicateReplyParentException.cs" />
     <Compile Include="Util\ExceptionSeverity.cs" />
     <Compile Include="Util\ExternalFormat.cs" />
+    <Compile Include="Util\GraphRemoveType.cs" />
     <Compile Include="Util\ImportControlEnum.cs" />
     <Compile Include="Util\InvalidExternalFormatException.cs" />
     <Compile Include="Util\InvalidFieldException.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Util\FrameworkExceptionClass.cs" />
     <Compile Include="Util\ReplyField.cs" />
     <Compile Include="Util\SavedDataManagerState.cs" />
+    <Compile Include="Util\SelectedLinkArgs.cs" />
     <Compile Include="Util\SelectedNodeArgs.cs" />
     <Compile Include="Util\ViewNodeMode.cs" />
   </ItemGroup>

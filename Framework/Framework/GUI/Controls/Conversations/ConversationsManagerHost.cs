@@ -486,6 +486,24 @@ namespace Framework.GUI.Controls.Conversations
             }
         }
 
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="id"></param>
+        public void SelectNodeInNormalView(Guid id)
+        {
+           normalViewNodeList.SelectNode(id);
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="id"></param>
+        public void SelectNodeInGraphView(Guid id)
+        {
+ 
+        }
+
         #endregion
     }
 }

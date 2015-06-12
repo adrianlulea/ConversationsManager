@@ -806,14 +806,12 @@ namespace Framework.GUI.Controls.Conversations
         /// <param name="id">Node id.</param>
         public void RefreshField(Guid id)
         {
-            foreach (ListViewItem item in nodeList.Items)
-            {
-                if (((Guid)item.Tag) == id)
-                {
-                    RefreshField(item);
-                    break;
-                }
-            }
+           ListViewItem item = GetListViewItemById(id);
+
+           if (item != null)
+           {
+              RefreshField(item);
+           }
         }
 
         /// <summary>
@@ -830,6 +828,35 @@ namespace Framework.GUI.Controls.Conversations
             item.SubItems[2].Text = data.Text.Replace('\n', ' ');
             item.SubItems[3].Text = data.ChildCount.ToString();
             item.SubItems[4].Text = data.ParentCount.ToString();
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="id"></param>
+        public void SelectNode(Guid id)
+        {
+           ListViewItem item = GetListViewItemById(id);
+
+           item.Selected = true;
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="id"></param>
+       /// <returns></returns>
+        private ListViewItem GetListViewItemById(Guid id)
+        {
+           foreach (ListViewItem item in nodeList.Items)
+           {
+              if (((Guid)item.Tag) == id)
+              {
+                 return item;
+              }
+           }
+
+           return null;
         }
 
         #endregion

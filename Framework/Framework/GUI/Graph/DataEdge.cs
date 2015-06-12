@@ -15,6 +15,16 @@ namespace Framework.GUI.Graph
    {
       #region Members
 
+      /// <summary>
+      /// 
+      /// </summary>
+      private Guid _parentId;
+
+      /// <summary>
+      /// 
+      /// </summary>
+      private Guid _childId;
+
       #endregion
 
       #region Properties
@@ -23,6 +33,22 @@ namespace Framework.GUI.Graph
       /// Custom string property for example
       /// </summary>
       public string Text { get; set; }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public Guid ParentId
+      {
+         get { return _parentId; }
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public Guid ChildId
+      {
+         get { return _childId; }
+      }
 
       #endregion
 
@@ -37,6 +63,8 @@ namespace Framework.GUI.Graph
       public DataEdge(DataVertex source, DataVertex target, double weight = 1)
          : base(source, target, weight)
       {
+         _parentId = source.ReplyId;
+         _childId = target.ReplyId;
       }
       /// <summary>
       /// Default parameterless constructor (for serialization compatibility)

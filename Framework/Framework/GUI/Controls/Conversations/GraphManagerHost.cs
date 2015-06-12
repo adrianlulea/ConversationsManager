@@ -326,6 +326,60 @@ namespace Framework.GUI.Controls.Conversations
          _host.RelayoutGraph();
       }
 
+      private void ClearSelectedNodePanelData()
+      {
+         // Parent details
+         selectedNodeParentAuthorTextBox.Text = "";
+         selectedNodeParentTextTextBox.Text = "";
+
+         selectedNodeParentAuthorTextBox.Enabled = false;
+         selectedNodeParentTextTextBox.Enabled = false;
+
+         saveChangesSelectedNodeParentButton.Enabled = false;
+      }
+
+      private void PopulateSelectedNodePanelData(Guid id, InternalReplyData data)
+      {
+         string author = data.Author;
+         string text = data.Text;
+
+         // Node details
+         selectedNodeParentAuthorTextBox.Text = author;
+         selectedNodeParentTextTextBox.Text = text;
+
+         // Parents
+         parentsNodeList.RootNode = id;
+         parentsNodeList.UpdateContent();
+
+         // Children
+         childrenNodesList.RootNode = id;
+         childrenNodesList.UpdateContent();
+      }
+
+      private void ClearChildNodePanelData()
+      {
+         // Child details
+         selectedNodeChildAuthorTextBox.Text = "";
+         selectedNodeChildTextTextBox.Text = "";
+
+         selectedNodeChildAuthorTextBox.Enabled = false;
+         selectedNodeChildTextTextBox.Enabled = false;
+
+         saveChangesSelectedNodeChildButton.Enabled = false;
+      }
+
+      private void PopulateSelectedChildPanelData(InternalReplyData data)
+      {
+         selectedNodeChildAuthorTextBox.Enabled = true;
+         selectedNodeChildTextTextBox.Enabled = true;
+
+         saveChangesSelectedNodeChildButton.Enabled = false;
+
+         // Child details
+         selectedNodeChildAuthorTextBox.Text = data.Author;
+         selectedNodeChildTextTextBox.Text = data.Text;
+      }
+
       private Graph.Graph GenerateGraph()
       {
          var dataGraph = new Graph.Graph();
@@ -406,6 +460,9 @@ namespace Framework.GUI.Controls.Conversations
          };
 
          _host.OnSelectedNodeChanged += _host_OnSelectedNodeChanged;
+         _host.OnSelectedLinkChanged += _host_OnSelectedLinkChanged;
+         _host.OnNodeDoubleClicked += _host_OnNodeDoubleClicked;
+         _host.OnEdgeDoubleClicked += _host_OnEdgeDoubleClicked;
 
          logic.Graph = GenerateGraph();
          logic.DefaultLayoutAlgorithm = LayoutAlgorithmTypeEnum.LinLog;
@@ -428,6 +485,26 @@ namespace Framework.GUI.Controls.Conversations
          _zoomControl.Resources.MergedDictionaries.Add(myResourceDictionary);
 
          return _zoomControl;
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public void RemoveSelectedNode()
+      {
+         _host.RemoveSelectedNode();
+
+         //TODO perhaps refresh is needed
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public void RemoveSelectedLink()
+      {
+         _host.RemoveSelectedLink();
+
+         //TODO perhaps refresh is needed
       }
 
       #endregion
@@ -465,6 +542,42 @@ namespace Framework.GUI.Controls.Conversations
 
       #endregion
 
+      #region Graph
+
+      #region OnGraphNodeSelected
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      public delegate void GraphNodeSelected(object sender, SelectedNodeArgs args);
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public event GraphNodeSelected OnGraphNodeSelected;
+
+      #endregion
+
+      #region OnGraphLinkSelected
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      public delegate void GraphLinkSelected(object sender, SelectedLinkArgs args);
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public event GraphLinkSelected OnGraphLinkSelected;
+
+      #endregion
+
+      #endregion
+
       #endregion
 
       /// <summary>
@@ -495,6 +608,26 @@ namespace Framework.GUI.Controls.Conversations
          //RefreshField(sender, id);
       }
 
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
+      private void hideNodeParentMainButton_Click(object sender, EventArgs e)
+      {
+         selectedNodeOrLinkSplitContainer.Panel2Collapsed = true;
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
+      private void hideNodeChildOrHoveredButton_Click(object sender, EventArgs e)
+      {
+         selectedLinkSplitContainer.Panel2Collapsed = true;
+      }
+
       #region Graph
 
       /// <summary>
@@ -515,26 +648,70 @@ namespace Framework.GUI.Controls.Conversations
       private void _host_OnSelectedNodeChanged(object sender, SelectedNodeArgs args)
       {
          InternalReplyData replyData = _dataManager.GetReplyData(args.Id);
-         string author = replyData.Author;
-         string text = replyData.Text;
 
-         // Node details
-         selectedNodeParentAuthorTextBox.Text = author;
-         selectedNodeParentTextTextBox.Text = text;
+         PopulateSelectedNodePanelData(args.Id, replyData);
 
-         // Parents
-         parentsNodeList.RootNode = args.Id;
-         parentsNodeList.UpdateContent();
+         ClearChildNodePanelData();
 
-         // Children
-         childrenNodesList.RootNode = args.Id;
-         childrenNodesList.UpdateContent();
-
-         //TODO
-         /*if (OnSelectedItemChanged != null)
+         if (OnGraphNodeSelected != null)
          {
-            OnSelectedItemChanged.Invoke(sender, args);
-         }*/
+            OnGraphNodeSelected.Invoke(sender, args);
+         }
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      private void _host_OnSelectedLinkChanged(object sender, SelectedLinkArgs args)
+      {
+         InternalReplyData parentData = _dataManager.GetReplyData(args.ParentId);
+         InternalReplyData childData = _dataManager.GetReplyData(args.ChildId);
+
+         PopulateSelectedNodePanelData(args.ParentId, parentData);
+         PopulateSelectedChildPanelData(childData);
+
+         if (OnGraphLinkSelected != null)
+         {
+            OnGraphLinkSelected.Invoke(sender, args);
+         }
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      private void _host_OnNodeDoubleClicked(object sender, SelectedNodeArgs args)
+      {
+         // Select node
+         // Node already selected as onSelectedNodeChanged has been triggered
+         /*InternalReplyData replyData = _dataManager.GetReplyData(args.Id);
+
+         PopulateSelectedNodePanelData(args.Id, replyData);
+
+         ClearChildNodePanelData();*/
+
+         selectedNodeOrLinkSplitContainer.Panel2Collapsed = !selectedNodeOrLinkSplitContainer.Panel2Collapsed;
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      private void _host_OnEdgeDoubleClicked(object sender, SelectedLinkArgs args)
+      {
+         // Select edge
+         // Edge already selected as onSelectedLinkChanged has been triggered
+         /*InternalReplyData parentData = _dataManager.GetReplyData(args.ParentId);
+         InternalReplyData childData = _dataManager.GetReplyData(args.ChildId);
+
+         PopulateSelectedNodePanelData(args.ParentId, parentData);
+         PopulateSelectedChildPanelData(childData);*/
+
+         selectedLinkSplitContainer.Panel2Collapsed = !selectedLinkSplitContainer.Panel2Collapsed;
       }
 
       #endregion
