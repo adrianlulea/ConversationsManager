@@ -4,7 +4,8 @@
     xmlns:controls="http://schemas.panthernet.ru/graphx/">
 
     <!-- VERTEX CONTROL -->
-    <Style TargetType="{x:Type controls:VertexControl}">
+    <Style TargetType="{x:Type controls:VertexControl}"
+           xmlns:adrlulea="clr-namespace:Framework.GUI.Graph">
         <Setter Property="Background" Value="#FFE3E3E3"/>
         <Setter Property="BorderThickness" Value="5,3,5,3"/>
         <Setter Property="Padding" Value="10,5,10,5"/>
@@ -40,11 +41,20 @@
                 <Setter Property="Background" Value="Gold"/>
                 <Setter Property="BorderThickness" Value="7"/>
             </Trigger>
+            <Trigger Property="adrlulea:ExtendedHighlightBehavior.HighlightedChild" Value="True">
+                <Setter Property="Background" Value="CornflowerBlue"/>
+                <Setter Property="BorderThickness" Value="7"/>
+            </Trigger>
+            <Trigger Property="adrlulea:ExtendedHighlightBehavior.HighlightedParent" Value="True">
+                <Setter Property="Background" Value="Coral"/>
+                <Setter Property="BorderThickness" Value="7"/>
+            </Trigger>
         </Style.Triggers>
     </Style>
 
     <!-- EDGE CONTROL -->
-    <Style TargetType="{x:Type controls:EdgeControl}">
+    <Style TargetType="{x:Type controls:EdgeControl}"
+           xmlns:adrlulea="clr-namespace:Framework.GUI.Graph">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:EdgeControl}">
@@ -79,6 +89,14 @@
         <Style.Triggers>
             <Trigger Property="controls:HighlightBehaviour.Highlighted" Value="True">
                 <Setter Property="Foreground" Value="Gold"/>
+                <Setter Property="StrokeThickness" Value="5"/>
+            </Trigger>
+            <Trigger Property="adrlulea:ExtendedHighlightBehavior.HighlightedChildLink" Value="True">
+                <Setter Property="Foreground" Value="CornflowerBlue"/>
+                <Setter Property="StrokeThickness" Value="5"/>
+            </Trigger>
+            <Trigger Property="adrlulea:ExtendedHighlightBehavior.HighlightedParentLink" Value="True">
+                <Setter Property="Foreground" Value="Coral"/>
                 <Setter Property="StrokeThickness" Value="5"/>
             </Trigger>
         </Style.Triggers>

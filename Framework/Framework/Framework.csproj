@@ -195,6 +195,7 @@
     </Compile>
     <Compile Include="GUI\Graph\DataEdge.cs" />
     <Compile Include="GUI\Graph\DataVertex.cs" />
+    <Compile Include="GUI\Graph\ExtendedHighlightBehavior.cs" />
     <Compile Include="GUI\Graph\Graph.cs" />
     <Compile Include="GUI\Graph\GraphHost.cs" />
     <Compile Include="Language\Language.cs" />

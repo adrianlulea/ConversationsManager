@@ -75,6 +75,9 @@ namespace Framework.GUI.Graph
          // Select current control
          HighlightBehaviour.SetHighlighted(args.VertexControl, true);
 
+         HighlightChildren(args.VertexControl.Vertex as DataVertex);
+         HighlightParents(args.VertexControl.Vertex as DataVertex);
+
          this._selectedNode = (DataVertex)args.VertexControl.Vertex;
 
          if (OnSelectedNodeChanged != null)
@@ -112,10 +115,10 @@ namespace Framework.GUI.Graph
          HighlightBehaviour.SetHighlighted(args.EdgeControl, true);
 
          // Select parent node (differently)
-         HighlightBehaviour.SetHighlightStrategy(args.EdgeControl.Source, GraphX.PCL.Common.Enums.HighlightStrategy.CreateControls);
-         HighlightBehaviour.SetHighlightStrategy(args.EdgeControl.Target, GraphX.PCL.Common.Enums.HighlightStrategy.UseExistingControls);
-         HighlightBehaviour.SetHighlighted(args.EdgeControl.Source, true);
-         HighlightBehaviour.SetHighlighted(args.EdgeControl.Target, true);
+         ExtendedHighlightBehavior.SetHighlightedParent(args.EdgeControl.Source, true);
+         //HighlightBehaviour.SetHighlighted(args.EdgeControl.Source, true);
+         ExtendedHighlightBehavior.SetHighlightedChild(args.EdgeControl.Target, true);
+         //HighlightBehaviour.SetHighlighted(args.EdgeControl.Target, true);
 
          this._selectedLink = de;
 
@@ -151,6 +154,9 @@ namespace Framework.GUI.Graph
          UnselectAllLinks();
 
          HighlightBehaviour.SetHighlighted(args.VertexControl, true);
+
+         HighlightChildren(args.VertexControl.Vertex as DataVertex);
+         HighlightParents(args.VertexControl.Vertex as DataVertex);
 
          this._selectedNode = (DataVertex)args.VertexControl.Vertex;
 
@@ -191,10 +197,8 @@ namespace Framework.GUI.Graph
          HighlightBehaviour.SetHighlighted(args.EdgeControl, true);
 
          // Select parent node (differently)
-         HighlightBehaviour.SetHighlightStrategy(args.EdgeControl.Source, GraphX.PCL.Common.Enums.HighlightStrategy.CreateControls);
-         HighlightBehaviour.SetHighlightStrategy(args.EdgeControl.Target, GraphX.PCL.Common.Enums.HighlightStrategy.UseExistingControls);
-         HighlightBehaviour.SetHighlighted(args.EdgeControl.Source, true);
-         HighlightBehaviour.SetHighlighted(args.EdgeControl.Target, true);
+         ExtendedHighlightBehavior.SetHighlightedParent(args.EdgeControl.Source, true);
+         ExtendedHighlightBehavior.SetHighlightedChild(args.EdgeControl.Target, true);
 
          this._selectedLink = de;
 
@@ -220,6 +224,8 @@ namespace Framework.GUI.Graph
          foreach (VertexControl vc in VertexList.Values)
          {
             HighlightBehaviour.SetHighlighted(vc, false);
+            ExtendedHighlightBehavior.SetHighlightedChild(vc, false);
+            ExtendedHighlightBehavior.SetHighlightedParent(vc, false);
          }
       }
 
@@ -232,6 +238,8 @@ namespace Framework.GUI.Graph
          foreach (EdgeControl ec in this.EdgesList.Values)
          {
             HighlightBehaviour.SetHighlighted(ec, false);
+            ExtendedHighlightBehavior.SetHighlightedChildLink(ec, false);
+            ExtendedHighlightBehavior.SetHighlightedParentLink(ec, false);
          }
       }
 
@@ -242,6 +250,22 @@ namespace Framework.GUI.Graph
       {
          if (_selectedNode != null)
          {
+            // Remove its links
+            List<DataEdge> children = GetChildEdges(_selectedNode);
+            List<DataEdge> parents = GetParentEdges(_selectedNode);
+
+            foreach (DataEdge child in children)
+            {
+               ExtendedHighlightBehavior.SetHighlightedChild(VertexList[child.Target], false);
+               this.RemoveEdge(child);
+            }
+
+            foreach (DataEdge parent in parents)
+            {
+               ExtendedHighlightBehavior.SetHighlightedParent(VertexList[parent.Source], false);
+               this.RemoveEdge(parent);
+            }
+
             this.RemoveVertex(_selectedNode);
 
             //TODO maybe refresh is required?
@@ -255,9 +279,92 @@ namespace Framework.GUI.Graph
       {
          if (_selectedLink != null)
          {
+            VertexControl parent = VertexList[this._selectedLink.Source];
+            VertexControl child = VertexList[this._selectedLink.Target];
+
+            // Unhighlight nodes
+            ExtendedHighlightBehavior.SetHighlightedParent(parent, false);
+            ExtendedHighlightBehavior.SetHighlightedChild(child, false);
+
             this.RemoveEdge(_selectedLink);
 
             //TODO maybe refresh is required?
+         }
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="node"></param>
+      /// <returns></returns>
+      private List<DataEdge> GetChildEdges(DataVertex node)
+      {
+         List<DataEdge> children = new List<DataEdge>();
+
+         foreach (DataEdge possibleChild in EdgesList.Keys)
+         {
+            if (possibleChild.ParentId == node.ReplyId)
+            {
+               children.Add(possibleChild);
+            }
+         }
+
+         return children;
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="node"></param>
+      /// <returns></returns>
+      private List<DataEdge> GetParentEdges(DataVertex node)
+      {
+         List<DataEdge> parents = new List<DataEdge>();
+
+         foreach (DataEdge possibleParent in EdgesList.Keys)
+         {
+            if (possibleParent.ChildId == node.ReplyId)
+            {
+               parents.Add(possibleParent);
+            }
+         }
+
+         return parents;
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="node"></param>
+      private void HighlightChildren(DataVertex node)
+      {
+         List<DataEdge> childrenEdges = GetChildEdges(node);
+
+         foreach(DataEdge child in childrenEdges)
+         {
+            EdgeControl ec = this.EdgesList[child];
+            VertexControl vc = ec.Target;
+
+            ExtendedHighlightBehavior.SetHighlightedChildLink(ec, true);
+            ExtendedHighlightBehavior.SetHighlightedChild(vc, true);
+         }
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="node"></param>
+      private void HighlightParents(DataVertex node)
+      {
+         List<DataEdge> parentEdges = GetParentEdges(node);
+
+         foreach (DataEdge parent in parentEdges)
+         {
+            EdgeControl ec = this.EdgesList[parent];
+            VertexControl vc = ec.Source;
+
+            ExtendedHighlightBehavior.SetHighlightedParentLink(ec, true);
+            ExtendedHighlightBehavior.SetHighlightedParent(vc, true);
          }
       }
 

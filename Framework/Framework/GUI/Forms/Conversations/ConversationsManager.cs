@@ -90,10 +90,10 @@ namespace Framework.GUI.Forms.Conversations
         /// </summary>
         private NodeListControlType _selectedType;
 
-       /*/// <summary>
+       /// <summary>
        /// 
        /// </summary>
-        private GraphRemoveType _graphSelectedType;*/
+        private GraphRemoveType _graphSelectedType;
 
         #endregion
 
@@ -369,6 +369,23 @@ namespace Framework.GUI.Forms.Conversations
            {
               case ConversationsManagerViewMode.GraphMode:
                  {
+                    switch(_graphSelectedType)
+                    {
+                       case GraphRemoveType.Node:
+                          {
+                             _graphHost.RemoveSelectedNode();
+                             RemoveReply();
+                             break;
+                          }
+                       case GraphRemoveType.Link:
+                          {
+                             _graphHost.RemoveSelectedLink();
+                             RemoveChild();
+                             // In Graph mode no node remains selected
+                             removeReplyButton.Enabled = false;
+                             break;
+                          }
+                    }
 
                     break;
                  }
@@ -512,7 +529,6 @@ namespace Framework.GUI.Forms.Conversations
                  {
                     _normalHost.UpdateContent(updatesNeeded);
                     _normalHost.BringToFront();
-                    //_normalHost.SelectNodeInNormalView
 
                     _viewMode = ConversationsManagerViewMode.NormalMode;
                     showGraphButton.Image = Properties.Resources.Graph;
@@ -530,7 +546,26 @@ namespace Framework.GUI.Forms.Conversations
        /// <param name="args"></param>
         private void _graphHost_OnGraphNodeSelected(object sender, SelectedNodeArgs args)
         {
+           _selectedId = args.Id;
            _normalHost.SelectNodeInNormalView(args.Id);
+           _graphSelectedType = GraphRemoveType.Node;
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="args"></param>
+        private void _graphHost_OnGraphLinkSelected(object sender, SelectedLinkArgs args)
+        {
+           _normalHost.SelectNodeInNormalView(args.ParentId);
+           _normalHost.SelectChildInNormalView(args.ChildId);
+           removeReplyButton.ToolTipText = "Remove selected link";
+
+           _selectedNode = args.ParentId;
+           _selectedId = args.ChildId;
+
+           _graphSelectedType = GraphRemoveType.Link;
         }
 
         #endregion
@@ -729,6 +764,7 @@ namespace Framework.GUI.Forms.Conversations
             _graphHost = new GraphManagerHost(_dataManager, Parents, Children);
             _graphHost.OnSelectedItemChanged += new GraphManagerHost.SelectedItemChanged(ConversationsHost_OnSelectedItemChanged);
             _graphHost.OnGraphNodeSelected += _graphHost_OnGraphNodeSelected;
+            _graphHost.OnGraphLinkSelected += _graphHost_OnGraphLinkSelected;
 
             conversationsHost.Controls.Add(_graphHost);
             _graphHost.UpdateContent(false);
@@ -893,6 +929,7 @@ namespace Framework.GUI.Forms.Conversations
         private void UpdateContent(ReplyField deletedNode)
         {
             _normalHost.UpdateContent(deletedNode);
+           //TODO update Graph?
         }
 
         /// <summary>
@@ -902,6 +939,7 @@ namespace Framework.GUI.Forms.Conversations
         private void UpdateContent(bool deleted)
         {
             _normalHost.UpdateContent(deleted);
+            _graphHost.UpdateContent(deleted);
         }
 
         /// <summary>

@@ -306,7 +306,7 @@ namespace Framework.GUI.Controls.Conversations
          {
             ClearChildren();
             ClearParents();
-            RefreshGraph();
+            //RefreshGraph();
          }
       }
 
@@ -342,6 +342,11 @@ namespace Framework.GUI.Controls.Conversations
       {
          string author = data.Author;
          string text = data.Text;
+
+         selectedNodeParentAuthorTextBox.Enabled = true;
+         selectedNodeParentTextTextBox.Enabled = true;
+
+         saveChangesSelectedNodeChildButton.Enabled = false;
 
          // Node details
          selectedNodeParentAuthorTextBox.Text = author;
@@ -502,6 +507,10 @@ namespace Framework.GUI.Controls.Conversations
       /// </summary>
       public void RemoveSelectedLink()
       {
+         // Clear selected data
+         ClearSelectedNodePanelData();
+         ClearChildNodePanelData();
+
          _host.RemoveSelectedLink();
 
          //TODO perhaps refresh is needed

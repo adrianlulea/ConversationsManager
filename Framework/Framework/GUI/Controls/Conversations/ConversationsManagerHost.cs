@@ -499,6 +499,15 @@ namespace Framework.GUI.Controls.Conversations
        /// 
        /// </summary>
        /// <param name="id"></param>
+        public void SelectChildInNormalView(Guid id)
+        {
+           childrenNodesList.SelectNode(id);
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="id"></param>
         public void SelectNodeInGraphView(Guid id)
         {
  
