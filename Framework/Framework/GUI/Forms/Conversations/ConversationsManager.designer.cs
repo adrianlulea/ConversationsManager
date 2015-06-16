@@ -47,6 +47,7 @@
          this.addReplyOption = new System.Windows.Forms.ToolStripMenuItem();
          this.addParentOption = new System.Windows.Forms.ToolStripMenuItem();
          this.addChildOption = new System.Windows.Forms.ToolStripMenuItem();
+         this.linkNodeButton = new System.Windows.Forms.ToolStripButton();
          this.removeReplyButton = new System.Windows.Forms.ToolStripButton();
          this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
          this.showParentsButton = new System.Windows.Forms.ToolStripButton();
@@ -180,6 +181,7 @@
          // 
          this.conversationsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addButton,
+            this.linkNodeButton,
             this.removeReplyButton,
             this.toolStripSeparator1,
             this.showParentsButton,
@@ -237,6 +239,17 @@
          this.addChildOption.Tag = "2";
          this.addChildOption.Text = "Child";
          this.addChildOption.Click += new System.EventHandler(this.addButton_Click);
+         // 
+         // linkNodeButton
+         // 
+         this.linkNodeButton.Enabled = false;
+         this.linkNodeButton.Image = global::Framework.Properties.Resources._1434396944_chain_link;
+         this.linkNodeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+         this.linkNodeButton.Name = "linkNodeButton";
+         this.linkNodeButton.Size = new System.Drawing.Size(49, 22);
+         this.linkNodeButton.Text = "Link";
+         this.linkNodeButton.Visible = false;
+         this.linkNodeButton.Click += new System.EventHandler(this.linkNodeButton_Click);
          // 
          // removeReplyButton
          // 
@@ -301,9 +314,9 @@
          // conversationsHost
          // 
          this.conversationsHost.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.conversationsHost.Location = new System.Drawing.Point(0, 49);
+         this.conversationsHost.Location = new System.Drawing.Point(0, 24);
          this.conversationsHost.Name = "conversationsHost";
-         this.conversationsHost.Size = new System.Drawing.Size(1016, 692);
+         this.conversationsHost.Size = new System.Drawing.Size(1016, 717);
          this.conversationsHost.TabIndex = 3;
          // 
          // nodesContextMenu
@@ -453,6 +466,7 @@
         private System.Windows.Forms.ContextMenuStrip childrenParentsContextMenu;
         private System.Windows.Forms.ToolStripMenuItem addContext;
         private System.Windows.Forms.ToolStripMenuItem removeContext;
+        private System.Windows.Forms.ToolStripButton linkNodeButton;
     }
 }
 

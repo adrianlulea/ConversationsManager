@@ -16,6 +16,8 @@ using GraphX.PCL.Logic.Models;
 using GraphX.Controls;
 using QuickGraph;
 using Framework.GUI.Graph;
+using Framework.GUI.Forms.Conversations;
+using System.Windows.Threading;
 
 namespace Framework.GUI.Controls.Conversations
 {
@@ -132,7 +134,7 @@ namespace Framework.GUI.Controls.Conversations
          InitializeLists();
 
          // Initialize Graph
-         InitializeGraph();
+         //InitializeGraph();
       }
 
       #endregion
@@ -310,13 +312,26 @@ namespace Framework.GUI.Controls.Conversations
          }
       }
 
-      private void InitializeGraph()
+      /// <summary>
+      /// 
+      /// </summary>
+      public void InitializeGraph()
       {
-         graphHost.Child = GenerateWPFHost();
-         //_zoomControl.ZoomToFill();
-         _host.GenerateGraph(true);
-         _host.SetVerticesDrag(false);
-         _zoomControl.ZoomToFill();
+         Dispatcher.CurrentDispatcher.BeginInvoke( new Action(() =>
+            {
+               InitializeGraphOnSeparateThread();
+            }), DispatcherPriority.Background);
+
+         
+
+         /*ThreadStart ts = new ThreadStart(InitializeGraphOnSeparateThread);
+         Thread initializeGraphThread = new Thread(ts);
+
+         initializeGraphThread.SetApartmentState(ApartmentState.STA);
+         initializeGraphThread.Start();
+         initializeGraphThread.Join();*/
+
+         //graphInitializeBackgroundWorker.RunWorkerAsync();
       }
 
       private void RefreshGraph()
@@ -468,6 +483,8 @@ namespace Framework.GUI.Controls.Conversations
          _host.OnSelectedLinkChanged += _host_OnSelectedLinkChanged;
          _host.OnNodeDoubleClicked += _host_OnNodeDoubleClicked;
          _host.OnEdgeDoubleClicked += _host_OnEdgeDoubleClicked;
+         _host.OnNodeHovered += _host_OnNodeHovered;
+         _host.OnPendingNewLink += _host_OnPendingNewLink;
 
          logic.Graph = GenerateGraph();
          logic.DefaultLayoutAlgorithm = LayoutAlgorithmTypeEnum.LinLog;
@@ -514,6 +531,37 @@ namespace Framework.GUI.Controls.Conversations
          _host.RemoveSelectedLink();
 
          //TODO perhaps refresh is needed
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public void BeginLinkCreation()
+      {
+         selectedNodeOrLinkSplitContainer.Panel2Collapsed = false;
+         selectedLinkSplitContainer.Panel2Collapsed = false;
+
+         _host.BeginLinkCreation();
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public void CancelLinkCreation()
+      {
+         selectedLinkSplitContainer.Panel2Collapsed = true;
+         ClearChildNodePanelData();
+
+         _host.CancelLinkCreation();
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public void FinalizeLinkCreation()
+      {
+         // Determine link type
+
       }
 
       #endregion
@@ -582,6 +630,137 @@ namespace Framework.GUI.Controls.Conversations
       /// 
       /// </summary>
       public event GraphLinkSelected OnGraphLinkSelected;
+
+      #endregion
+
+      #region OnGraphInitialized
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
+      public delegate void GraphInitialized(object sender, EventArgs e);
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public event GraphInitialized OnGraphInitialized;
+
+      /// <summary>
+      /// 
+      /// </summary>
+      private void InitializeGraphOnSeparateThread()
+      {
+         graphHost.Child = GenerateWPFHost();
+         //_zoomControl.ZoomToFill();
+         _host.GenerateGraph(true);
+         _host.SetVerticesDrag(false);
+         _zoomControl.ZoomToFill();
+
+         if (OnGraphInitialized != null)
+         {
+            EventArgs args = new EventArgs();
+
+            OnGraphInitialized.Invoke(this, args);
+         }
+      }
+
+      #endregion
+
+      #region OnNodeHovered
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      private void _host_OnNodeHovered(object sender, SelectedNodeArgs args)
+      {
+         if (args.Valid)
+         {
+            InternalReplyData childData = _dataManager.GetReplyData(args.Id);
+
+            PopulateSelectedChildPanelData(childData);
+         }
+         else
+         {
+            ClearChildNodePanelData();
+         }
+      }
+
+      #endregion
+
+      #region OnPendingLink
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      private void _host_OnPendingNewLink(object sender, SelectedLinkArgs args)
+      {
+         InternalReplyData parent = null;
+         InternalReplyData child = null;
+         Guid parentId, childId;
+         ReplyField linkType = ReplyField.Child;
+
+         InternalReplyData node1 = _dataManager.GetReplyData(args.ParentId);
+         InternalReplyData node2 = _dataManager.GetReplyData(args.ChildId);
+
+         if (node1.Timestamp > node2.Timestamp)
+         {
+            parent = node2;
+            child = node1;
+
+            parentId = args.ChildId;
+            childId = args.ParentId;
+
+            linkType = ReplyField.Parent; // node2 (childId) este parintele lui node1 (parentId)
+         }
+         else
+         {
+            parent = node1;
+            child = node2;
+
+            parentId = args.ParentId;
+            childId = args.ChildId;
+
+            linkType = ReplyField.Child; // node2 (childId) este copilul lui node1 (parentId)
+         }
+
+         ConfirmNewLinkForm confirmNewLink = new ConfirmNewLinkForm(parent, child);
+
+         if (confirmNewLink.ShowDialog() == DialogResult.OK)
+         {
+            _host.FinalizeLinkCreation(linkType);
+
+            SelectedLinkArgs e = new SelectedLinkArgs(true, parentId, childId);
+
+            _dataManager.AddLink(parentId, ReplyField.Child, childId);
+
+            if (OnLinkFinalized != null)
+            {
+               OnLinkFinalized.Invoke(this, e);
+            }
+         }
+      }
+
+      #endregion
+
+      #region OnLinkFinalized
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      public delegate void LinkFinalized(object sender, SelectedLinkArgs args);
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public event LinkFinalized OnLinkFinalized;
 
       #endregion
 

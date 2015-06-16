@@ -77,6 +77,25 @@ namespace Framework.GUI.Graph
          return Text;
       }
 
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="obj"></param>
+      /// <returns></returns>
+      public override bool Equals(object obj)
+      {
+         return this._replyId.Equals(((DataVertex)obj).ReplyId);
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <returns></returns>
+      public override int GetHashCode()
+      {
+         return this._replyId.GetHashCode();
+      }
+
       #endregion
 
       #endregion

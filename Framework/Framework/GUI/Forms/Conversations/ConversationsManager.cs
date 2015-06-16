@@ -95,6 +95,11 @@ namespace Framework.GUI.Forms.Conversations
        /// </summary>
         private GraphRemoveType _graphSelectedType;
 
+       /// <summary>
+       /// State of simple link creation
+       /// </summary>
+        private LinkCreateState _graphLinkCreationState;
+
         #endregion
 
         #region Properties
@@ -375,6 +380,7 @@ namespace Framework.GUI.Forms.Conversations
                           {
                              _graphHost.RemoveSelectedNode();
                              RemoveReply();
+                             linkNodeButton.Enabled = false;
                              break;
                           }
                        case GraphRemoveType.Link:
@@ -523,6 +529,10 @@ namespace Framework.GUI.Forms.Conversations
                     _viewMode = ConversationsManagerViewMode.GraphMode;
                     showGraphButton.Image = Properties.Resources.BasicInformation;
                     showGraphButton.Text = "Normal";
+                    linkNodeButton.Visible = true;
+                    toolStripSeparator2.Visible = false;
+                    showChildrenButton.Visible = false;
+                    showParentsButton.Visible = false;
                     break;
                  }
               case ConversationsManagerViewMode.GraphMode:
@@ -533,10 +543,42 @@ namespace Framework.GUI.Forms.Conversations
                     _viewMode = ConversationsManagerViewMode.NormalMode;
                     showGraphButton.Image = Properties.Resources.Graph;
                     showGraphButton.Text = "Graph";
+                    linkNodeButton.Visible = false;
+                    toolStripSeparator2.Visible = true;
+                    showChildrenButton.Visible = true;
+                    showParentsButton.Visible = true;
                     break;
                  }
            }
            
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
+        private void linkNodeButton_Click(object sender, EventArgs e)
+        {
+           switch(_graphLinkCreationState)
+           {
+              case LinkCreateState.None:
+                 {
+                    _graphHost.BeginLinkCreation();
+                    _graphLinkCreationState = LinkCreateState.SelectedSourceNode;
+                    linkNodeButton.Text = "Cancel";
+                    linkNodeButton.Image = Properties.Resources.Undo;
+                    break;
+                 }
+              case LinkCreateState.SelectedSourceNode:
+                 {
+                    _graphHost.CancelLinkCreation();
+                    _graphLinkCreationState = LinkCreateState.None;
+                    linkNodeButton.Text = "Link";
+                    linkNodeButton.Image = Properties.Resources._1434396944_chain_link;
+                    break;
+                 }
+           }
         }
 
        /// <summary>
@@ -549,6 +591,7 @@ namespace Framework.GUI.Forms.Conversations
            _selectedId = args.Id;
            _normalHost.SelectNodeInNormalView(args.Id);
            _graphSelectedType = GraphRemoveType.Node;
+           linkNodeButton.Enabled = true;
         }
 
        /// <summary>
@@ -561,11 +604,35 @@ namespace Framework.GUI.Forms.Conversations
            _normalHost.SelectNodeInNormalView(args.ParentId);
            _normalHost.SelectChildInNormalView(args.ChildId);
            removeReplyButton.ToolTipText = "Remove selected link";
+           linkNodeButton.Enabled = false;
 
            _selectedNode = args.ParentId;
            _selectedId = args.ChildId;
 
            _graphSelectedType = GraphRemoveType.Link;
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="args"></param>
+        private void _graphHost_OnLinkFinalized(object sender, SelectedLinkArgs args)
+        {
+           _graphLinkCreationState = LinkCreateState.None;
+           linkNodeButton.Text = "Link";
+           linkNodeButton.Image = Properties.Resources._1434396944_chain_link;
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
+        private void _graphHost_OnGraphInitialized(object sender, EventArgs e)
+        {
+           showGraphButton.Enabled = true;
+           showGraphButton.ToolTipText = "Graph";
         }
 
         #endregion
@@ -765,9 +832,14 @@ namespace Framework.GUI.Forms.Conversations
             _graphHost.OnSelectedItemChanged += new GraphManagerHost.SelectedItemChanged(ConversationsHost_OnSelectedItemChanged);
             _graphHost.OnGraphNodeSelected += _graphHost_OnGraphNodeSelected;
             _graphHost.OnGraphLinkSelected += _graphHost_OnGraphLinkSelected;
+            _graphHost.OnLinkFinalized += _graphHost_OnLinkFinalized;
+            _graphHost.OnGraphInitialized += _graphHost_OnGraphInitialized;
 
             conversationsHost.Controls.Add(_graphHost);
-            _graphHost.UpdateContent(false);
+            showGraphButton.Enabled = false;
+            showGraphButton.ToolTipText = "Graph is rendering...";
+            _graphHost.InitializeGraph();
+            //_graphHost.UpdateContent(false);
         }
 
        /// <summary>

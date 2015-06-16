@@ -34,6 +34,16 @@ namespace Framework.GUI.Graph
       /// </summary>
       public static readonly DependencyProperty HighlightedParentLinkProperty = DependencyProperty.RegisterAttached("HighlightedParentLink", typeof(bool), typeof(ExtendedHighlightBehavior), new PropertyMetadata(false));
 
+      /// <summary>
+      /// 
+      /// </summary>
+      public static readonly DependencyProperty AvailableNodeForLinkProperty = DependencyProperty.RegisterAttached("AvailableNodeForLink", typeof(bool), typeof(ExtendedHighlightBehavior), new PropertyMetadata(false));
+      
+      /// <summary>
+      /// 
+      /// </summary>
+      public static readonly DependencyProperty UnavailableNodeForLinkProperty = DependencyProperty.RegisterAttached("UnavailableNodeForLink", typeof(bool), typeof(ExtendedHighlightBehavior), new PropertyMetadata(false));
+      
       #endregion
 
       #region Methods
@@ -130,6 +140,54 @@ namespace Framework.GUI.Graph
       public static void SetHighlightedParentLink(DependencyObject obj, bool value)
       {
          obj.SetValue(HighlightedParentLinkProperty, value);
+      }
+
+      #endregion
+
+      #region AvailableNodeForLinkProperty
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="obj"></param>
+      /// <returns></returns>
+      public static bool GetAvailableNodeForLink(DependencyObject obj)
+      {
+         return (bool)obj.GetValue(AvailableNodeForLinkProperty);
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="obj"></param>
+      /// <param name="value"></param>
+      public static void SetAvailableNodeForLink(DependencyObject obj, bool value)
+      {
+         obj.SetValue(AvailableNodeForLinkProperty, value);
+      }
+
+      #endregion
+
+      #region UnavailableNodeForLinkProperty
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="obj"></param>
+      /// <returns></returns>
+      public static bool GetUnavailableNodeForLink(DependencyObject obj)
+      {
+         return (bool)obj.GetValue(UnavailableNodeForLinkProperty);
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="obj"></param>
+      /// <param name="value"></param>
+      public static void SetUnavailableNodeForLink(DependencyObject obj, bool value)
+      {
+         obj.SetValue(UnavailableNodeForLinkProperty, value);
       }
 
       #endregion

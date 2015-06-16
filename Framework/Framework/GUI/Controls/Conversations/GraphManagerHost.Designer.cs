@@ -47,6 +47,7 @@
          this.selectedNodeChildTextLabel = new System.Windows.Forms.Label();
          this.selectedNodeChildAuthorTextBox = new System.Windows.Forms.TextBox();
          this.selectedNodeChildAuthorLabel = new System.Windows.Forms.Label();
+         this.graphInitializeBackgroundWorker = new System.ComponentModel.BackgroundWorker();
          ((System.ComponentModel.ISupportInitialize)(this.selectedNodeOrLinkSplitContainer)).BeginInit();
          this.selectedNodeOrLinkSplitContainer.Panel1.SuspendLayout();
          this.selectedNodeOrLinkSplitContainer.Panel2.SuspendLayout();
@@ -252,7 +253,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
          this.selectedNodeChildTextTextBox.Location = new System.Drawing.Point(48, 55);
          this.selectedNodeChildTextTextBox.Name = "selectedNodeChildTextTextBox";
-         this.selectedNodeChildTextTextBox.Size = new System.Drawing.Size(491, 67);
+         this.selectedNodeChildTextTextBox.Size = new System.Drawing.Size(487, 63);
          this.selectedNodeChildTextTextBox.TabIndex = 8;
          this.selectedNodeChildTextTextBox.Text = "";
          // 
@@ -280,6 +281,10 @@
          this.selectedNodeChildAuthorLabel.Size = new System.Drawing.Size(41, 13);
          this.selectedNodeChildAuthorLabel.TabIndex = 5;
          this.selectedNodeChildAuthorLabel.Text = "Author:";
+         // 
+         // graphInitializeBackgroundWorker
+         // 
+         this.graphInitializeBackgroundWorker.WorkerSupportsCancellation = true;
          // 
          // GraphManagerHost
          // 
@@ -333,5 +338,6 @@
       private System.Windows.Forms.Label selectedNodeChildAuthorLabel;
       private System.Windows.Forms.ToolStripButton hideNodeParentMainButton;
       private System.Windows.Forms.ToolStripButton hideNodeChildOrHoveredButton;
+      private System.ComponentModel.BackgroundWorker graphInitializeBackgroundWorker;
    }
 }

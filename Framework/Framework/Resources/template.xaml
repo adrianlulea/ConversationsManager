@@ -49,6 +49,14 @@
                 <Setter Property="Background" Value="Coral"/>
                 <Setter Property="BorderThickness" Value="7"/>
             </Trigger>
+            <Trigger Property="adrlulea:ExtendedHighlightBehavior.AvailableNodeForLink" Value="True">
+                <Setter Property="Background" Value="Green"/>
+                <Setter Property="BorderThickness" Value="7"/>
+            </Trigger>
+            <Trigger Property="adrlulea:ExtendedHighlightBehavior.UnavailableNodeForLink" Value="True">
+                <Setter Property="Background" Value="Red"/>
+                <Setter Property="BorderThickness" Value="7"/>
+            </Trigger>
         </Style.Triggers>
     </Style>
 
