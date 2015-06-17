@@ -464,28 +464,31 @@ namespace Framework.GUI.Graph
       /// <param name="args"></param>
       private void GraphHost_VertexMouseEnter(object sender, GraphX.Controls.Models.VertexSelectedEventArgs args)
       {
-         switch(_linkCreationState)
+         VertexControl vc = args.VertexControl;
+         DataVertex dv = vc.Vertex as DataVertex;
+
+         if (OnNodeHovered != null)
          {
-            case LinkCreateState.None:
-               {
+            bool valid = false;
 
-                  break;
-               }
-            case LinkCreateState.SelectedSourceNode:
-               {
-                  VertexControl vc = args.VertexControl;
-                  DataVertex dv = vc.Vertex as DataVertex;
-
-                  if (OnNodeHovered != null)
+            switch (_linkCreationState)
+            {
+               case LinkCreateState.None:
                   {
-                     bool valid = ExtendedHighlightBehavior.GetAvailableNodeForLink(vc);
-                     SelectedNodeArgs e = new SelectedNodeArgs(valid, dv.ReplyId);
-
-                     OnNodeHovered.Invoke(this, e);
+                     valid = ExtendedHighlightBehavior.GetHighlightedChild(vc) ||
+                             ExtendedHighlightBehavior.GetHighlightedParent(vc);
+                     break;
                   }
+               case LinkCreateState.SelectedSourceNode:
+                  {
+                     valid = ExtendedHighlightBehavior.GetAvailableNodeForLink(vc);
+                     break;
+                  }
+            }
 
-                  break;
-               }
+            SelectedNodeArgs e = new SelectedNodeArgs(valid, dv.ReplyId);
+
+            OnNodeHovered.Invoke(this, e);
          }
       }
 
@@ -580,17 +583,18 @@ namespace Framework.GUI.Graph
             {
                ExtendedHighlightBehavior.SetHighlightedChild(VertexList[child.Target], false);
                this.RemoveEdge(child);
+               this.LogicCore.Graph.RemoveEdge(child);
             }
 
             foreach (DataEdge parent in parents)
             {
                ExtendedHighlightBehavior.SetHighlightedParent(VertexList[parent.Source], false);
                this.RemoveEdge(parent);
+               this.LogicCore.Graph.RemoveEdge(parent);
             }
 
             this.RemoveVertex(_selectedNode);
-
-            //TODO maybe refresh is required?
+            this.LogicCore.Graph.RemoveVertex(_selectedNode);
          }
       }
 
@@ -609,8 +613,7 @@ namespace Framework.GUI.Graph
             ExtendedHighlightBehavior.SetHighlightedChild(child, false);
 
             this.RemoveEdge(_selectedLink);
-
-            //TODO maybe refresh is required?
+            this.LogicCore.Graph.RemoveEdge(_selectedLink);
          }
       }
 
@@ -831,6 +834,7 @@ namespace Framework.GUI.Graph
             var edgeControl = new EdgeControl(VertexList[parentNode], VertexList[childNode], dataEdge);
 
             AddEdge(dataEdge, edgeControl);
+            LogicCore.Graph.AddEdge(dataEdge);
 
             // Highlight new link
             switch (linkType)

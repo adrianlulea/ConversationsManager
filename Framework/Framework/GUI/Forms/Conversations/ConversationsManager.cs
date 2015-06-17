@@ -533,6 +533,7 @@ namespace Framework.GUI.Forms.Conversations
                     toolStripSeparator2.Visible = false;
                     showChildrenButton.Visible = false;
                     showParentsButton.Visible = false;
+                    addButton.Visible = false;
                     break;
                  }
               case ConversationsManagerViewMode.GraphMode:
@@ -547,6 +548,7 @@ namespace Framework.GUI.Forms.Conversations
                     toolStripSeparator2.Visible = true;
                     showChildrenButton.Visible = true;
                     showParentsButton.Visible = true;
+                    addButton.Visible = true;
                     break;
                  }
            }

@@ -48,6 +48,7 @@
          this.selectedNodeChildAuthorTextBox = new System.Windows.Forms.TextBox();
          this.selectedNodeChildAuthorLabel = new System.Windows.Forms.Label();
          this.graphInitializeBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+         this.showChildParentDetailsButton = new System.Windows.Forms.ToolStripButton();
          ((System.ComponentModel.ISupportInitialize)(this.selectedNodeOrLinkSplitContainer)).BeginInit();
          this.selectedNodeOrLinkSplitContainer.Panel1.SuspendLayout();
          this.selectedNodeOrLinkSplitContainer.Panel2.SuspendLayout();
@@ -148,18 +149,19 @@
          this.selectedLinkSplitContainer.Panel2.Controls.Add(this.selectedNodeChildAuthorTextBox);
          this.selectedLinkSplitContainer.Panel2.Controls.Add(this.selectedNodeChildAuthorLabel);
          this.selectedLinkSplitContainer.Panel2Collapsed = true;
-         this.selectedLinkSplitContainer.Size = new System.Drawing.Size(150, 46);
-         this.selectedLinkSplitContainer.SplitterDistance = 125;
+         this.selectedLinkSplitContainer.Size = new System.Drawing.Size(1016, 131);
+         this.selectedLinkSplitContainer.SplitterDistance = 508;
          this.selectedLinkSplitContainer.TabIndex = 0;
          // 
          // selectedNodeParentToolStrip
          // 
          this.selectedNodeParentToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hideNodeParentMainButton,
-            this.saveChangesSelectedNodeParentButton});
+            this.saveChangesSelectedNodeParentButton,
+            this.showChildParentDetailsButton});
          this.selectedNodeParentToolStrip.Location = new System.Drawing.Point(0, 0);
          this.selectedNodeParentToolStrip.Name = "selectedNodeParentToolStrip";
-         this.selectedNodeParentToolStrip.Size = new System.Drawing.Size(148, 25);
+         this.selectedNodeParentToolStrip.Size = new System.Drawing.Size(1014, 25);
          this.selectedNodeParentToolStrip.TabIndex = 4;
          this.selectedNodeParentToolStrip.Text = "toolStrip1";
          // 
@@ -178,7 +180,7 @@
          this.saveChangesSelectedNodeParentButton.Image = global::Framework.Properties.Resources.Save;
          this.saveChangesSelectedNodeParentButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.saveChangesSelectedNodeParentButton.Name = "saveChangesSelectedNodeParentButton";
-         this.saveChangesSelectedNodeParentButton.Size = new System.Drawing.Size(98, 20);
+         this.saveChangesSelectedNodeParentButton.Size = new System.Drawing.Size(98, 22);
          this.saveChangesSelectedNodeParentButton.Text = "Save changes";
          // 
          // selectedNodeParentTextTextBox
@@ -188,7 +190,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
          this.selectedNodeParentTextTextBox.Location = new System.Drawing.Point(50, 54);
          this.selectedNodeParentTextTextBox.Name = "selectedNodeParentTextTextBox";
-         this.selectedNodeParentTextTextBox.Size = new System.Drawing.Size(95, 0);
+         this.selectedNodeParentTextTextBox.Size = new System.Drawing.Size(936, 85);
          this.selectedNodeParentTextTextBox.TabIndex = 3;
          this.selectedNodeParentTextTextBox.Text = "";
          // 
@@ -224,7 +226,7 @@
             this.saveChangesSelectedNodeChildButton});
          this.selectedNodeChildToolStrip.Location = new System.Drawing.Point(0, 0);
          this.selectedNodeChildToolStrip.Name = "selectedNodeChildToolStrip";
-         this.selectedNodeChildToolStrip.Size = new System.Drawing.Size(94, 25);
+         this.selectedNodeChildToolStrip.Size = new System.Drawing.Size(502, 25);
          this.selectedNodeChildToolStrip.TabIndex = 9;
          this.selectedNodeChildToolStrip.Text = "toolStrip1";
          // 
@@ -243,7 +245,7 @@
          this.saveChangesSelectedNodeChildButton.Image = global::Framework.Properties.Resources.Save;
          this.saveChangesSelectedNodeChildButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.saveChangesSelectedNodeChildButton.Name = "saveChangesSelectedNodeChildButton";
-         this.saveChangesSelectedNodeChildButton.Size = new System.Drawing.Size(98, 20);
+         this.saveChangesSelectedNodeChildButton.Size = new System.Drawing.Size(98, 22);
          this.saveChangesSelectedNodeChildButton.Text = "Save changes";
          // 
          // selectedNodeChildTextTextBox
@@ -253,7 +255,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
          this.selectedNodeChildTextTextBox.Location = new System.Drawing.Point(48, 55);
          this.selectedNodeChildTextTextBox.Name = "selectedNodeChildTextTextBox";
-         this.selectedNodeChildTextTextBox.Size = new System.Drawing.Size(487, 63);
+         this.selectedNodeChildTextTextBox.Size = new System.Drawing.Size(893, 92);
          this.selectedNodeChildTextTextBox.TabIndex = 8;
          this.selectedNodeChildTextTextBox.Text = "";
          // 
@@ -285,6 +287,16 @@
          // graphInitializeBackgroundWorker
          // 
          this.graphInitializeBackgroundWorker.WorkerSupportsCancellation = true;
+         // 
+         // showChildParentDetailsButton
+         // 
+         this.showChildParentDetailsButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+         this.showChildParentDetailsButton.Image = global::Framework.Properties.Resources.Undo;
+         this.showChildParentDetailsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+         this.showChildParentDetailsButton.Name = "showChildParentDetailsButton";
+         this.showChildParentDetailsButton.Size = new System.Drawing.Size(56, 22);
+         this.showChildParentDetailsButton.Text = "Show";
+         this.showChildParentDetailsButton.Click += new System.EventHandler(this.showChildParentDetailsButton_Click);
          // 
          // GraphManagerHost
          // 
@@ -339,5 +351,6 @@
       private System.Windows.Forms.ToolStripButton hideNodeParentMainButton;
       private System.Windows.Forms.ToolStripButton hideNodeChildOrHoveredButton;
       private System.ComponentModel.BackgroundWorker graphInitializeBackgroundWorker;
+      private System.Windows.Forms.ToolStripButton showChildParentDetailsButton;
    }
 }

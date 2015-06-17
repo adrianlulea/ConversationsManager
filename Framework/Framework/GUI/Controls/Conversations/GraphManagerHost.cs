@@ -335,6 +335,7 @@ namespace Framework.GUI.Controls.Conversations
       {
          //TODO
          //Updates la graf
+         _host.GenerateGraph();
          _host.RelayoutGraph();
       }
 
@@ -525,7 +526,7 @@ namespace Framework.GUI.Controls.Conversations
       {
          _host.RemoveSelectedNode();
 
-         //TODO perhaps refresh is needed
+         RefreshGraph();
       }
 
       /// <summary>
@@ -539,7 +540,7 @@ namespace Framework.GUI.Controls.Conversations
 
          _host.RemoveSelectedLink();
 
-         //TODO perhaps refresh is needed
+         RefreshGraph();
       }
 
       /// <summary>
@@ -558,7 +559,7 @@ namespace Framework.GUI.Controls.Conversations
       /// </summary>
       public void CancelLinkCreation()
       {
-         selectedLinkSplitContainer.Panel2Collapsed = true;
+         selectedLinkSplitContainer.Panel2Collapsed = false;
          ClearChildNodePanelData();
 
          _host.CancelLinkCreation();
@@ -885,6 +886,18 @@ namespace Framework.GUI.Controls.Conversations
       private void hideNodeChildOrHoveredButton_Click(object sender, EventArgs e)
       {
          selectedLinkSplitContainer.Panel2Collapsed = true;
+         showChildParentDetailsButton.Visible = true;
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
+      private void showChildParentDetailsButton_Click(object sender, EventArgs e)
+      {
+         selectedLinkSplitContainer.Panel2Collapsed = false;
+         showChildParentDetailsButton.Visible = false;
       }
 
       #region Graph
@@ -906,6 +919,7 @@ namespace Framework.GUI.Controls.Conversations
       /// <param name="args"></param>
       private void _host_OnSelectedNodeChanged(object sender, SelectedNodeArgs args)
       {
+         selectedNodeOrLinkSplitContainer.Panel2Collapsed = false;
          InternalReplyData replyData = _dataManager.GetReplyData(args.Id);
 
          PopulateSelectedNodePanelData(args.Id, replyData);
@@ -1011,6 +1025,10 @@ namespace Framework.GUI.Controls.Conversations
          if (ConfirmNewLink(startData, args.StartingNode.ReplyId, endData, args.EndingNode.ReplyId) == false)
          {
             CancelLinkCreation();
+         }
+         else
+         {
+            RefreshGraph();
          }
 
          /*

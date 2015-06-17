@@ -215,7 +215,7 @@
          // 
          this.addReplyOption.Image = global::Framework.Properties.Resources.Conversation;
          this.addReplyOption.Name = "addReplyOption";
-         this.addReplyOption.Size = new System.Drawing.Size(108, 22);
+         this.addReplyOption.Size = new System.Drawing.Size(152, 22);
          this.addReplyOption.Tag = "0";
          this.addReplyOption.Text = "Reply";
          this.addReplyOption.Click += new System.EventHandler(this.addButton_Click);
@@ -225,7 +225,7 @@
          this.addParentOption.Enabled = false;
          this.addParentOption.Image = global::Framework.Properties.Resources.Parents;
          this.addParentOption.Name = "addParentOption";
-         this.addParentOption.Size = new System.Drawing.Size(108, 22);
+         this.addParentOption.Size = new System.Drawing.Size(152, 22);
          this.addParentOption.Tag = "1";
          this.addParentOption.Text = "Parent";
          this.addParentOption.Click += new System.EventHandler(this.addButton_Click);
@@ -235,7 +235,7 @@
          this.addChildOption.Enabled = false;
          this.addChildOption.Image = global::Framework.Properties.Resources.Children;
          this.addChildOption.Name = "addChildOption";
-         this.addChildOption.Size = new System.Drawing.Size(108, 22);
+         this.addChildOption.Size = new System.Drawing.Size(152, 22);
          this.addChildOption.Tag = "2";
          this.addChildOption.Text = "Child";
          this.addChildOption.Click += new System.EventHandler(this.addButton_Click);
@@ -314,9 +314,9 @@
          // conversationsHost
          // 
          this.conversationsHost.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.conversationsHost.Location = new System.Drawing.Point(0, 24);
+         this.conversationsHost.Location = new System.Drawing.Point(0, 49);
          this.conversationsHost.Name = "conversationsHost";
-         this.conversationsHost.Size = new System.Drawing.Size(1016, 717);
+         this.conversationsHost.Size = new System.Drawing.Size(1016, 692);
          this.conversationsHost.TabIndex = 3;
          // 
          // nodesContextMenu

@@ -29,17 +29,17 @@
       private void InitializeComponent()
       {
          this.parentReplyGroupBox = new System.Windows.Forms.GroupBox();
-         this.childReplyGroupBox = new System.Windows.Forms.GroupBox();
-         this.cancelButton = new System.Windows.Forms.Button();
-         this.createLinkButton = new System.Windows.Forms.Button();
-         this.parentAuthorLabel = new System.Windows.Forms.Label();
-         this.parentTextLabel = new System.Windows.Forms.Label();
-         this.parentAuthorTextBox = new System.Windows.Forms.TextBox();
          this.parentTextRichTextBox = new System.Windows.Forms.RichTextBox();
+         this.parentAuthorTextBox = new System.Windows.Forms.TextBox();
+         this.parentTextLabel = new System.Windows.Forms.Label();
+         this.parentAuthorLabel = new System.Windows.Forms.Label();
+         this.childReplyGroupBox = new System.Windows.Forms.GroupBox();
          this.childTextRichTextBox = new System.Windows.Forms.RichTextBox();
          this.childAuthorTextBox = new System.Windows.Forms.TextBox();
          this.childTextLabel = new System.Windows.Forms.Label();
          this.childAuthorLabel = new System.Windows.Forms.Label();
+         this.cancelButton = new System.Windows.Forms.Button();
+         this.createLinkButton = new System.Windows.Forms.Button();
          this.parentReplyGroupBox.SuspendLayout();
          this.childReplyGroupBox.SuspendLayout();
          this.SuspendLayout();
@@ -59,6 +59,49 @@
          this.parentReplyGroupBox.TabStop = false;
          this.parentReplyGroupBox.Text = "Parent";
          // 
+         // parentTextRichTextBox
+         // 
+         this.parentTextRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.parentTextRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.parentTextRichTextBox.Location = new System.Drawing.Point(53, 52);
+         this.parentTextRichTextBox.Name = "parentTextRichTextBox";
+         this.parentTextRichTextBox.ReadOnly = true;
+         this.parentTextRichTextBox.Size = new System.Drawing.Size(454, 147);
+         this.parentTextRichTextBox.TabIndex = 3;
+         this.parentTextRichTextBox.TabStop = false;
+         this.parentTextRichTextBox.Text = "";
+         // 
+         // parentAuthorTextBox
+         // 
+         this.parentAuthorTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.parentAuthorTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.parentAuthorTextBox.Location = new System.Drawing.Point(53, 26);
+         this.parentAuthorTextBox.Name = "parentAuthorTextBox";
+         this.parentAuthorTextBox.ReadOnly = true;
+         this.parentAuthorTextBox.Size = new System.Drawing.Size(194, 20);
+         this.parentAuthorTextBox.TabIndex = 2;
+         this.parentAuthorTextBox.TabStop = false;
+         // 
+         // parentTextLabel
+         // 
+         this.parentTextLabel.AutoSize = true;
+         this.parentTextLabel.Location = new System.Drawing.Point(6, 55);
+         this.parentTextLabel.Name = "parentTextLabel";
+         this.parentTextLabel.Size = new System.Drawing.Size(31, 13);
+         this.parentTextLabel.TabIndex = 1;
+         this.parentTextLabel.Text = "Text:";
+         // 
+         // parentAuthorLabel
+         // 
+         this.parentAuthorLabel.AutoSize = true;
+         this.parentAuthorLabel.Location = new System.Drawing.Point(6, 29);
+         this.parentAuthorLabel.Name = "parentAuthorLabel";
+         this.parentAuthorLabel.Size = new System.Drawing.Size(41, 13);
+         this.parentAuthorLabel.TabIndex = 0;
+         this.parentAuthorLabel.Text = "Author:";
+         // 
          // childReplyGroupBox
          // 
          this.childReplyGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -73,6 +116,49 @@
          this.childReplyGroupBox.TabIndex = 1;
          this.childReplyGroupBox.TabStop = false;
          this.childReplyGroupBox.Text = "Child";
+         // 
+         // childTextRichTextBox
+         // 
+         this.childTextRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.childTextRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.childTextRichTextBox.Location = new System.Drawing.Point(53, 42);
+         this.childTextRichTextBox.Name = "childTextRichTextBox";
+         this.childTextRichTextBox.ReadOnly = true;
+         this.childTextRichTextBox.Size = new System.Drawing.Size(454, 157);
+         this.childTextRichTextBox.TabIndex = 7;
+         this.childTextRichTextBox.TabStop = false;
+         this.childTextRichTextBox.Text = "";
+         // 
+         // childAuthorTextBox
+         // 
+         this.childAuthorTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.childAuthorTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.childAuthorTextBox.Location = new System.Drawing.Point(53, 16);
+         this.childAuthorTextBox.Name = "childAuthorTextBox";
+         this.childAuthorTextBox.ReadOnly = true;
+         this.childAuthorTextBox.Size = new System.Drawing.Size(194, 20);
+         this.childAuthorTextBox.TabIndex = 6;
+         this.childAuthorTextBox.TabStop = false;
+         // 
+         // childTextLabel
+         // 
+         this.childTextLabel.AutoSize = true;
+         this.childTextLabel.Location = new System.Drawing.Point(6, 45);
+         this.childTextLabel.Name = "childTextLabel";
+         this.childTextLabel.Size = new System.Drawing.Size(31, 13);
+         this.childTextLabel.TabIndex = 5;
+         this.childTextLabel.Text = "Text:";
+         // 
+         // childAuthorLabel
+         // 
+         this.childAuthorLabel.AutoSize = true;
+         this.childAuthorLabel.Location = new System.Drawing.Point(6, 19);
+         this.childAuthorLabel.Name = "childAuthorLabel";
+         this.childAuthorLabel.Size = new System.Drawing.Size(41, 13);
+         this.childAuthorLabel.TabIndex = 4;
+         this.childAuthorLabel.Text = "Author:";
          // 
          // cancelButton
          // 
@@ -93,88 +179,6 @@
          this.createLinkButton.Text = "Create";
          this.createLinkButton.UseVisualStyleBackColor = true;
          this.createLinkButton.Click += new System.EventHandler(this.createLinkButton_Click);
-         // 
-         // parentAuthorLabel
-         // 
-         this.parentAuthorLabel.AutoSize = true;
-         this.parentAuthorLabel.Location = new System.Drawing.Point(6, 29);
-         this.parentAuthorLabel.Name = "parentAuthorLabel";
-         this.parentAuthorLabel.Size = new System.Drawing.Size(41, 13);
-         this.parentAuthorLabel.TabIndex = 0;
-         this.parentAuthorLabel.Text = "Author:";
-         // 
-         // parentTextLabel
-         // 
-         this.parentTextLabel.AutoSize = true;
-         this.parentTextLabel.Location = new System.Drawing.Point(6, 55);
-         this.parentTextLabel.Name = "parentTextLabel";
-         this.parentTextLabel.Size = new System.Drawing.Size(31, 13);
-         this.parentTextLabel.TabIndex = 1;
-         this.parentTextLabel.Text = "Text:";
-         // 
-         // parentAuthorTextBox
-         // 
-         this.parentAuthorTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-         this.parentAuthorTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.parentAuthorTextBox.Location = new System.Drawing.Point(53, 26);
-         this.parentAuthorTextBox.Name = "parentAuthorTextBox";
-         this.parentAuthorTextBox.ReadOnly = true;
-         this.parentAuthorTextBox.Size = new System.Drawing.Size(194, 20);
-         this.parentAuthorTextBox.TabIndex = 2;
-         // 
-         // parentTextRichTextBox
-         // 
-         this.parentTextRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-         this.parentTextRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.parentTextRichTextBox.Location = new System.Drawing.Point(53, 52);
-         this.parentTextRichTextBox.Name = "parentTextRichTextBox";
-         this.parentTextRichTextBox.ReadOnly = true;
-         this.parentTextRichTextBox.Size = new System.Drawing.Size(454, 147);
-         this.parentTextRichTextBox.TabIndex = 3;
-         this.parentTextRichTextBox.Text = "";
-         // 
-         // childTextRichTextBox
-         // 
-         this.childTextRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-         this.childTextRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.childTextRichTextBox.Location = new System.Drawing.Point(53, 42);
-         this.childTextRichTextBox.Name = "childTextRichTextBox";
-         this.childTextRichTextBox.ReadOnly = true;
-         this.childTextRichTextBox.Size = new System.Drawing.Size(454, 157);
-         this.childTextRichTextBox.TabIndex = 7;
-         this.childTextRichTextBox.Text = "";
-         // 
-         // childAuthorTextBox
-         // 
-         this.childAuthorTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-         this.childAuthorTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.childAuthorTextBox.Location = new System.Drawing.Point(53, 16);
-         this.childAuthorTextBox.Name = "childAuthorTextBox";
-         this.childAuthorTextBox.ReadOnly = true;
-         this.childAuthorTextBox.Size = new System.Drawing.Size(194, 20);
-         this.childAuthorTextBox.TabIndex = 6;
-         // 
-         // childTextLabel
-         // 
-         this.childTextLabel.AutoSize = true;
-         this.childTextLabel.Location = new System.Drawing.Point(6, 45);
-         this.childTextLabel.Name = "childTextLabel";
-         this.childTextLabel.Size = new System.Drawing.Size(31, 13);
-         this.childTextLabel.TabIndex = 5;
-         this.childTextLabel.Text = "Text:";
-         // 
-         // childAuthorLabel
-         // 
-         this.childAuthorLabel.AutoSize = true;
-         this.childAuthorLabel.Location = new System.Drawing.Point(6, 19);
-         this.childAuthorLabel.Name = "childAuthorLabel";
-         this.childAuthorLabel.Size = new System.Drawing.Size(41, 13);
-         this.childAuthorLabel.TabIndex = 4;
-         this.childAuthorLabel.Text = "Author:";
          // 
          // ConfirmNewLinkForm
          // 

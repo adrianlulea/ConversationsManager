@@ -27,6 +27,11 @@ namespace Framework.GUI.Graph
       /// <summary>
       /// 
       /// </summary>
+      public static readonly DependencyProperty HoveredParentProperty = DependencyProperty.RegisterAttached("HoveredParent", typeof(bool), typeof(ExtendedHighlightBehavior), new PropertyMetadata(false));
+
+      /// <summary>
+      /// 
+      /// </summary>
       public static readonly DependencyProperty HighlightedChildLinkProperty = DependencyProperty.RegisterAttached("HighlightedChildLink", typeof(bool), typeof(ExtendedHighlightBehavior), new PropertyMetadata(false));
 
       /// <summary>
@@ -92,6 +97,30 @@ namespace Framework.GUI.Graph
       public static void SetHighlightedParent(DependencyObject obj, bool value)
       {
          obj.SetValue(HighlightedParentProperty, value);
+      }
+
+      #endregion
+
+      #region HoveredParentProperty
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="obj"></param>
+      /// <returns></returns>
+      public static bool GetHoveredParent(DependencyObject obj)
+      {
+         return (bool)obj.GetValue(HoveredParentProperty);
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="obj"></param>
+      /// <param name="value"></param>
+      public static void SetHoveredParent(DependencyObject obj, bool value)
+      {
+         obj.SetValue(HoveredParentProperty, value);
       }
 
       #endregion
