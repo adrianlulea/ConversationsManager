@@ -199,8 +199,11 @@
     <Compile Include="GUI\Forms\Conversations\ViewReplyForm.designer.cs">
       <DependentUpon>ViewReplyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Graph\CreateLinkDragEventArgs.cs" />
     <Compile Include="GUI\Graph\DataEdge.cs" />
     <Compile Include="GUI\Graph\DataVertex.cs" />
+    <Compile Include="GUI\Graph\ExtendedDragBehavior.cs" />
+    <Compile Include="GUI\Graph\ExtendedDragBehaviorEventArgs.cs" />
     <Compile Include="GUI\Graph\ExtendedHighlightBehavior.cs" />
     <Compile Include="GUI\Graph\Graph.cs" />
     <Compile Include="GUI\Graph\GraphHost.cs" />

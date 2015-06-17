@@ -132,9 +132,6 @@ namespace Framework.GUI.Controls.Conversations
 
          // Initialize lists
          InitializeLists();
-
-         // Initialize Graph
-         //InitializeGraph();
       }
 
       #endregion
@@ -407,6 +404,8 @@ namespace Framework.GUI.Controls.Conversations
          // Add all replies (also keep a hash [replyId, vertex]
          Dictionary<Guid, DataVertex> nodeHash = new Dictionary<Guid, DataVertex>();
 
+         //int i = 3;
+
          foreach (InternalReply internalReply in _dataManager.Replies)
          {
             Guid replyId = internalReply.Id;
@@ -415,7 +414,12 @@ namespace Framework.GUI.Controls.Conversations
             nodeHash.Add(replyId, dataNode);
 
             dataGraph.AddVertex(dataNode);
+
+            //if (i-- == 0) break;
+
          }
+
+         //i = 3;
 
          // Populate edges
          foreach (InternalReply internalReply in _dataManager.Replies)
@@ -433,6 +437,8 @@ namespace Framework.GUI.Controls.Conversations
 
                dataGraph.AddEdge(dataEdge);
             }
+
+            //if (i-- == 0) break;
          }
 
 
@@ -469,6 +475,7 @@ namespace Framework.GUI.Controls.Conversations
       private UIElement GenerateWPFHost()
       {
          _zoomControl = new ZoomControl();
+         _zoomControl.MouseUp += _zoomControl_MouseUp;
 
          ZoomControl.SetViewFinderVisibility(_zoomControl, Visibility.Visible);
 
@@ -485,10 +492,12 @@ namespace Framework.GUI.Controls.Conversations
          _host.OnEdgeDoubleClicked += _host_OnEdgeDoubleClicked;
          _host.OnNodeHovered += _host_OnNodeHovered;
          _host.OnPendingNewLink += _host_OnPendingNewLink;
+         _host.OnDragStarted += _host_OnDragStarted;
+         _host.OnDragFinished += _host_OnDragFinished;
 
          logic.Graph = GenerateGraph();
-         logic.DefaultLayoutAlgorithm = LayoutAlgorithmTypeEnum.LinLog;
-         logic.DefaultLayoutAlgorithmParams = logic.AlgorithmFactory.CreateLayoutParameters(LayoutAlgorithmTypeEnum.LinLog);
+         logic.DefaultLayoutAlgorithm = LayoutAlgorithmTypeEnum.EfficientSugiyama;
+         logic.DefaultLayoutAlgorithmParams = logic.AlgorithmFactory.CreateLayoutParameters(LayoutAlgorithmTypeEnum.EfficientSugiyama);
 
          logic.DefaultOverlapRemovalAlgorithm = OverlapRemovalAlgorithmTypeEnum.FSA;
          logic.DefaultOverlapRemovalAlgorithmParams = logic.AlgorithmFactory.CreateOverlapRemovalParameters(OverlapRemovalAlgorithmTypeEnum.FSA);
@@ -562,6 +571,65 @@ namespace Framework.GUI.Controls.Conversations
       {
          // Determine link type
 
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="node1Data"></param>
+      /// <param name="node1Id"></param>
+      /// <param name="node2Data"></param>
+      /// <param name="node2Id"></param>
+      /// <returns></returns>
+      private bool ConfirmNewLink(InternalReplyData node1Data, Guid node1Id, InternalReplyData node2Data, Guid node2Id)
+      {
+         InternalReplyData parent = null;
+         InternalReplyData child = null;
+         Guid parentId, childId;
+         ReplyField linkType = ReplyField.Child;
+
+         if (node1Data.Timestamp > node2Data.Timestamp)
+         {
+            parent = node2Data;
+            child = node1Data;
+
+            parentId = node2Id;
+            childId = node1Id;
+
+            linkType = ReplyField.Parent; // node2 is node1's parent
+         }
+         else
+         {
+            parent = node1Data;
+            child = node2Data;
+
+            parentId = node1Id;
+            childId = node2Id;
+
+            linkType = ReplyField.Child;
+         }
+
+         ConfirmNewLinkForm confirmNewLink = new ConfirmNewLinkForm(parent, child);
+
+         if (confirmNewLink.ShowDialog() == DialogResult.OK)
+         {
+            _host.FinalizeLinkCreation(linkType);
+
+            SelectedLinkArgs e = new SelectedLinkArgs(true, parentId, childId);
+
+            _dataManager.AddLink(parentId, ReplyField.Child, childId);
+
+            if (OnLinkFinalized != null)
+            {
+               OnLinkFinalized.Invoke(this, e);
+            }
+
+            return true;
+         }
+         else
+         {
+            return false;
+         }
       }
 
       #endregion
@@ -700,14 +768,17 @@ namespace Framework.GUI.Controls.Conversations
       /// <param name="args"></param>
       private void _host_OnPendingNewLink(object sender, SelectedLinkArgs args)
       {
-         InternalReplyData parent = null;
+         /*InternalReplyData parent = null;
          InternalReplyData child = null;
          Guid parentId, childId;
-         ReplyField linkType = ReplyField.Child;
+         ReplyField linkType = ReplyField.Child;*/
 
          InternalReplyData node1 = _dataManager.GetReplyData(args.ParentId);
          InternalReplyData node2 = _dataManager.GetReplyData(args.ChildId);
 
+         ConfirmNewLink(node1, args.ParentId, node2, args.ChildId);
+
+         /*
          if (node1.Timestamp > node2.Timestamp)
          {
             parent = node2;
@@ -743,7 +814,7 @@ namespace Framework.GUI.Controls.Conversations
             {
                OnLinkFinalized.Invoke(this, e);
             }
-         }
+         }*/
       }
 
       #endregion
@@ -901,6 +972,60 @@ namespace Framework.GUI.Controls.Conversations
 
          selectedLinkSplitContainer.Panel2Collapsed = !selectedLinkSplitContainer.Panel2Collapsed;
       }
+
+      #region Drag
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      private void _host_OnDragStarted(object sender, CreateLinkDragEventArgs args)
+      {
+         _host.BeginLinkCreation(args.StartingNode);
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
+      private void _zoomControl_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+      {
+         _host.CancelLinkCreation();
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      private void _host_OnDragFinished(object sender, CreateLinkDragEventArgs args)
+      {
+         InternalReplyData startData = _dataManager.GetReplyData(args.StartingNode.ReplyId);
+         InternalReplyData endData = _dataManager.GetReplyData(args.EndingNode.ReplyId);
+
+         _host.LinkSourceVertex = args.StartingNode;
+         _host.LinkTargetVertex = args.EndingNode;
+
+         if (ConfirmNewLink(startData, args.StartingNode.ReplyId, endData, args.EndingNode.ReplyId) == false)
+         {
+            CancelLinkCreation();
+         }
+
+         /*
+         ReplyField linkType = ReplyField.Child;
+
+         if (startData.Timestamp > endData.Timestamp)
+         {
+            linkType = ReplyField.Parent;
+         }
+
+         _host.FinalizeLinkCreation(linkType);
+         */
+      }
+
+      #endregion
 
       #endregion
 

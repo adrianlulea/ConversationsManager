@@ -31,8 +31,8 @@
         </Setter>
 
         <!-- VERTEX DRAGGING CONTROL -->
-        <Setter Property="controls:DragBehaviour.IsDragEnabled"
-                Value="True" />
+        <Setter Property="adrlulea:ExtendedDragBehavior.IsCreateLinkOnDragAndDrop"
+                Value="False" />
 
         <Setter Property="controls:HighlightBehaviour.IsHighlightEnabled" Value="False"/>
 

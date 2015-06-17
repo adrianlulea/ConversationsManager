@@ -7,6 +7,8 @@ using GraphX;
 using QuickGraph;
 using GraphX.Controls;
 using Framework.Util;
+using System.Windows.Input;
+using System.Windows;
 
 
 namespace Framework.GUI.Graph
@@ -55,6 +57,26 @@ namespace Framework.GUI.Graph
 
       #endregion
 
+      #region Properties
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public DataVertex LinkSourceVertex
+      {
+         set { _linkSourceVertex = value; }
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public DataVertex LinkTargetVertex
+      {
+         set { _linkTargetVertex = value; }
+      }
+
+      #endregion
+
       #region Constructors
 
       /// <summary>
@@ -78,11 +100,15 @@ namespace Framework.GUI.Graph
 
          this.VertexMouseEnter += GraphHost_VertexMouseEnter;
          this.VertexMouseLeave += GraphHost_VertexMouseLeave;
+         this.VertexMouseMove += GraphHost_VertexMouseMove;
+         this.VertexMouseUp += GraphHost_VertexMouseUp;
       }
 
       #endregion
 
       #region Event Handlers
+
+      #region OnSelectedNodeChanged
 
       /// <summary>
       /// 
@@ -103,7 +129,9 @@ namespace Framework.GUI.Graph
       /// <param name="args"></param>
       private void GraphHost_VertexSelected(object sender, GraphX.Controls.Models.VertexSelectedEventArgs args)
       {
-         switch(_linkCreationState)
+         bool sameAsPreviousNode = ((DataVertex)args.VertexControl.Vertex) == _selectedNode;
+
+         switch (_linkCreationState)
          {
             case LinkCreateState.None:
                {
@@ -152,6 +180,110 @@ namespace Framework.GUI.Graph
                }
          }
       }
+
+      #endregion
+
+      #region OnDragStarted
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      public delegate void DragStarted(object sender, CreateLinkDragEventArgs args);
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public event DragStarted OnDragStarted;
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
+      private void GraphHost_VertexMouseMove(object sender, GraphX.Controls.Models.VertexMovedEventArgs e)
+      {
+         bool selectedNodeAvailable = (_selectedNode != null);
+         bool movingOnSelectedNode = (selectedNodeAvailable &&
+                                      (_selectedNode.Equals(e.VertexControl.Vertex as DataVertex))
+                                     );
+
+         bool movingOnSelectedNodeWhileLeftPressed = (movingOnSelectedNode &&
+                                                      Mouse.LeftButton == MouseButtonState.Pressed);
+
+         if (movingOnSelectedNodeWhileLeftPressed)
+         {
+            if (OnDragStarted != null)
+            {
+               CreateLinkDragEventArgs args = new CreateLinkDragEventArgs(_selectedNode, null);
+               OnDragStarted.Invoke(this, args);
+            }
+
+            //BeginLinkCreation(VertexList[_selectedNode].GetPosition());
+         }
+      }
+
+      #endregion
+
+      #region OnDragFinished
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      public delegate void DragFinished(object sender, CreateLinkDragEventArgs args);
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public event DragFinished OnDragFinished;
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      private void GraphHost_VertexMouseUp(object sender, GraphX.Controls.Models.VertexSelectedEventArgs args)
+      {
+         switch(_linkCreationState)
+         {
+            case LinkCreateState.None:
+               {
+
+                  break;
+               }
+            case LinkCreateState.SelectedSourceNode:
+               {
+                  DataVertex dv = args.VertexControl.Vertex as DataVertex;
+
+                  if (_selectedNode.Equals(dv) == true)
+                  {
+                     CancelLinkCreation();
+                  }
+                  else
+                  {
+                     if (OnDragFinished != null)
+                     {
+                        CreateLinkDragEventArgs e = new CreateLinkDragEventArgs(_selectedNode, dv);
+                        OnDragFinished.Invoke(this, e);
+                     }
+
+                     /*LinkSourceVertex = _selectedNode;
+                     LinkTargetVertex = dv;
+
+                     ReplyField linkType = ReplyField.Child;
+
+                     FinalizeLinkCreation(linkType);*/
+                  }
+
+                  break;
+               }
+         }
+      }
+
+      #endregion
 
       /// <summary>
       /// 
@@ -581,8 +713,21 @@ namespace Framework.GUI.Graph
       /// <summary>
       /// 
       /// </summary>
-      public void BeginLinkCreation()
+      /// <param name="startingNode"></param>
+      public void BeginLinkCreation(DataVertex startingNode = null)
       {
+         if (startingNode != null)
+         {
+            _selectedNode = startingNode;
+         }
+         else
+         {
+            if (_selectedNode == null)
+            {
+               return;
+            }
+         }
+
          _linkSourceVertex = _selectedNode;
          _linkTargetVertex = null;
          _linkCreationState = LinkCreateState.SelectedSourceNode;
@@ -620,6 +765,11 @@ namespace Framework.GUI.Graph
       /// </summary>
       public void CancelLinkCreation()
       {
+         if (_linkCreationState == LinkCreateState.None)
+         {
+            return;
+         }
+
          _linkSourceVertex = null;
          _linkTargetVertex = null;
          _linkCreationState = LinkCreateState.None;
@@ -631,7 +781,8 @@ namespace Framework.GUI.Graph
       /// 
       /// </summary>
       /// <param name="linkType"></param>
-      public void FinalizeLinkCreation(ReplyField linkType)
+      /// <param name="createLink"></param>
+      public void FinalizeLinkCreation(ReplyField linkType, bool createLink = true)
       {
          _linkCreationState = LinkCreateState.SelectedTargetNode;
          var parentNode = _linkSourceVertex;
@@ -643,7 +794,11 @@ namespace Framework.GUI.Graph
                {
                   parentNode = _linkSourceVertex;
                   childNode = _linkTargetVertex;
-                  _selectedNodesChildren.Add(_linkTargetVertex);
+
+                  if (createLink)
+                  {
+                     _selectedNodesChildren.Add(_linkTargetVertex);
+                  }
 
                   break;
                }
@@ -651,7 +806,11 @@ namespace Framework.GUI.Graph
                {
                   parentNode = _linkTargetVertex;
                   childNode = _linkSourceVertex;
-                  _selectedNodesParents.Add(_linkTargetVertex);
+
+                  if (createLink)
+                  {
+                     _selectedNodesParents.Add(_linkTargetVertex);
+                  }
 
                   break;
                }
@@ -661,35 +820,39 @@ namespace Framework.GUI.Graph
                }
          }
 
-         var dataEdge = new DataEdge(parentNode, childNode)
+         if (createLink)
          {
-            Text = string.Format("{0} -> {1}", parentNode, childNode)
-         };
 
-         var edgeControl = new EdgeControl(VertexList[parentNode], VertexList[childNode], dataEdge);
+            var dataEdge = new DataEdge(parentNode, childNode)
+            {
+               Text = string.Format("{0} -> {1}", parentNode, childNode)
+            };
 
-         AddEdge(dataEdge, edgeControl);
+            var edgeControl = new EdgeControl(VertexList[parentNode], VertexList[childNode], dataEdge);
+
+            AddEdge(dataEdge, edgeControl);
+
+            // Highlight new link
+            switch (linkType)
+            {
+               case ReplyField.Child:
+                  {
+                     ExtendedHighlightBehavior.SetHighlightedChildLink(edgeControl, true);
+                     break;
+                  }
+               case ReplyField.Parent:
+                  {
+                     ExtendedHighlightBehavior.SetHighlightedParentLink(edgeControl, true);
+                     break;
+                  }
+            }
+         }
+
+         HighlightSelectedNodeAndItsLinks();
 
          _linkCreationState = LinkCreateState.None;
          _linkSourceVertex = null;
          _linkTargetVertex = null;
-
-         // Highlight new link
-         switch(linkType)
-         {
-            case ReplyField.Child:
-               {
-                  ExtendedHighlightBehavior.SetHighlightedChildLink(edgeControl, true);
-                  break;
-               }
-            case ReplyField.Parent:
-               {
-                  ExtendedHighlightBehavior.SetHighlightedParentLink(edgeControl, true);
-                  break;
-               }
-         }
-
-         HighlightSelectedNodeAndItsLinks();
       }
 
       /// <summary>

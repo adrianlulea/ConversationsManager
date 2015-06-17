@@ -522,6 +522,8 @@ namespace Framework.GUI.Controls.Conversations
             nodeList.Items.Clear();
             ListViewItem item;
 
+            //int i = 3;
+
             foreach (InternalReply reply in _dataManager.Replies)
             {
                 if (_exceptions.Contains(reply.Id))
@@ -531,6 +533,8 @@ namespace Framework.GUI.Controls.Conversations
 
                 item = PopulateListItem(reply);
                 nodeList.Items.Add(item);
+
+                //if (i-- == 0) break;
             }
         }
 
