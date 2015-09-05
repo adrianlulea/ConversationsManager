@@ -55,7 +55,10 @@
          this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
          this.filterTextBox = new System.Windows.Forms.ToolStripTextBox();
          this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-         this.showGraphButton = new System.Windows.Forms.ToolStripButton();
+         this.showGraphButton = new System.Windows.Forms.ToolStripDropDownButton();
+         this.normalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.bothToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.conversationsHost = new System.Windows.Forms.Panel();
          this.nodesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
          this.addReplyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -215,7 +218,7 @@
          // 
          this.addReplyOption.Image = global::Framework.Properties.Resources.Conversation;
          this.addReplyOption.Name = "addReplyOption";
-         this.addReplyOption.Size = new System.Drawing.Size(152, 22);
+         this.addReplyOption.Size = new System.Drawing.Size(108, 22);
          this.addReplyOption.Tag = "0";
          this.addReplyOption.Text = "Reply";
          this.addReplyOption.Click += new System.EventHandler(this.addButton_Click);
@@ -225,7 +228,7 @@
          this.addParentOption.Enabled = false;
          this.addParentOption.Image = global::Framework.Properties.Resources.Parents;
          this.addParentOption.Name = "addParentOption";
-         this.addParentOption.Size = new System.Drawing.Size(152, 22);
+         this.addParentOption.Size = new System.Drawing.Size(108, 22);
          this.addParentOption.Tag = "1";
          this.addParentOption.Text = "Parent";
          this.addParentOption.Click += new System.EventHandler(this.addButton_Click);
@@ -235,7 +238,7 @@
          this.addChildOption.Enabled = false;
          this.addChildOption.Image = global::Framework.Properties.Resources.Children;
          this.addChildOption.Name = "addChildOption";
-         this.addChildOption.Size = new System.Drawing.Size(152, 22);
+         this.addChildOption.Size = new System.Drawing.Size(108, 22);
          this.addChildOption.Tag = "2";
          this.addChildOption.Text = "Child";
          this.addChildOption.Click += new System.EventHandler(this.addButton_Click);
@@ -304,12 +307,40 @@
          // 
          // showGraphButton
          // 
-         this.showGraphButton.Image = global::Framework.Properties.Resources.Graph;
+         this.showGraphButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.normalToolStripMenuItem,
+            this.graphToolStripMenuItem,
+            this.bothToolStripMenuItem});
+         this.showGraphButton.Image = global::Framework.Properties.Resources.BasicInformation;
          this.showGraphButton.ImageTransparentColor = System.Drawing.Color.Magenta;
          this.showGraphButton.Name = "showGraphButton";
-         this.showGraphButton.Size = new System.Drawing.Size(59, 22);
-         this.showGraphButton.Text = "Graph";
+         this.showGraphButton.Size = new System.Drawing.Size(76, 22);
+         this.showGraphButton.Text = "Normal";
          this.showGraphButton.Click += new System.EventHandler(this.showGraphButton_Click);
+         // 
+         // normalToolStripMenuItem
+         // 
+         this.normalToolStripMenuItem.Image = global::Framework.Properties.Resources.BasicInformation;
+         this.normalToolStripMenuItem.Name = "normalToolStripMenuItem";
+         this.normalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+         this.normalToolStripMenuItem.Text = "Normal";
+         this.normalToolStripMenuItem.Click += new System.EventHandler(this.normalToolStripMenuItem_Click);
+         // 
+         // graphToolStripMenuItem
+         // 
+         this.graphToolStripMenuItem.Image = global::Framework.Properties.Resources.Graph;
+         this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
+         this.graphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+         this.graphToolStripMenuItem.Text = "Graph";
+         this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
+         // 
+         // bothToolStripMenuItem
+         // 
+         this.bothToolStripMenuItem.Image = global::Framework.Properties.Resources.Normal;
+         this.bothToolStripMenuItem.Name = "bothToolStripMenuItem";
+         this.bothToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+         this.bothToolStripMenuItem.Text = "Split View";
+         this.bothToolStripMenuItem.Click += new System.EventHandler(this.bothToolStripMenuItem_Click);
          // 
          // conversationsHost
          // 
@@ -451,7 +482,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripTextBox filterTextBox;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton showGraphButton;
         private System.Windows.Forms.Panel conversationsHost;
         private System.Windows.Forms.ToolStripSplitButton addButton;
         private System.Windows.Forms.ToolStripMenuItem addReplyOption;
@@ -467,6 +497,10 @@
         private System.Windows.Forms.ToolStripMenuItem addContext;
         private System.Windows.Forms.ToolStripMenuItem removeContext;
         private System.Windows.Forms.ToolStripButton linkNodeButton;
+        private System.Windows.Forms.ToolStripDropDownButton showGraphButton;
+        private System.Windows.Forms.ToolStripMenuItem normalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bothToolStripMenuItem;
     }
 }
 

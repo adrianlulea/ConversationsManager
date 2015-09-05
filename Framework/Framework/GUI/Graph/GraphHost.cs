@@ -131,6 +131,11 @@ namespace Framework.GUI.Graph
       {
          bool sameAsPreviousNode = ((DataVertex)args.VertexControl.Vertex) == _selectedNode;
 
+         if (OnHostGotFocus != null)
+         {
+            OnHostGotFocus.Invoke(this, new EventArgs());
+         }
+
          switch (_linkCreationState)
          {
             case LinkCreateState.None:
@@ -304,6 +309,11 @@ namespace Framework.GUI.Graph
       /// <param name="args"></param>
       void GraphHost_EdgeSelected(object sender, GraphX.Controls.Models.EdgeSelectedEventArgs args)
       {
+         if (OnHostGotFocus != null)
+         {
+            OnHostGotFocus.Invoke(this, new EventArgs());
+         }
+
          switch(_linkCreationState)
          {
             case LinkCreateState.None:
@@ -534,6 +544,18 @@ namespace Framework.GUI.Graph
       /// </summary>
       public event PendingNewLink OnPendingNewLink;
 
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="args"></param>
+      public delegate void HostGotFocus(object sender, EventArgs args);
+
+      /// <summary>
+      /// 
+      /// </summary>
+      public event HostGotFocus OnHostGotFocus;
+
       #endregion
 
       #region Methods
@@ -615,6 +637,19 @@ namespace Framework.GUI.Graph
             this.RemoveEdge(_selectedLink);
             this.LogicCore.Graph.RemoveEdge(_selectedLink);
          }
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="id"></param>
+      public void SelectNode(Guid id)
+      {
+         DataVertex nodeDataVertex = new DataVertex(id);
+         VertexControl nodeVertex = VertexList[nodeDataVertex];
+
+         GraphHost_VertexSelected(this, new GraphX.Controls.Models.VertexSelectedEventArgs(nodeVertex, new MouseButtonEventArgs(InputManager.Current.PrimaryMouseDevice, 0, MouseButton.Right), ModifierKeys.None));
+
       }
 
       /// <summary>

@@ -133,11 +133,23 @@ namespace Framework.GUI.Controls.Conversations
 
             // Initialize lists
             InitializeLists();
+
+            // Initialize OnGotFocusControls
+            InitializeOnGotFocusControls();
         }
 
         #endregion
 
         #region Events
+
+        #region OnGotFocus
+
+        private void childControl_GotFocus(object sender, EventArgs e)
+        {
+           OnGotFocus(new EventArgs());
+        }
+
+        #endregion
 
         #region Own Created Events
 
@@ -510,7 +522,18 @@ namespace Framework.GUI.Controls.Conversations
        /// <param name="id"></param>
         public void SelectNodeInGraphView(Guid id)
         {
- 
+
+        }
+
+        private void InitializeOnGotFocusControls()
+        {
+           this.childrenNodesList.GotFocus += childControl_GotFocus;
+           this.graphViewNodeList.GotFocus += childControl_GotFocus;
+           this.normalViewNodeList.GotFocus += childControl_GotFocus;
+           this.parentsNodeList.GotFocus += childControl_GotFocus;
+           this.splitContainer1.GotFocus += childControl_GotFocus;
+           this.splitContainer2.GotFocus += childControl_GotFocus;
+           this.splitContainer3.GotFocus += childControl_GotFocus;
         }
 
         #endregion

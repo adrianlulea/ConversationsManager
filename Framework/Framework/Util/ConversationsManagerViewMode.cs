@@ -18,6 +18,10 @@ namespace Framework.Util
       /// <summary>
       /// Conversations manager in graph mode.
       /// </summary>
-      GraphMode
+      GraphMode,
+      /// <summary>
+      /// Conversations manager in split view mode (50/50 normal and graph)
+      /// </summary>
+      SplitViewMode
    }
 }

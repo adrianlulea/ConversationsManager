@@ -132,6 +132,9 @@ namespace Framework.GUI.Controls.Conversations
 
          // Initialize lists
          InitializeLists();
+
+         // Initialize OnGotFocusControls
+         InitializeOnGotFocusControls();
       }
 
       #endregion
@@ -633,9 +636,53 @@ namespace Framework.GUI.Controls.Conversations
          }
       }
 
+      private void InitializeOnGotFocusControls()
+      {
+         this.childrenNodesList.GotFocus += childControl_GotFocus;
+         this.graphLinksSplitContainer.GotFocus += childControl_GotFocus;
+         this.parentsChildrenSplitContainer.GotFocus += childControl_GotFocus;
+         this.parentsNodeList.GotFocus += childControl_GotFocus;
+         this.selectedLinkSplitContainer.GotFocus += childControl_GotFocus;
+         this.selectedNodeChildAuthorTextBox.GotFocus += childControl_GotFocus;
+         this.selectedNodeChildTextTextBox.GotFocus += childControl_GotFocus;
+         this.selectedNodeChildToolStrip.GotFocus += childControl_GotFocus;
+         this.selectedNodeOrLinkSplitContainer.GotFocus += childControl_GotFocus;
+         this.selectedNodeParentAuthorTextBox.GotFocus += childControl_GotFocus;
+         this.selectedNodeParentTextTextBox.GotFocus += childControl_GotFocus;
+         this.selectedNodeParentToolStrip.GotFocus += childControl_GotFocus;
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="id"></param>
+      public void SelectNodeInGraphView(Guid id)
+      {
+         _host.SelectNode(id);
+      }
+
       #endregion
 
       #region Events
+
+      #region OnGotFocus
+
+      private void _host_OnHostGotFocus(object sender, EventArgs args)
+      {
+         OnGotFocus(new EventArgs());
+      }
+
+      private void childControlUI_GotFocus(object sender, RoutedEventArgs e)
+      {
+         OnGotFocus(new EventArgs());
+      }
+
+      void childControl_GotFocus(object sender, EventArgs e)
+      {
+         OnGotFocus(new EventArgs());
+      }
+
+      #endregion
 
       #region Own Created Events
 
@@ -726,6 +773,9 @@ namespace Framework.GUI.Controls.Conversations
          _host.GenerateGraph(true);
          _host.SetVerticesDrag(false);
          _zoomControl.ZoomToFill();
+
+         this._host.OnHostGotFocus += _host_OnHostGotFocus;
+         this._zoomControl.GotFocus += childControlUI_GotFocus;
 
          if (OnGraphInitialized != null)
          {

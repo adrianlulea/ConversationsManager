@@ -99,6 +99,12 @@ namespace Framework.GUI.Controls.Conversations
         /// </summary>
         private string _text;
 
+       /// <summary>
+       /// Flag wether the reply received focus from a selection on the graph
+       /// instead of a user's click
+       /// </summary>
+        private bool _focusReceivedFromGraph;
+
         #endregion
 
         #region Properties
@@ -256,11 +262,25 @@ namespace Framework.GUI.Controls.Conversations
             toolTip.SetToolTip(nodeList, _typeAsString);
             nodeList.HideSelection = (type != NodeListControlType.Basic);
             splitContainer1.Panel2Collapsed = true;
+
+            _focusReceivedFromGraph = false;
+
+            // Initialize OnGotFocusControls
+            InitializeOnGotFocusControls();
         }
 
         #endregion
 
         #region Events
+
+        #region OnGotFocus
+
+        private void childControl_GotFocus(object sender, EventArgs e)
+        {
+           OnGotFocus(new EventArgs());
+        }
+
+        #endregion
 
         #region Own Created Events
 
@@ -339,6 +359,11 @@ namespace Framework.GUI.Controls.Conversations
         {
             bool valid = false;
             _selectedId = Guid.Empty;
+
+            if (_focusReceivedFromGraph == false)
+            {
+               OnGotFocus(new EventArgs());
+            }
 
             if (nodeList.SelectedIndices.Count == 1)
             {
@@ -842,7 +867,13 @@ namespace Framework.GUI.Controls.Conversations
         {
            ListViewItem item = GetListViewItemById(id);
 
+           _focusReceivedFromGraph = true;
+
            item.Selected = true;
+
+           nodeList.EnsureVisible(item.Index);
+
+           _focusReceivedFromGraph = false;
         }
 
        /// <summary>
@@ -861,6 +892,20 @@ namespace Framework.GUI.Controls.Conversations
            }
 
            return null;
+        }
+
+        private void InitializeOnGotFocusControls()
+        {
+           foreach (Control c in this.Controls)
+           {
+              c.GotFocus += childControl_GotFocus;
+           }
+
+           this.authorTextBox.GotFocus += childControl_GotFocus;
+           this.nodeList.GotFocus += childControl_GotFocus;
+           this.replyTextBox.GotFocus += childControl_GotFocus;
+           this.splitContainer1.GotFocus += childControl_GotFocus;
+           this.toolStripTextBox1.GotFocus += childControl_GotFocus;
         }
 
         #endregion

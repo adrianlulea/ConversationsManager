@@ -66,9 +66,19 @@ namespace Framework.GUI.Forms.Conversations
         private GraphManagerHost _graphHost;
 
        /// <summary>
+       /// Conversation Manager Split View host.
+       /// </summary>
+        private SplitViewManagerHost _splitViewHost;
+
+       /// <summary>
        /// Conversation manager viewing mode.
        /// </summary>
         private ConversationsManagerViewMode _viewMode;
+
+       /// <summary>
+       /// 
+       /// </summary>
+        private FocusedViewInSplitViewMode _focusedViewInSplitViewHost;
 
         /// <summary>
         /// Add type.
@@ -185,9 +195,11 @@ namespace Framework.GUI.Forms.Conversations
             // Initialize host
             _normalHost = null;
             _graphHost = null;
+            _splitViewHost = null;
 
            // Set view mode
             _viewMode = ConversationsManagerViewMode.NormalMode;
+            _focusedViewInSplitViewHost = FocusedViewInSplitViewMode.None;
 
             // Set add type
             _addType = AddType.Reply;
@@ -374,44 +386,27 @@ namespace Framework.GUI.Forms.Conversations
            {
               case ConversationsManagerViewMode.GraphMode:
                  {
-                    switch(_graphSelectedType)
-                    {
-                       case GraphRemoveType.Node:
-                          {
-                             _graphHost.RemoveSelectedNode();
-                             RemoveReply();
-                             linkNodeButton.Enabled = false;
-                             break;
-                          }
-                       case GraphRemoveType.Link:
-                          {
-                             _graphHost.RemoveSelectedLink();
-                             RemoveChild();
-                             // In Graph mode no node remains selected
-                             removeReplyButton.Enabled = false;
-                             break;
-                          }
-                    }
+                    RemoveReplyInGraphMode();
 
                     break;
                  }
               case ConversationsManagerViewMode.NormalMode:
                  {
-                    switch (_selectedType)
+                    RemoveReplyInNormalMode();
+                    break;
+                 }
+              case ConversationsManagerViewMode.SplitViewMode:
+                 {
+                    switch(_focusedViewInSplitViewHost)
                     {
-                       case NodeListControlType.Basic:
+                       case FocusedViewInSplitViewMode.Normal:
                           {
-                             RemoveReply();
+                             RemoveReplyInNormalMode();
                              break;
                           }
-                       case NodeListControlType.Children:
+                       case FocusedViewInSplitViewMode.Graph:
                           {
-                             RemoveChild();
-                             break;
-                          }
-                       case NodeListControlType.Parents:
-                          {
-                             RemoveParent();
+                             RemoveReplyInGraphMode();
                              break;
                           }
                     }
@@ -477,6 +472,40 @@ namespace Framework.GUI.Forms.Conversations
                         throw new InvalidFieldException();
                     }
             }
+
+           switch(_viewMode)
+           {
+              case ConversationsManagerViewMode.NormalMode:
+                 {
+
+                    break;
+                 }
+              case ConversationsManagerViewMode.GraphMode:
+                 {
+
+                    break;
+                 }
+              case ConversationsManagerViewMode.SplitViewMode:
+                 {
+                    switch(_focusedViewInSplitViewHost)
+                    {
+                       case FocusedViewInSplitViewMode.Normal:
+                          {
+                             if (e.Valid)
+                             {
+                                _graphHost.SelectNodeInGraphView(e.Id);
+                             }
+                             break;
+                          }
+                       case FocusedViewInSplitViewMode.Graph:
+                          {
+
+                             break;
+                          }
+                    }
+                    break;
+                 }
+           }
         }
 
         /// <summary>
@@ -511,13 +540,97 @@ namespace Framework.GUI.Forms.Conversations
             }
         }
 
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
+        private void normalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           bool updatesNeeded = false; //TODO determine if data has been deleted
+
+           if (conversationsHost.Controls.Contains(_normalHost) == false)
+           {
+              conversationsHost.Controls.Add(_normalHost);
+           }
+
+           if (conversationsHost.Controls.Contains(_graphHost) == false)
+           {
+              conversationsHost.Controls.Add(_graphHost);
+           }
+
+           _normalHost.UpdateContent(updatesNeeded);
+           _normalHost.BringToFront();
+
+           _viewMode = ConversationsManagerViewMode.NormalMode;
+           showGraphButton.Image = Properties.Resources.BasicInformation;
+           showGraphButton.Text = "Normal";
+
+           SetNormalModeToolbarOptions();
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
+        private void graphToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           bool updatesNeeded = false; //TODO determine if data has been deleted
+
+           if (conversationsHost.Controls.Contains(_normalHost) == false)
+           {
+              conversationsHost.Controls.Add(_normalHost);
+           }
+
+           if (conversationsHost.Controls.Contains(_graphHost) == false)
+           {
+              conversationsHost.Controls.Add(_graphHost);
+           }
+
+           _graphHost.UpdateContent(updatesNeeded);
+           _graphHost.BringToFront();
+
+           _viewMode = ConversationsManagerViewMode.GraphMode;
+           showGraphButton.Image = Properties.Resources.Graph;
+           showGraphButton.Text = "Graph";
+
+           SetGraphModeToolbarOptions();
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
+        private void bothToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           //bool updatesNeeded = false; //TODO determine if data has been deleted
+           _viewMode = ConversationsManagerViewMode.SplitViewMode;
+           showGraphButton.Image = Properties.Resources.Normal;
+           showGraphButton.Text = "Split View";
+
+           // Split view host
+           if (_splitViewHost != null)
+           {
+              _splitViewHost.Dispose();
+           }
+
+           _splitViewHost = new SplitViewManagerHost(_normalHost, _graphHost);
+
+           conversationsHost.Controls.Add(_splitViewHost);
+           _splitViewHost.BringToFront();
+
+           SetSplitViewModeToolbarOptions();
+        }
+
         #endregion
 
         #region Graph
 
         private void showGraphButton_Click(object sender, EventArgs e)
         {
-           bool updatesNeeded = false; //TODO determine if data has been deleted
+           /*bool updatesNeeded = false; //TODO determine if data has been deleted
 
            switch(_viewMode)
            {
@@ -551,8 +664,7 @@ namespace Framework.GUI.Forms.Conversations
                     addButton.Visible = true;
                     break;
                  }
-           }
-           
+           }*/
         }
 
        /// <summary>
@@ -634,7 +746,29 @@ namespace Framework.GUI.Forms.Conversations
         private void _graphHost_OnGraphInitialized(object sender, EventArgs e)
         {
            showGraphButton.Enabled = true;
-           showGraphButton.ToolTipText = "Graph";
+           //showGraphButton.ToolTipText = "Graph";
+        }
+
+        #endregion
+
+        #region ViewModes
+
+        private void _graphHost_GotFocus(object sender, EventArgs e)
+        {
+           Console.WriteLine("GraphHost got focus");
+
+           _focusedViewInSplitViewHost = FocusedViewInSplitViewMode.Graph;
+
+           SetGraphModeToolbarOptions();
+        }
+
+        private void _normalHost_GotFocus(object sender, EventArgs e)
+        {
+           Console.WriteLine("NormalHost got focus");
+
+           _focusedViewInSplitViewHost = FocusedViewInSplitViewMode.Normal;
+
+           SetNormalModeToolbarOptions();
         }
 
         #endregion
@@ -842,6 +976,9 @@ namespace Framework.GUI.Forms.Conversations
             showGraphButton.ToolTipText = "Graph is rendering...";
             _graphHost.InitializeGraph();
             //_graphHost.UpdateContent(false);
+
+            _normalHost.GotFocus += _normalHost_GotFocus;
+            _graphHost.GotFocus += _graphHost_GotFocus;
         }
 
        /// <summary>
@@ -1106,6 +1243,50 @@ namespace Framework.GUI.Forms.Conversations
             UpdateContent(true);
         }
 
+        private void RemoveReplyInGraphMode()
+        {
+           switch (_graphSelectedType)
+           {
+              case GraphRemoveType.Node:
+                 {
+                    _graphHost.RemoveSelectedNode();
+                    RemoveReply();
+                    linkNodeButton.Enabled = false;
+                    break;
+                 }
+              case GraphRemoveType.Link:
+                 {
+                    _graphHost.RemoveSelectedLink();
+                    RemoveChild();
+                    // In Graph mode no node remains selected
+                    removeReplyButton.Enabled = false;
+                    break;
+                 }
+           }
+        }
+
+        private void RemoveReplyInNormalMode()
+        {
+           switch (_selectedType)
+           {
+              case NodeListControlType.Basic:
+                 {
+                    RemoveReply();
+                    break;
+                 }
+              case NodeListControlType.Children:
+                 {
+                    RemoveChild();
+                    break;
+                 }
+              case NodeListControlType.Parents:
+                 {
+                    RemoveParent();
+                    break;
+                 }
+           }
+        }
+
         /// <summary>
         /// Remove selected child.
         /// </summary>
@@ -1130,6 +1311,38 @@ namespace Framework.GUI.Forms.Conversations
 
         #endregion
 
+       #region ViewModes
+
+        private void SetNormalModeToolbarOptions()
+        {
+           linkNodeButton.Visible = false;
+           toolStripSeparator2.Visible = true;
+           showChildrenButton.Visible = true;
+           showParentsButton.Visible = true;
+           addButton.Visible = true;
+        }
+
+        private void SetGraphModeToolbarOptions()
+        {
+           linkNodeButton.Visible = true;
+           toolStripSeparator2.Visible = false;
+           showChildrenButton.Visible = false;
+           showParentsButton.Visible = false;
+           addButton.Visible = false;
+        }
+
+        private void SetSplitViewModeToolbarOptions()
+        {
+           linkNodeButton.Visible = false;
+           toolStripSeparator2.Visible = false;
+           showChildrenButton.Visible = false;
+           showParentsButton.Visible = false;
+           addButton.Visible = false;
+        }
+
+       #endregion
+
         #endregion
+
     }
 }
