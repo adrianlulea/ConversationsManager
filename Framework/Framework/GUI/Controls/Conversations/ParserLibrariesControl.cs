@@ -38,7 +38,7 @@ namespace Framework.GUI.Controls.Conversations
             foreach(ListViewItem parser in parserListView.Items)
             {
                ListViewItem item = new ListViewItem(parser.Text);
-               item.SubItems.Add(parser.SubItems[0]);
+               item.SubItems.Add(parser.SubItems[1]);
 
                parsers.Add(item);
             }

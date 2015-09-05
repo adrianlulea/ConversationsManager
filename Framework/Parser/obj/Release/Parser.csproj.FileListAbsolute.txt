@@ -1,4 +1,0 @@
-d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\Parser\bin\Release\Parser.dll
-d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\Parser\bin\Release\Parser.pdb
-d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\Parser\obj\Release\Parser.dll
-d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\Parser\obj\Release\Parser.pdb
