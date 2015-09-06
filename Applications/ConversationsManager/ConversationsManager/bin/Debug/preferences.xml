@@ -9,4 +9,13 @@
   <BinaryFormat>true</BinaryFormat>
   <XMLFormat>false</XMLFormat>
   <ParserPath>Parsers</ParserPath>
+  <GraphPreferences>
+    <DefaultGraphLayoutAlgorithm>
+      <DefaultLayoutAlgorithm>EfficientSugiyama</DefaultLayoutAlgorithm>
+      <DefaultOverlapRemovalAlgorithm>OneWayFSA</DefaultOverlapRemovalAlgorithm>
+      <OverlapRemovalAlgorithmHorizontalGap>50</OverlapRemovalAlgorithmHorizontalGap>
+      <OverlapRemovalAlgorithmVerticalGap>50</OverlapRemovalAlgorithmVerticalGap>
+    </DefaultGraphLayoutAlgorithm>
+    <AlwaysRefreshEntireGraph>true</AlwaysRefreshEntireGraph>
+  </GraphPreferences>
 </PreferencesData>

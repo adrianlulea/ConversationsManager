@@ -65,6 +65,11 @@ namespace Framework.GUI.Forms.Conversations
        /// </summary>
         private ParserLibrariesControl _parsersControl;
 
+       /// <summary>
+       /// 
+       /// </summary>
+        private GraphLayoutAlgorithmsControl _graphAlgorithmsControl;
+
         #endregion
 
         #region Constructors
@@ -80,6 +85,7 @@ namespace Framework.GUI.Forms.Conversations
 
            // Initialize to null Parsers control
             _parsersControl = null;
+            _graphAlgorithmsControl = null;
 
             // Initialize GUI
             InitializeComponent();
@@ -256,6 +262,9 @@ namespace Framework.GUI.Forms.Conversations
                 _manager.Data.SaveLocation = defaultLocation.Text;
             }
 
+           // Set graph data
+            _manager.Data.GraphPreferences = _graphAlgorithmsControl.GraphPreferences;
+
             _manager.Save();
 
             DialogResult = System.Windows.Forms.DialogResult.Yes;
@@ -288,6 +297,9 @@ namespace Framework.GUI.Forms.Conversations
 
             // Parsers
             InitializeParsers();
+
+           // Graph Algorithms
+            InitializeGraphAlgorithms();
 
             _initializing = false;
         }
@@ -342,10 +354,26 @@ namespace Framework.GUI.Forms.Conversations
            if (this._parsersControl == null)
            {
               this._parsersControl = new ParserLibrariesControl(this._parsersPath);
+              this._parsersControl.Dock = DockStyle.Fill;
               this.parsersHost.Controls.Add(this._parsersControl);
            }
 
            this._parsersControl.InitializeParsers();
+        }
+
+       /// <summary>
+       /// Initialzie graph algorithms
+       /// </summary>
+        private void InitializeGraphAlgorithms()
+        {
+           if (this._graphAlgorithmsControl == null)
+           {
+              this._graphAlgorithmsControl = new GraphLayoutAlgorithmsControl(this._manager.Data.GraphPreferences);
+              this._graphAlgorithmsControl.Dock = DockStyle.Fill;
+              this.graphAlgorithmsHost.Controls.Add(this._graphAlgorithmsControl);
+           }
+
+           this._graphAlgorithmsControl.InitializeGraphAlgorithms();
         }
 
         /// <summary>

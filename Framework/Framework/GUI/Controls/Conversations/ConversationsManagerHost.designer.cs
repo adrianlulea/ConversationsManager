@@ -88,7 +88,6 @@
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.Controls.Add(this.splitContainer1);
-         this.MinimumSize = new System.Drawing.Size(1016, 692);
          this.Name = "ConversationsManagerHost";
          this.Size = new System.Drawing.Size(1016, 692);
          this.splitContainer1.Panel2.ResumeLayout(false);

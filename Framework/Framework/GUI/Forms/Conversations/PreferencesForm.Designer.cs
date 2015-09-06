@@ -53,28 +53,41 @@
          this.browseCustomDirectory = new System.Windows.Forms.FolderBrowserDialog();
          this.browseParserLibrary = new System.Windows.Forms.OpenFileDialog();
          this.parsersHost = new System.Windows.Forms.Panel();
+         this.tabControl1 = new System.Windows.Forms.TabControl();
+         this.tabPage1 = new System.Windows.Forms.TabPage();
+         this.tabPage2 = new System.Windows.Forms.TabPage();
+         this.tabPage3 = new System.Windows.Forms.TabPage();
+         this.graphAlgorithmsHost = new System.Windows.Forms.Panel();
          this.languageGroup.SuspendLayout();
          this.themeBox.SuspendLayout();
          this.dataFormatBox.SuspendLayout();
          this.savingLocationBox.SuspendLayout();
+         this.tabControl1.SuspendLayout();
+         this.tabPage1.SuspendLayout();
+         this.tabPage2.SuspendLayout();
+         this.tabPage3.SuspendLayout();
          this.SuspendLayout();
          // 
          // languageGroup
          // 
+         this.languageGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.languageGroup.Controls.Add(this.customLanguagePath);
          this.languageGroup.Controls.Add(this.label1);
          this.languageGroup.Controls.Add(this.browseLanguageButton);
          this.languageGroup.Controls.Add(this.customLanguage);
          this.languageGroup.Controls.Add(this.defaultLanguage);
-         this.languageGroup.Location = new System.Drawing.Point(12, 12);
+         this.languageGroup.Location = new System.Drawing.Point(6, 6);
          this.languageGroup.Name = "languageGroup";
-         this.languageGroup.Size = new System.Drawing.Size(443, 61);
+         this.languageGroup.Size = new System.Drawing.Size(672, 61);
          this.languageGroup.TabIndex = 0;
          this.languageGroup.TabStop = false;
          this.languageGroup.Text = "Language";
          // 
          // customLanguagePath
          // 
+         this.customLanguagePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.customLanguagePath.AutoSize = true;
          this.customLanguagePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.customLanguagePath.Location = new System.Drawing.Point(218, 21);
@@ -86,6 +99,8 @@
          // 
          // label1
          // 
+         this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.label1.AutoSize = true;
          this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.label1.Location = new System.Drawing.Point(6, 39);
@@ -108,6 +123,8 @@
          // 
          // customLanguage
          // 
+         this.customLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.customLanguage.AutoSize = true;
          this.customLanguage.Location = new System.Drawing.Point(71, 19);
          this.customLanguage.Name = "customLanguage";
@@ -121,6 +138,8 @@
          // 
          // defaultLanguage
          // 
+         this.defaultLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.defaultLanguage.AutoSize = true;
          this.defaultLanguage.Checked = true;
          this.defaultLanguage.Location = new System.Drawing.Point(6, 19);
@@ -133,20 +152,24 @@
          // 
          // themeBox
          // 
+         this.themeBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.themeBox.Controls.Add(this.customThemePath);
          this.themeBox.Controls.Add(this.label2);
          this.themeBox.Controls.Add(this.browseThemeButton);
          this.themeBox.Controls.Add(this.customTheme);
          this.themeBox.Controls.Add(this.defaultTheme);
-         this.themeBox.Location = new System.Drawing.Point(12, 79);
+         this.themeBox.Location = new System.Drawing.Point(6, 73);
          this.themeBox.Name = "themeBox";
-         this.themeBox.Size = new System.Drawing.Size(443, 60);
+         this.themeBox.Size = new System.Drawing.Size(672, 60);
          this.themeBox.TabIndex = 1;
          this.themeBox.TabStop = false;
          this.themeBox.Text = "Theme";
          // 
          // customThemePath
          // 
+         this.customThemePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.customThemePath.AutoSize = true;
          this.customThemePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.customThemePath.Location = new System.Drawing.Point(218, 21);
@@ -158,6 +181,8 @@
          // 
          // label2
          // 
+         this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.label2.AutoSize = true;
          this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.label2.Location = new System.Drawing.Point(6, 39);
@@ -180,6 +205,8 @@
          // 
          // customTheme
          // 
+         this.customTheme.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.customTheme.AutoSize = true;
          this.customTheme.Location = new System.Drawing.Point(71, 19);
          this.customTheme.Name = "customTheme";
@@ -193,6 +220,8 @@
          // 
          // defaultTheme
          // 
+         this.defaultTheme.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.defaultTheme.AutoSize = true;
          this.defaultTheme.Checked = true;
          this.defaultTheme.Location = new System.Drawing.Point(6, 19);
@@ -205,18 +234,22 @@
          // 
          // dataFormatBox
          // 
+         this.dataFormatBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.dataFormatBox.Controls.Add(this.xmlDataFormat);
          this.dataFormatBox.Controls.Add(this.binaryDataFormat);
          this.dataFormatBox.Controls.Add(this.label3);
-         this.dataFormatBox.Location = new System.Drawing.Point(12, 145);
+         this.dataFormatBox.Location = new System.Drawing.Point(6, 139);
          this.dataFormatBox.Name = "dataFormatBox";
-         this.dataFormatBox.Size = new System.Drawing.Size(443, 40);
+         this.dataFormatBox.Size = new System.Drawing.Size(672, 40);
          this.dataFormatBox.TabIndex = 2;
          this.dataFormatBox.TabStop = false;
          this.dataFormatBox.Text = "Data Format";
          // 
          // xmlDataFormat
          // 
+         this.xmlDataFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.xmlDataFormat.AutoSize = true;
          this.xmlDataFormat.Location = new System.Drawing.Point(150, 14);
          this.xmlDataFormat.Name = "xmlDataFormat";
@@ -227,6 +260,8 @@
          // 
          // binaryDataFormat
          // 
+         this.binaryDataFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.binaryDataFormat.AutoSize = true;
          this.binaryDataFormat.Checked = true;
          this.binaryDataFormat.Location = new System.Drawing.Point(90, 14);
@@ -239,6 +274,8 @@
          // 
          // label3
          // 
+         this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.label3.AutoSize = true;
          this.label3.Location = new System.Drawing.Point(6, 16);
          this.label3.Name = "label3";
@@ -248,19 +285,22 @@
          // 
          // savingLocationBox
          // 
+         this.savingLocationBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.savingLocationBox.Controls.Add(this.changeDefaultLocationButton);
          this.savingLocationBox.Controls.Add(this.defaultLocation);
          this.savingLocationBox.Controls.Add(this.defaultSavingLocationLabel);
-         this.savingLocationBox.Location = new System.Drawing.Point(12, 191);
+         this.savingLocationBox.Location = new System.Drawing.Point(6, 185);
          this.savingLocationBox.Name = "savingLocationBox";
-         this.savingLocationBox.Size = new System.Drawing.Size(443, 62);
+         this.savingLocationBox.Size = new System.Drawing.Size(672, 62);
          this.savingLocationBox.TabIndex = 3;
          this.savingLocationBox.TabStop = false;
          this.savingLocationBox.Text = "Saving Location";
          // 
          // changeDefaultLocationButton
          // 
-         this.changeDefaultLocationButton.Location = new System.Drawing.Point(362, 30);
+         this.changeDefaultLocationButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+         this.changeDefaultLocationButton.Location = new System.Drawing.Point(591, 33);
          this.changeDefaultLocationButton.Name = "changeDefaultLocationButton";
          this.changeDefaultLocationButton.Size = new System.Drawing.Size(75, 23);
          this.changeDefaultLocationButton.TabIndex = 2;
@@ -271,6 +311,8 @@
          // 
          // defaultLocation
          // 
+         this.defaultLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.defaultLocation.AutoSize = true;
          this.defaultLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.defaultLocation.Location = new System.Drawing.Point(133, 16);
@@ -281,6 +323,8 @@
          // 
          // defaultSavingLocationLabel
          // 
+         this.defaultSavingLocationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.defaultSavingLocationLabel.AutoSize = true;
          this.defaultSavingLocationLabel.Location = new System.Drawing.Point(6, 16);
          this.defaultSavingLocationLabel.Name = "defaultSavingLocationLabel";
@@ -290,7 +334,8 @@
          // 
          // applyButton
          // 
-         this.applyButton.Location = new System.Drawing.Point(374, 571);
+         this.applyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+         this.applyButton.Location = new System.Drawing.Point(629, 474);
          this.applyButton.Name = "applyButton";
          this.applyButton.Size = new System.Drawing.Size(75, 23);
          this.applyButton.TabIndex = 4;
@@ -315,22 +360,76 @@
          // 
          // parsersHost
          // 
-         this.parsersHost.Location = new System.Drawing.Point(12, 259);
+         this.parsersHost.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.parsersHost.Location = new System.Drawing.Point(3, 3);
          this.parsersHost.Name = "parsersHost";
-         this.parsersHost.Size = new System.Drawing.Size(443, 306);
+         this.parsersHost.Size = new System.Drawing.Size(678, 424);
          this.parsersHost.TabIndex = 5;
+         // 
+         // tabControl1
+         // 
+         this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.tabControl1.Controls.Add(this.tabPage1);
+         this.tabControl1.Controls.Add(this.tabPage2);
+         this.tabControl1.Controls.Add(this.tabPage3);
+         this.tabControl1.Location = new System.Drawing.Point(12, 12);
+         this.tabControl1.Name = "tabControl1";
+         this.tabControl1.SelectedIndex = 0;
+         this.tabControl1.Size = new System.Drawing.Size(692, 456);
+         this.tabControl1.TabIndex = 6;
+         // 
+         // tabPage1
+         // 
+         this.tabPage1.Controls.Add(this.languageGroup);
+         this.tabPage1.Controls.Add(this.themeBox);
+         this.tabPage1.Controls.Add(this.dataFormatBox);
+         this.tabPage1.Controls.Add(this.savingLocationBox);
+         this.tabPage1.Location = new System.Drawing.Point(4, 22);
+         this.tabPage1.Name = "tabPage1";
+         this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+         this.tabPage1.Size = new System.Drawing.Size(684, 430);
+         this.tabPage1.TabIndex = 0;
+         this.tabPage1.Text = "General";
+         this.tabPage1.UseVisualStyleBackColor = true;
+         // 
+         // tabPage2
+         // 
+         this.tabPage2.Controls.Add(this.parsersHost);
+         this.tabPage2.Location = new System.Drawing.Point(4, 22);
+         this.tabPage2.Name = "tabPage2";
+         this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+         this.tabPage2.Size = new System.Drawing.Size(684, 430);
+         this.tabPage2.TabIndex = 1;
+         this.tabPage2.Text = "Parsing";
+         this.tabPage2.UseVisualStyleBackColor = true;
+         // 
+         // tabPage3
+         // 
+         this.tabPage3.Controls.Add(this.graphAlgorithmsHost);
+         this.tabPage3.Location = new System.Drawing.Point(4, 22);
+         this.tabPage3.Name = "tabPage3";
+         this.tabPage3.Size = new System.Drawing.Size(684, 430);
+         this.tabPage3.TabIndex = 2;
+         this.tabPage3.Text = "Graph";
+         this.tabPage3.UseVisualStyleBackColor = true;
+         // 
+         // graphAlgorithmsHost
+         // 
+         this.graphAlgorithmsHost.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.graphAlgorithmsHost.Location = new System.Drawing.Point(0, 0);
+         this.graphAlgorithmsHost.Name = "graphAlgorithmsHost";
+         this.graphAlgorithmsHost.Size = new System.Drawing.Size(684, 430);
+         this.graphAlgorithmsHost.TabIndex = 0;
          // 
          // PreferencesForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(467, 606);
-         this.Controls.Add(this.parsersHost);
+         this.ClientSize = new System.Drawing.Size(716, 509);
+         this.Controls.Add(this.tabControl1);
          this.Controls.Add(this.applyButton);
-         this.Controls.Add(this.savingLocationBox);
-         this.Controls.Add(this.dataFormatBox);
-         this.Controls.Add(this.themeBox);
-         this.Controls.Add(this.languageGroup);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
          this.Name = "PreferencesForm";
          this.ShowIcon = false;
@@ -345,6 +444,10 @@
          this.dataFormatBox.PerformLayout();
          this.savingLocationBox.ResumeLayout(false);
          this.savingLocationBox.PerformLayout();
+         this.tabControl1.ResumeLayout(false);
+         this.tabPage1.ResumeLayout(false);
+         this.tabPage2.ResumeLayout(false);
+         this.tabPage3.ResumeLayout(false);
          this.ResumeLayout(false);
 
         }
@@ -376,5 +479,10 @@
         private System.Windows.Forms.FolderBrowserDialog browseCustomDirectory;
         private System.Windows.Forms.OpenFileDialog browseParserLibrary;
         private System.Windows.Forms.Panel parsersHost;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Panel graphAlgorithmsHost;
     }
 }

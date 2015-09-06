@@ -48,6 +48,11 @@ namespace Framework.GUI.Controls.Conversations
       /// </summary>
       private bool _refreshNodes;
 
+      /// <summary>
+      /// Current graph preferences data used.
+      /// </summary>
+      private static GraphPreferencesData _currentGraphPreferencesData = null;
+
       #region Node lists
 
       /// <summary>
@@ -104,6 +109,14 @@ namespace Framework.GUI.Controls.Conversations
             _viewChildren = value;
             ToggleChildren();
          }
+      }
+
+      /// <summary>
+      /// Gets current graph preferences data used.
+      /// </summary>
+      public static GraphPreferencesData CurrentGraphPreferencesData
+      {
+         get { return _currentGraphPreferencesData; }
       }
 
       #endregion
@@ -338,8 +351,13 @@ namespace Framework.GUI.Controls.Conversations
       {
          //TODO
          //Updates la graf
-         _host.GenerateGraph();
-         _host.RelayoutGraph();
+         GraphPreferencesData graphPreferencesData = ConversationsManager.PreferencesData.GraphPreferences;
+
+         if (graphPreferencesData.AlwaysRefreshEntireGraph)
+         {
+            _host.GenerateGraph();
+            _host.RelayoutGraph();
+         }
       }
 
       private void ClearSelectedNodePanelData()
@@ -483,7 +501,7 @@ namespace Framework.GUI.Controls.Conversations
 
          ZoomControl.SetViewFinderVisibility(_zoomControl, Visibility.Visible);
 
-         var logic = new GXLogicCore<DataVertex, DataEdge, BidirectionalGraph<DataVertex, DataEdge>>();
+         GXLogicCore<DataVertex, DataEdge, BidirectionalGraph<DataVertex, DataEdge>> logic = new GXLogicCore<DataVertex, DataEdge, BidirectionalGraph<DataVertex, DataEdge>>();
          _host = new GraphHost()
          {
             EnableWinFormsHostingMode = true,
@@ -500,16 +518,42 @@ namespace Framework.GUI.Controls.Conversations
          _host.OnDragFinished += _host_OnDragFinished;
 
          logic.Graph = GenerateGraph();
-         logic.DefaultLayoutAlgorithm = LayoutAlgorithmTypeEnum.EfficientSugiyama;
-         logic.DefaultLayoutAlgorithmParams = logic.AlgorithmFactory.CreateLayoutParameters(LayoutAlgorithmTypeEnum.EfficientSugiyama);
 
-         logic.DefaultOverlapRemovalAlgorithm = OverlapRemovalAlgorithmTypeEnum.FSA;
-         logic.DefaultOverlapRemovalAlgorithmParams = logic.AlgorithmFactory.CreateOverlapRemovalParameters(OverlapRemovalAlgorithmTypeEnum.FSA);
+         // Set Graph algorithms from Settings
+         GraphPreferencesData graphPreferences = ConversationsManager.PreferencesData.GraphPreferences;
+         LayoutAlgorithmTypeEnum layoutAlgorithm = graphPreferences.DefaultGraphLayoutAlgorithm.DefaultLayoutAlgorithm;
+         OverlapRemovalAlgorithmTypeEnum overlapRemovalAlgorithm = graphPreferences.DefaultGraphLayoutAlgorithm.DefaultOverlapRemovalAlgorithm;
 
-         ((OverlapRemovalParameters)logic.DefaultOverlapRemovalAlgorithmParams).HorizontalGap = 50;
-         ((OverlapRemovalParameters)logic.DefaultOverlapRemovalAlgorithmParams).VerticalGap = 50;
+         // Save static references to current settings
+         _currentGraphPreferencesData = new GraphPreferencesData(graphPreferences);
 
-         logic.DefaultEdgeRoutingAlgorithm = EdgeRoutingAlgorithmTypeEnum.None;
+         if (layoutAlgorithm != LayoutAlgorithmTypeEnum.Custom)
+         {
+            // Set Default Layout Algorithm
+            logic.DefaultLayoutAlgorithm = layoutAlgorithm;
+            logic.DefaultLayoutAlgorithmParams = logic.AlgorithmFactory.CreateLayoutParameters(layoutAlgorithm);
+
+            // Set Default Overlap Removal Algorithm
+            logic.DefaultOverlapRemovalAlgorithm = overlapRemovalAlgorithm;
+            logic.DefaultOverlapRemovalAlgorithmParams = logic.AlgorithmFactory.CreateOverlapRemovalParameters(overlapRemovalAlgorithm);
+
+            int horizontalGap = graphPreferences.DefaultGraphLayoutAlgorithm.OverlapRemovalAlgorithmHorizontalGap;
+            int verticalGap = graphPreferences.DefaultGraphLayoutAlgorithm.OverlapRemovalAlgorithmVerticalGap;
+
+            ((OverlapRemovalParameters)logic.DefaultOverlapRemovalAlgorithmParams).HorizontalGap = horizontalGap;
+            ((OverlapRemovalParameters)logic.DefaultOverlapRemovalAlgorithmParams).VerticalGap = verticalGap;
+
+            logic.DefaultEdgeRoutingAlgorithm = EdgeRoutingAlgorithmTypeEnum.None;
+         }
+         else
+         {
+            //TODO support custom algorithm
+            //logic.ExternalLayoutAlgorithm = 
+            //logic.ExternalOverlapRemovalAlgorithm = 
+            //logic.ExternalEdgeRoutingAlgorithm = 
+            throw new Exception("Custom layout algorithms not supported yet.");
+         }
+
          logic.AsyncAlgorithmCompute = false;
 
          _zoomControl.Content = _host;

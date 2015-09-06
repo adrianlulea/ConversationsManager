@@ -84,6 +84,7 @@
     <Compile Include="Data\Conversations\ExternalDatabase.cs" />
     <Compile Include="Data\Conversations\ExternalReply.cs" />
     <Compile Include="Data\Conversations\ExternalReplyData.cs" />
+    <Compile Include="Data\Conversations\GraphPreferencesData.cs" />
     <Compile Include="Data\Conversations\InternalDatabase.cs" />
     <Compile Include="Data\Conversations\InternalReply.cs" />
     <Compile Include="Data\Conversations\InternalReplyData.cs" />
@@ -108,6 +109,12 @@
     </Compile>
     <Compile Include="GUI\Controls\Conversations\CreateNewDatabaseDetailsControl.Designer.cs">
       <DependentUpon>CreateNewDatabaseDetailsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\GraphLayoutAlgorithmsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\GraphLayoutAlgorithmsControl.Designer.cs">
+      <DependentUpon>GraphLayoutAlgorithmsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Controls\Conversations\GraphManagerHost.cs">
       <SubType>UserControl</SubType>
@@ -227,6 +234,7 @@
     <Compile Include="Util\AddType.cs" />
     <Compile Include="Util\BaseException.cs" />
     <Compile Include="Util\ConversationsManagerViewMode.cs" />
+    <Compile Include="Util\CustomGraphLayoutAlgorithm.cs" />
     <Compile Include="Util\DataDeserializationException.cs" />
     <Compile Include="Util\DataSerializationException.cs" />
     <Compile Include="Util\DuplicateReplyChildException.cs" />
@@ -234,6 +242,8 @@
     <Compile Include="Util\ExceptionSeverity.cs" />
     <Compile Include="Util\ExternalFormat.cs" />
     <Compile Include="Util\FocusedViewInSplitViewMode.cs" />
+    <Compile Include="Util\DefaultGraphLayoutAlgorithm.cs" />
+    <Compile Include="Util\GraphLayoutAlgorithmType.cs" />
     <Compile Include="Util\LinkCreateState.cs" />
     <Compile Include="Util\GraphRemoveType.cs" />
     <Compile Include="Util\ImportControlEnum.cs" />
@@ -269,6 +279,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Controls\Conversations\CreateNewDatabaseDetailsControl.resx">
       <DependentUpon>CreateNewDatabaseDetailsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\Conversations\GraphLayoutAlgorithmsControl.resx">
+      <DependentUpon>GraphLayoutAlgorithmsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Controls\Conversations\GraphManagerHost.resx">
       <DependentUpon>GraphManagerHost.cs</DependentUpon>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Framework.Util;
 
 namespace Framework.Data.Conversations
 {
@@ -54,6 +55,11 @@ namespace Framework.Data.Conversations
        /// Path where imported parser libraries are saved.
        /// </summary>
         private string _parserPath;
+
+       /// <summary>
+       /// Graph preferences data.
+       /// </summary>
+        private GraphPreferencesData _graphPreferences;
 
         #endregion
 
@@ -156,6 +162,15 @@ namespace Framework.Data.Conversations
            set { _parserPath = value; }
         }
 
+       /// <summary>
+       /// Gets or sets graph preferences data.
+       /// </summary>
+        public GraphPreferencesData GraphPreferences
+        {
+           get { return _graphPreferences; }
+           set { _graphPreferences = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -174,6 +189,7 @@ namespace Framework.Data.Conversations
             _binaryFormat = true;
             _xmlFormat = false;
             _parserPath = "Parsers";
+            _graphPreferences = new GraphPreferencesData();
         }
 
         #endregion

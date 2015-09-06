@@ -55,6 +55,12 @@ namespace Framework.GUI.Graph
       /// </summary>
       private LinkCreateState _linkCreationState;
 
+      /// <summary>
+      /// Flag wether the reply received focus from a selection on the normal view
+      /// instead of a user's click
+      /// </summary>
+      private bool _focusReceivedFromNormal;
+
       #endregion
 
       #region Properties
@@ -92,6 +98,8 @@ namespace Framework.GUI.Graph
          _linkSourceVertex = null;
          _linkTargetVertex = null;
          _linkCreationState = LinkCreateState.None;
+
+         _focusReceivedFromNormal = false;
 
          this.VertexSelected += GraphHost_VertexSelected;
          this.EdgeSelected += GraphHost_EdgeSelected;
@@ -131,7 +139,8 @@ namespace Framework.GUI.Graph
       {
          bool sameAsPreviousNode = ((DataVertex)args.VertexControl.Vertex) == _selectedNode;
 
-         if (OnHostGotFocus != null)
+         if (_focusReceivedFromNormal == false && 
+             OnHostGotFocus != null)
          {
             OnHostGotFocus.Invoke(this, new EventArgs());
          }
@@ -309,7 +318,8 @@ namespace Framework.GUI.Graph
       /// <param name="args"></param>
       void GraphHost_EdgeSelected(object sender, GraphX.Controls.Models.EdgeSelectedEventArgs args)
       {
-         if (OnHostGotFocus != null)
+         if (_focusReceivedFromNormal == false &&
+             OnHostGotFocus != null)
          {
             OnHostGotFocus.Invoke(this, new EventArgs());
          }
@@ -648,8 +658,11 @@ namespace Framework.GUI.Graph
          DataVertex nodeDataVertex = new DataVertex(id);
          VertexControl nodeVertex = VertexList[nodeDataVertex];
 
+         _focusReceivedFromNormal = true;
+
          GraphHost_VertexSelected(this, new GraphX.Controls.Models.VertexSelectedEventArgs(nodeVertex, new MouseButtonEventArgs(InputManager.Current.PrimaryMouseDevice, 0, MouseButton.Right), ModifierKeys.None));
 
+         _focusReceivedFromNormal = false;
       }
 
       /// <summary>

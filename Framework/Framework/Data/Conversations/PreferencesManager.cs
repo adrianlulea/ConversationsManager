@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Xml.Serialization;
 using Framework.Util;
+using Framework.GUI.Forms.Conversations;
 
 namespace Framework.Data.Conversations
 {
@@ -201,6 +202,7 @@ namespace Framework.Data.Conversations
         /// <exception cref="DataSerializationException">Data could not be serialized to the given path.</exception>
         public void Save(string path)
         {
+           ConversationsManager.PreferencesData = _data;
             PreferencesManager.SavePreferences(this.Data, path);
         }
 
@@ -212,6 +214,7 @@ namespace Framework.Data.Conversations
         public void Load(string path)
         {
             _data = PreferencesManager.LoadPreferences(path);
+            ConversationsManager.PreferencesData = _data;
         }
 
         /// <summary>

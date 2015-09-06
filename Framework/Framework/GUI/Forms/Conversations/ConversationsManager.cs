@@ -110,6 +110,11 @@ namespace Framework.GUI.Forms.Conversations
        /// </summary>
         private LinkCreateState _graphLinkCreationState;
 
+       /// <summary>
+       /// 
+       /// </summary>
+        private static PreferencesData _preferencesData = null;
+
         #endregion
 
         #region Properties
@@ -178,6 +183,15 @@ namespace Framework.GUI.Forms.Conversations
         public string ParsersPath
         {
            get { return _preferencesManager.Data.ParserPath; }
+        }
+
+       /// <summary>
+       /// Get or set Preferences Data
+       /// </summary>
+        public static PreferencesData PreferencesData
+        {
+           get { return _preferencesData; }
+           set { _preferencesData = value; }
         }
 
         #endregion
