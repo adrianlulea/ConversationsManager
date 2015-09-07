@@ -128,6 +128,12 @@
     <Compile Include="GUI\Controls\Conversations\ImportedConversationsControl.designer.cs">
       <DependentUpon>ImportedConversationsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Controls\Conversations\LayoutAlgorithmsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Conversations\LayoutAlgorithmsControl.Designer.cs">
+      <DependentUpon>LayoutAlgorithmsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Controls\Conversations\NodeListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -260,11 +266,16 @@
     <Compile Include="Util\FrameworkExceptionClass.cs" />
     <Compile Include="Util\ReplyField.cs" />
     <Compile Include="Util\SavedDataManagerState.cs" />
+    <Compile Include="Util\SelectedAlgorithmEventArgs.cs" />
     <Compile Include="Util\SelectedLinkArgs.cs" />
     <Compile Include="Util\SelectedNodeArgs.cs" />
     <Compile Include="Util\ViewNodeMode.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LayoutCustomAlgorithm\LayoutCustomAlgorithm.csproj">
+      <Project>{91027759-eef1-4eae-9237-ae43464b3809}</Project>
+      <Name>LayoutCustomAlgorithm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Parser\Parser.csproj">
       <Project>{2670c840-696a-4154-83c6-6ae3f2e463c8}</Project>
       <Name>Parser</Name>
@@ -288,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Controls\Conversations\ImportedConversationsControl.resx">
       <DependentUpon>ImportedConversationsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\Conversations\LayoutAlgorithmsControl.resx">
+      <DependentUpon>LayoutAlgorithmsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Controls\Conversations\NodeListControl.resx">
       <DependentUpon>NodeListControl.cs</DependentUpon>

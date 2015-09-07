@@ -16,6 +16,6 @@
       <OverlapRemovalAlgorithmHorizontalGap>50</OverlapRemovalAlgorithmHorizontalGap>
       <OverlapRemovalAlgorithmVerticalGap>50</OverlapRemovalAlgorithmVerticalGap>
     </DefaultGraphLayoutAlgorithm>
-    <AlwaysRefreshEntireGraph>true</AlwaysRefreshEntireGraph>
+    <AlwaysRefreshEntireGraph>false</AlwaysRefreshEntireGraph>
   </GraphPreferences>
 </PreferencesData>

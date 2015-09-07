@@ -127,7 +127,6 @@
          // 
          // browseParserLibrary
          // 
-         this.browseParserLibrary.FileName = "openFileDialog1";
          this.browseParserLibrary.Filter = "Parser libraries files|*.dll";
          this.browseParserLibrary.Title = "Import parser library";
          // 

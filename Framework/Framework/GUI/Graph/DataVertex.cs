@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GraphX;
 using GraphX.PCL.Common.Models;
+using System.Drawing;
 
 namespace Framework.GUI.Graph
 {

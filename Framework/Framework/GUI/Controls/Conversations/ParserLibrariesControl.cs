@@ -92,7 +92,7 @@ namespace Framework.GUI.Controls.Conversations
             File.Copy(libraryPath, newLibraryPath, overwriteLibrary);
 
             // Load parsers from library
-            LoadParsersFromLibrary(newLibraryPath);
+            InitializeParsers();
          }
       }
 

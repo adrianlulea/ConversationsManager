@@ -57,6 +57,16 @@ namespace Framework.Data.Conversations
         private string _parserPath;
 
        /// <summary>
+        /// Path where imported layout algorithm libraries are saved.
+       /// </summary>
+        private string _layoutAlgorithmPath;
+
+       /// <summary>
+        /// Path where imported overlap removal algorithm libraries are saved.
+       /// </summary>
+        private string _overlapAlgorithmsPath;
+
+       /// <summary>
        /// Graph preferences data.
        /// </summary>
         private GraphPreferencesData _graphPreferences;
@@ -162,6 +172,24 @@ namespace Framework.Data.Conversations
            set { _parserPath = value; }
         }
 
+        /// <summary>
+        /// Gets or sets path where imported overlap removal algorithm libraries are saved.
+        /// </summary>
+        public string OverlapAlgorithmsPath
+        {
+           get { return _overlapAlgorithmsPath; }
+           set { _overlapAlgorithmsPath = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets path where imported layout algorithm libraries are saved.
+        /// </summary>
+        public string LayoutAlgorithmPath
+        {
+           get { return _layoutAlgorithmPath; }
+           set { _layoutAlgorithmPath = value; }
+        }
+
        /// <summary>
        /// Gets or sets graph preferences data.
        /// </summary>
@@ -189,6 +217,8 @@ namespace Framework.Data.Conversations
             _binaryFormat = true;
             _xmlFormat = false;
             _parserPath = "Parsers";
+            _layoutAlgorithmPath = "Layout";
+            _overlapAlgorithmsPath = "Overlap";
             _graphPreferences = new GraphPreferencesData();
         }
 

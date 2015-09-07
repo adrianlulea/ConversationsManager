@@ -21,6 +21,16 @@ namespace Framework.Data.Conversations
       private DefaultGraphLayoutAlgorithm _defaultGraphLayoutAlgorithm;
 
       /// <summary>
+      /// Custom graph layout algorithm name
+      /// </summary>
+      private string _customAlgorithmName;
+
+      /// <summary>
+      /// Custom graph layout algorithm library
+      /// </summary>
+      private string _customAlgorithmLibrary;
+
+      /// <summary>
       /// Flag wether we always refresh the entire graph (when adding, removing nodes/links)
       /// </summary>
       private bool _alwaysRefreshEntireGraph;
@@ -47,6 +57,24 @@ namespace Framework.Data.Conversations
          set { _alwaysRefreshEntireGraph = value; }
       }
 
+      /// <summary>
+      /// Gets or sets custom graph layout algorithm name
+      /// </summary>
+      public string CustomAlgorithmName
+      {
+         get { return _customAlgorithmName; }
+         set { _customAlgorithmName = value; }
+      }
+
+      /// <summary>
+      /// Gets or sets custom graph layout algorithm library
+      /// </summary>
+      public string CustomAlgorithmLibrary
+      {
+         get { return _customAlgorithmLibrary; }
+         set { _customAlgorithmLibrary = value; }
+      }
+
       #endregion
 
       #region Constructors
@@ -58,6 +86,8 @@ namespace Framework.Data.Conversations
       {
          _defaultGraphLayoutAlgorithm = new DefaultGraphLayoutAlgorithm();
          _alwaysRefreshEntireGraph = true;
+         _customAlgorithmName = "None";
+         _customAlgorithmLibrary = "None";
       }
 
       /// <summary>
@@ -74,6 +104,8 @@ namespace Framework.Data.Conversations
          _defaultGraphLayoutAlgorithm.OverlapRemovalAlgorithmVerticalGap = copyFrom.DefaultGraphLayoutAlgorithm.OverlapRemovalAlgorithmVerticalGap;
 
          _alwaysRefreshEntireGraph = copyFrom.AlwaysRefreshEntireGraph;
+         _customAlgorithmName = copyFrom.CustomAlgorithmName;
+         _customAlgorithmLibrary = copyFrom.CustomAlgorithmLibrary;
       }
 
       #endregion

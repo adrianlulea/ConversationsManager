@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Framework.Util;
 using Framework.Data.Conversations;
 using GraphX.PCL.Common.Enums;
+using Framework.GUI.Forms.Conversations;
 
 namespace Framework.GUI.Controls.Conversations
 {
@@ -29,6 +30,11 @@ namespace Framework.GUI.Controls.Conversations
       /// 
       /// </summary>
       private GraphPreferencesData _currentPreferences;
+
+      /// <summary>
+      /// 
+      /// </summary>
+      private LayoutAlgorithmsControl _customLayoutAlgorithmsControl;
 
       #endregion
 
@@ -58,7 +64,24 @@ namespace Framework.GUI.Controls.Conversations
          _graphPreferences = graphPreferencesData;
          _currentPreferences = new GraphPreferencesData(graphPreferencesData);
 
+         string _layoutAlgorithmsPath = ConversationsManager.PreferencesData.LayoutAlgorithmPath;
+         string _overlapAlgorithmsPath = ConversationsManager.PreferencesData.OverlapAlgorithmsPath;
+
+         _customLayoutAlgorithmsControl = new LayoutAlgorithmsControl(_layoutAlgorithmsPath);
+         _customLayoutAlgorithmsControl.Dock = DockStyle.Fill;
+
+         _customLayoutAlgorithmsControl.OnLayoutAlgorithmSelected += _customLayoutAlgorithmsControl_OnLayoutAlgorithmSelected;
+
+         //_customOverlapRemovalAlgorithmsControl = new OverlapRemovalAlgorithmsControl(_overlapAlgorithmsPath);
+         //_customOverlapRemovalAlgorithmsControl.Dock = DockStyle.Fill;
+
+         //_customOverlapRemovalAlgorithmsControl.OnLayoutAlgorithmSelected += _customOverlapRemovalAlgorithmsControl_OnLayoutAlgorithmSelected;
+
          InitializeComponent();
+
+         this.availableCustomAlgorithmsHost.Controls.Add(_customLayoutAlgorithmsControl);
+
+         //this.availableCustomOverlapRemovalAlgorithmsHost.Controls.Add(_customOverlapRemovalAlgorithmsControl);
 
          InitializeGraphAlgorithms();
       }
@@ -148,8 +171,13 @@ namespace Framework.GUI.Controls.Conversations
          {
             string defaultOverlapAlgorithmAsString = defaultOverlapRemovalAlgorithmListComboBox.SelectedItem as string;
             OverlapRemovalAlgorithmTypeEnum defaultOverlapAlgorithm = DefaultGraphLayoutAlgorithm.OverlapRemovalAlgorithmFromString(defaultOverlapAlgorithmAsString);
+            bool viableOverlapRemovalAlgorithmParameters = (defaultOverlapAlgorithm != OverlapRemovalAlgorithmTypeEnum.None);
 
             _currentPreferences.DefaultGraphLayoutAlgorithm.DefaultOverlapRemovalAlgorithm = defaultOverlapAlgorithm;
+
+            horizontalGapNumericUpDown.Enabled = viableOverlapRemovalAlgorithmParameters;
+            verticalGapNumericUpDown.Enabled = viableOverlapRemovalAlgorithmParameters;
+
          }
 
          CheckSameSettings();
@@ -160,6 +188,40 @@ namespace Framework.GUI.Controls.Conversations
          _currentPreferences.AlwaysRefreshEntireGraph = refreshEntireGraphWhenEditingCheckBox.Checked;
 
          CheckSameSettings();
+      }
+
+      /*private void customAlgorithm_EnabledChanged(object sender, EventArgs e)
+      {
+         bool enableDefaultOverlapRemovalAlgorithmOptions = (customAlgorithmDetailsGroupBox.Enabled == false);
+         defaultOverlapRemovalAlgorithmListComboBox.Enabled = enableDefaultOverlapRemovalAlgorithmOptions;
+         horizontalGapNumericUpDown.Enabled = enableDefaultOverlapRemovalAlgorithmOptions;
+         verticalGapNumericUpDown.Enabled = enableDefaultOverlapRemovalAlgorithmOptions;
+      }*/
+
+      private void _customLayoutAlgorithmsControl_OnLayoutAlgorithmSelected(object sender, SelectedAlgorithmEventArgs e)
+      {
+         string noValidAlgorithmSelected = "None";
+         bool invalidAlgorithmSelected = (e.Valid == false);
+
+         noCustomAlgorithmSelected.Visible = invalidAlgorithmSelected;
+
+         if (e.Valid)
+         {
+            selectedCustomAlgorithmNameLabel.Text = e.AlgorithmName;
+            selectedCustomAlgorithmLibraryLabel.Text = e.LibraryName;
+
+            _currentPreferences.CustomAlgorithmName = e.AlgorithmName;
+            _currentPreferences.CustomAlgorithmLibrary = e.LibraryName;
+         }
+         else
+         {
+            selectedCustomAlgorithmNameLabel.Text = noValidAlgorithmSelected;
+            selectedCustomAlgorithmLibraryLabel.Text = noValidAlgorithmSelected;
+
+            _currentPreferences.CustomAlgorithmName = ConversationsManager.PreferencesData.GraphPreferences.CustomAlgorithmName;
+            _currentPreferences.CustomAlgorithmLibrary = ConversationsManager.PreferencesData.GraphPreferences.CustomAlgorithmLibrary;
+            _currentPreferences.DefaultGraphLayoutAlgorithm.DefaultLayoutAlgorithm = ConversationsManager.PreferencesData.GraphPreferences.DefaultGraphLayoutAlgorithm.DefaultLayoutAlgorithm;
+         }
       }
 
       #endregion

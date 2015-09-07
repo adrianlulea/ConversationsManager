@@ -537,11 +537,14 @@ namespace Framework.GUI.Controls.Conversations
             logic.DefaultOverlapRemovalAlgorithm = overlapRemovalAlgorithm;
             logic.DefaultOverlapRemovalAlgorithmParams = logic.AlgorithmFactory.CreateOverlapRemovalParameters(overlapRemovalAlgorithm);
 
-            int horizontalGap = graphPreferences.DefaultGraphLayoutAlgorithm.OverlapRemovalAlgorithmHorizontalGap;
-            int verticalGap = graphPreferences.DefaultGraphLayoutAlgorithm.OverlapRemovalAlgorithmVerticalGap;
+            if (logic.DefaultOverlapRemovalAlgorithmParams != null)
+            {
+               int horizontalGap = graphPreferences.DefaultGraphLayoutAlgorithm.OverlapRemovalAlgorithmHorizontalGap;
+               int verticalGap = graphPreferences.DefaultGraphLayoutAlgorithm.OverlapRemovalAlgorithmVerticalGap;
 
-            ((OverlapRemovalParameters)logic.DefaultOverlapRemovalAlgorithmParams).HorizontalGap = horizontalGap;
-            ((OverlapRemovalParameters)logic.DefaultOverlapRemovalAlgorithmParams).VerticalGap = verticalGap;
+               ((OverlapRemovalParameters)logic.DefaultOverlapRemovalAlgorithmParams).HorizontalGap = horizontalGap;
+               ((OverlapRemovalParameters)logic.DefaultOverlapRemovalAlgorithmParams).VerticalGap = verticalGap;
+            }
 
             logic.DefaultEdgeRoutingAlgorithm = EdgeRoutingAlgorithmTypeEnum.None;
          }
