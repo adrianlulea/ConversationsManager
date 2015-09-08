@@ -5,3 +5,10 @@ D:\Home\adrlulea\Personal\School\disertatie\Framework\DefaultParser\bin\Release\
 D:\Home\adrlulea\Personal\School\disertatie\Framework\DefaultParser\bin\Release\Framework.pdb
 D:\Home\adrlulea\Personal\School\disertatie\Framework\DefaultParser\obj\Release\DefaultParser.dll
 D:\Home\adrlulea\Personal\School\disertatie\Framework\DefaultParser\obj\Release\DefaultParser.pdb
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\DefaultParser\bin\Release\DefaultParser.dll
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\DefaultParser\bin\Release\DefaultParser.pdb
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\DefaultParser\bin\Release\Parser.dll
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\DefaultParser\bin\Release\Parser.pdb
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\DefaultParser\obj\Release\DefaultParser.csprojResolveAssemblyReference.cache
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\DefaultParser\obj\Release\DefaultParser.dll
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\DefaultParser\obj\Release\DefaultParser.pdb

@@ -1,0 +1,7 @@
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\HorizontalLayout.cs\bin\Release\HorizontalLayout.dll
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\HorizontalLayout.cs\bin\Release\HorizontalLayout.pdb
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\HorizontalLayout.cs\bin\Release\LayoutCustomAlgorithm.dll
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\HorizontalLayout.cs\bin\Release\LayoutCustomAlgorithm.pdb
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\HorizontalLayout.cs\obj\Release\HorizontalLayout.csprojResolveAssemblyReference.cache
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\HorizontalLayout.cs\obj\Release\HorizontalLayout.dll
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\HorizontalLayout.cs\obj\Release\HorizontalLayout.pdb

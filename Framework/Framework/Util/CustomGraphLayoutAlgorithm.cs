@@ -18,20 +18,14 @@ namespace Framework.Util
    {
       #region Members
 
-      /// <summary>
-      /// 
-      /// </summary>
-      private ILayoutAlgorithm _customLayoutAlgorithm;
+      //private ILayoutAlgorithm _customLayoutAlgorithm;
 
       /// <summary>
       /// 
       /// </summary>
       private IDictionary<DataVertex, GraphX.Measure.Point> _vertexPositions = new Dictionary<DataVertex, GraphX.Measure.Point>();
 
-      /// <summary>
-      /// 
-      /// </summary>
-      private readonly IVertexAndEdgeListGraph<DataVertex, DataEdge> _graph;
+      //private readonly IVertexAndEdgeListGraph<DataVertex, DataEdge> _graph;
 
       #endregion
 
@@ -52,10 +46,9 @@ namespace Framework.Util
       /// <summary>
       /// 
       /// </summary>
-      /// <param name="layout"></param>
-      public CustomGraphLayoutAlgorithm(ILayoutAlgorithm layout, IVertexAndEdgeListGraph<DataVertex, DataEdge> graph)
+      public CustomGraphLayoutAlgorithm(/*ILayoutAlgorithm layout, IVertexAndEdgeListGraph<DataVertex, DataEdge> graph*/)
       {
-         _customLayoutAlgorithm = layout;
+         //_customLayoutAlgorithm = layout;
       }
 
       #endregion

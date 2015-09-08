@@ -1,0 +1,4 @@
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\LayoutCustomAlgorithm\bin\Release\LayoutCustomAlgorithm.dll
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\LayoutCustomAlgorithm\bin\Release\LayoutCustomAlgorithm.pdb
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\LayoutCustomAlgorithm\obj\Release\LayoutCustomAlgorithm.dll
+d:\Home\adrlulea\Personal\School\ConversationsManager\Framework\LayoutCustomAlgorithm\obj\Release\LayoutCustomAlgorithm.pdb
